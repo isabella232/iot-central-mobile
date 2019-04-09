@@ -4,23 +4,19 @@ import { setUpdateIntervalForType } from "react-native-sensors";
 export default class ThreeAxisSensor<Data extends Object> extends DefaultSensor<
   Data
 > {
+  private subscription;
   subscribe() {
     return async (dispatch, getState) => {
       if (
-        // getState().sensors[this.sensorName] &&
-        // getState().sensors[this.sensorName].subscription ||
-        !(await this.sensor.isAvailableAsync())
+        !getState()[this.sensorName] ||
+        getState()[this.sensorName].subscription
       ) {
         return Promise.resolve();
       } else {
-        if (await this.sensor.hasListeners()) {
-          await this.sensor.removeAllListeners();
-        }
-
-        const subscription = await this.sensor.subscribe(data => {
+        this.subscription = await this.sensor.subscribe(data => {
           dispatch(this._update(data));
         });
-        dispatch(this._subscribe(subscription));
+        dispatch(this._subscribe());
         setUpdateIntervalForType(this.sensorName, 500); //getState()[this.sensorName].interval);
       }
     };
@@ -28,7 +24,7 @@ export default class ThreeAxisSensor<Data extends Object> extends DefaultSensor<
 
   unsubscribe() {
     return async (dispatch, getState) => {
-      const subscription = getState()[this.sensorName].subscription;
+      const subscription = this.subscription; //getState()[this.sensorName].subscription;
       if (subscription) {
         subscription.unsubscribe();
       }

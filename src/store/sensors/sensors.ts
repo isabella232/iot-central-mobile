@@ -1,9 +1,9 @@
 import telemetryReducers, {
   sensors as telemetrySensors
-} from "../telemetrySensors/index";
+} from "../telemetrySensors";
 import propertyReducers, {
   sensors as propertySensors
-} from "../propertySensors/index";
+} from "../propertySensors";
 import { combineReducers } from "redux";
 import { Sensor } from "../common/SensorDuckInterface";
 

@@ -1,5 +1,5 @@
 import ThreeAxisSensor from "./helpers/threeAxis";
-import { Magnetometer } from "react-native-sensors";
+import { magnetometer as Magnetometer } from "react-native-sensors";
 
 interface Data {
   magnetometerX: number;

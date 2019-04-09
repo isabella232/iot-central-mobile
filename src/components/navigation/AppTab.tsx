@@ -10,8 +10,8 @@ import DashboardStack from "./DashboardStack";
 
 const AppTabNavigator = createBottomTabNavigator(
   {
-    //Dashboard: DashboardStack,
-    //Connect: SelfProvisioningStack,
+    Dashboard: DashboardStack,
+    Connect: SelfProvisioningStack,
     Settings: SettingsStack
   },
   {
