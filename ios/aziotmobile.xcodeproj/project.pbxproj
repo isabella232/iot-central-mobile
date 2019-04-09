@@ -13,7 +13,6 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* aziotmobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* aziotmobileTests.m */; };
-		0AB678C1A080464AAA6B3E54 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1016EF91894456A85D578D9 /* MaterialIcons.ttf */; };
 		11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -24,9 +23,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		162715E97D1C419AB5E5A239 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAFA0D90CD2542A590E3350F /* Octicons.ttf */; };
-		1F766CE378124AED8B8558B7 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AADB2509957E446B8247B4AB /* EvilIcons.ttf */; };
-		24A1BE2D16BB4CF8B312CEF8 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 800F63629B434DEF8A3A054D /* FontAwesome5_Solid.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -41,22 +37,11 @@
 		2DCD954D1E0B4F2C00145EB5 /* aziotmobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* aziotmobileTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		4154B741A35A4CE092CED754 /* libRNAdalPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E4571B1E314730A3E25E07 /* libRNAdalPlugin.a */; };
-		779BB646D33342CE991ACD9E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 829DDC2BDE6943DE999D25A6 /* SimpleLineIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		B3B8A3228000465C8EDA67BB /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6DF8C43DBFA34540ACFBF3F3 /* MaterialCommunityIcons.ttf */; };
-		B8A31B622EDC47E3834DB04C /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2207F6E776A0494499E277F8 /* Zocial.ttf */; };
-		BE86C8D74ECD44428DAA5330 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 349DAC923146456C9AA06B0C /* Feather.ttf */; };
-		C29CA1F15317433B914194C5 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7E9DA12DC754663A1FF0AC5 /* FontAwesome5_Regular.ttf */; };
-		C362689720DF469A974E9BE8 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DB37B59FF114A73BDC784B6 /* Ionicons.ttf */; };
 		C36D7DC509D512EDD53EA620 /* libPods-aziotmobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0003B660C5AD1F882477125F /* libPods-aziotmobile.a */; };
-		D83DB457DFA44A49A3205F51 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83A2F188B4ED42E491A8ED29 /* FontAwesome.ttf */; };
-		DD58840FD67447A7911A18C9 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97F133D5760F454886599BAE /* Entypo.ttf */; };
-		E1FBC82FCEA74D87935A2B19 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43CDE0BA16464DE8975A29E5 /* AntDesign.ttf */; };
-		EC6FF59FB3584943AC2BD7DE /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9BEC11E68D6942C7BD782005 /* FontAwesome5_Brands.ttf */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
-		F9AD812703E14156BC0592E5 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0004933EF6B417D873A3E24 /* Foundation.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1180,21 +1165,6 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				E1FBC82FCEA74D87935A2B19 /* AntDesign.ttf in Resources */,
-				DD58840FD67447A7911A18C9 /* Entypo.ttf in Resources */,
-				1F766CE378124AED8B8558B7 /* EvilIcons.ttf in Resources */,
-				BE86C8D74ECD44428DAA5330 /* Feather.ttf in Resources */,
-				D83DB457DFA44A49A3205F51 /* FontAwesome.ttf in Resources */,
-				EC6FF59FB3584943AC2BD7DE /* FontAwesome5_Brands.ttf in Resources */,
-				C29CA1F15317433B914194C5 /* FontAwesome5_Regular.ttf in Resources */,
-				24A1BE2D16BB4CF8B312CEF8 /* FontAwesome5_Solid.ttf in Resources */,
-				F9AD812703E14156BC0592E5 /* Foundation.ttf in Resources */,
-				C362689720DF469A974E9BE8 /* Ionicons.ttf in Resources */,
-				B3B8A3228000465C8EDA67BB /* MaterialCommunityIcons.ttf in Resources */,
-				0AB678C1A080464AAA6B3E54 /* MaterialIcons.ttf in Resources */,
-				162715E97D1C419AB5E5A239 /* Octicons.ttf in Resources */,
-				779BB646D33342CE991ACD9E /* SimpleLineIcons.ttf in Resources */,
-				B8A31B622EDC47E3834DB04C /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1452,6 +1422,7 @@
 					"$(SRCROOT)/../node_modules/react-native-ms-adal/ios/**",
 				);
 				INFOPLIST_FILE = aziotmobile/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1477,6 +1448,7 @@
 					"$(SRCROOT)/../node_modules/react-native-ms-adal/ios/**",
 				);
 				INFOPLIST_FILE = aziotmobile/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
