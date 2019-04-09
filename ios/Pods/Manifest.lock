@@ -66,6 +66,8 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNGestureHandler (1.1.0):
+    - React
   - RNVectorIcons (6.4.2):
     - React
   - yoga (0.59.4.React)
@@ -89,6 +91,7 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -106,6 +109,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
     :path: "../node_modules/react-native"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   yoga:
@@ -118,9 +123,10 @@ SPEC CHECKSUMS:
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   React: 5cb71fb1a15b5ce04794ab49e24b48ebe4c94e65
+  RNGestureHandler: b65d391f4f570178d657b99a16ec99d09b8656b0
   RNVectorIcons: 6607bd3a30291d0edb56f9bbe7ae411ee2b928b0
   yoga: 596e61c9b57751d08a22b07aba310dbd3e65ab75
 
-PODFILE CHECKSUM: 860cdc7114c09aa17291383b711c5d444387c71b
+PODFILE CHECKSUM: e96c4d3b9e36a0c03dcb64ddf9212d0c0c3c647b
 
 COCOAPODS: 1.6.1
