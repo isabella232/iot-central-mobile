@@ -18,7 +18,7 @@ import {
   SEND_TELEMETRY_SUCCESS,
   UPDATE_TELEMETRY
 } from "./telemetry/telemetryduck";
-import { SENSOR_ACTION_TYPES } from "./sensors/index";
+//import { SENSOR_ACTION_TYPES } from "./sensors/index";
 
 let store: Store;
 let persistor;
@@ -64,7 +64,7 @@ function _initializeStore(): Store {
       SEND_TELEMETRY_SUCCESS,
       UPDATE_TELEMETRY,
       SEND_TELEMETRY
-    ].concat(SENSOR_ACTION_TYPES);
+    ]; //.concat(SENSOR_ACTION_TYPES);
     const logger = createLogger({
       predicate: (getState, action) => !blacklistedActions.includes(action.type)
     });

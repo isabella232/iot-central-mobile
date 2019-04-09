@@ -31,4 +31,10 @@ target 'aziotmobile' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+
+  pod 'react-native-torch', :path => '../node_modules/react-native-torch'
+
+  pod 'RNSensors', :path => '../node_modules/react-native-sensors'
+
 end

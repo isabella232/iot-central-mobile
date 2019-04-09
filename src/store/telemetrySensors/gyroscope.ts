@@ -1,5 +1,5 @@
 import ThreeAxisSensor from "./helpers/threeAxis";
-import { Gyroscope } from "expo-sensors";
+import { Gyroscope } from "react-native-sensors";
 
 interface Data {
   gyroscopeX: number;

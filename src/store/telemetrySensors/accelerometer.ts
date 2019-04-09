@@ -1,5 +1,5 @@
 import ThreeAxisSensor from "./helpers/threeAxis";
-import { Accelerometer } from "expo-sensors";
+import { Accelerometer } from "react-native-sensors";
 
 interface Data {
   accelerometerX: number;

@@ -10,39 +10,18 @@ const _ = require("./helpers/fetchhelper");
 
 export default class App extends Component {
   render() {
-    //const store = getStore();
-    //const persistor = getPersistor();
+    const store = getStore();
+    const persistor = getPersistor();
     return (
-      //<Provider store={store}>
-      //<PersistGate loading={<View />} persistor={persistor}>
-      <LoginSwitch />
-      //</PersistGate>
-      //</Provider>
+      <Provider store={store}>
+        <PersistGate loading={<View />} persistor={persistor}>
+          <LoginSwitch />
+        </PersistGate>
+      </Provider>
     );
   }
 
   componentWillMount() {
     nodejs.start("dist/app.js");
   }
-
-  componentWillUnmount() {}
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
-  }
-});

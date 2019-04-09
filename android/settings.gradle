@@ -1,4 +1,10 @@
 rootProject.name = 'aziotmobile'
+include ':react-native-sensors'
+project(':react-native-sensors').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sensors/android')
+include ':react-native-torch'
+project(':react-native-torch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-torch/android')
+include ':react-native-device-info'
+project(':react-native-device-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
 include ':nodejs-mobile-react-native'
 project(':nodejs-mobile-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/nodejs-mobile-react-native/android')
 include ':react-native-gesture-handler'

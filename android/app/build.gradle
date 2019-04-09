@@ -138,6 +138,9 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-sensors')
+    implementation project(':react-native-torch')
+    implementation project(':react-native-device-info')
     implementation project(':nodejs-mobile-react-native')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-ms-adal')

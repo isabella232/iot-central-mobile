@@ -3,6 +3,9 @@ package com.aziotmobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.sensors.RNSensorsPackage;
+import com.cubicphuse.RCTTorch.RCTTorchPackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobilePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.microsoft.aad.adal.rn.RNAdalPackage;
@@ -27,6 +30,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSensorsPackage(),
+            new RCTTorchPackage(),
+            new RNDeviceInfo(),
             new RNNodeJsMobilePackage(),
             new RNGestureHandlerPackage(),
             new RNAdalPackage(),
