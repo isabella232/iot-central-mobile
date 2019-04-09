@@ -1,27 +1,28 @@
 import React from "react";
 import { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
-
-const instructions = Platform.select({
-  ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
-  android:
-    "Double tap R on your keyboard to reload,\n" +
-    "Shake or press menu button for dev menu"
-});
+import LoginSwitch from "./components/navigation/LoginSwitch";
+import nodejs from "nodejs-mobile-react-native";
+import { getStore, getPersistor } from "./store/store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+const _ = require("./helpers/fetchhelper");
 
 export default class App extends Component {
   render() {
+    //const store = getStore();
+    //const persistor = getPersistor();
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      //<Provider store={store}>
+      //<PersistGate loading={<View />} persistor={persistor}>
+      <LoginSwitch />
+      //</PersistGate>
+      //</Provider>
     );
   }
 
   componentWillMount() {
-    //nodejs.start("dist/app.js");
+    nodejs.start("dist/app.js");
   }
 
   componentWillUnmount() {}

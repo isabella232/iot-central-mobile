@@ -1,6 +1,5 @@
 import { applyMiddleware, combineReducers, createStore, Store } from "redux";
 import { createLogger } from "redux-logger";
-import initSubscriber from "redux-subscriber";
 import telemetry from "./telemetry/telemetryduck";
 import applications from "./applications/applicationsduck";
 import devices from "./devices/devicesduck";
@@ -74,7 +73,7 @@ function _initializeStore(): Store {
   }
   const persistedReducer = persistReducer(persistConfig, rootReducer);
   _store = createStore(persistedReducer, applyMiddleware(...middlewares));
-  initSubscriber(_store);
+  //initSubscriber(_store);
   console.log("Store Created!!");
   return _store;
 }
