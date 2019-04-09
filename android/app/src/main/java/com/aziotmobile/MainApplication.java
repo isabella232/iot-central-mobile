@@ -3,6 +3,7 @@ package com.aziotmobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobilePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.microsoft.aad.adal.rn.RNAdalPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNNodeJsMobilePackage(),
             new RNGestureHandlerPackage(),
             new RNAdalPackage(),
             new VectorIconsPackage()

@@ -138,6 +138,7 @@ android {
 }
 
 dependencies {
+    implementation project(':nodejs-mobile-react-native')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-ms-adal')
     implementation project(':react-native-vector-icons')

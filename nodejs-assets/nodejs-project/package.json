@@ -1,0 +1,29 @@
+{
+  "name": "aziotmobile-backend",
+  "version": "0.1.0",
+  "description": "Worker Node process for sending MQTT telemetry to IoT Central.",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc -p . --skipLibCheck",
+    "start": "yarn build && node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "clthomps",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^11.11.4",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.4000"
+  },
+  "dependencies": {
+    "azure-iot-device": "^1.9.4",
+    "azure-iot-device-mqtt": "^1.9.4",
+    "body-parser": "^1.18.3",
+    "dps-keygen": "^0.3.1",
+    "express": "^4.16.4",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-subscriber": "^1.1.0"
+  }
+}
