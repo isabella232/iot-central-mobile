@@ -16,24 +16,32 @@ export interface Props extends NavigationProps {
   observable: Observable<{ x: number; y: number; z: number }>;
   type: SensorTypes;
   update: (data) => any;
+  postTelemetry: (data) => any;
 }
 
 export interface State {}
 
 export default class ThreeAxisTile extends Component<Props, State> {
-  private subscription;
+  private sensorSubscription;
+  private telemetrySubscription;
 
   componentDidMount() {
-    setUpdateIntervalForType(this.props.type, 1101);
-    if (!this.subscription) {
-      this.subscription = this.props.observable.subscribe(data => {
-        this.props.update(data);
+    setUpdateIntervalForType(this.props.type, 500);
+    this.sensorSubscription = this.props.observable.subscribe(data => {
+      this.props.update(data);
+    });
+    this.telemetrySubscription = setInterval(() => {
+      this.props.postTelemetry({
+        x: this.props.x,
+        y: this.props.y,
+        z: this.props.z
       });
-    }
+    }, this.props.interval);
   }
 
   componentWillUnmount() {
-    this.subscription && this.subscription.unsubscribe();
+    this.sensorSubscription && this.sensorSubscription.unsubscribe();
+    clearInterval(this.telemetrySubscription);
   }
   render() {
     return (

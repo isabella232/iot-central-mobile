@@ -11,6 +11,7 @@ export interface Props extends NavigationProps {
   interval: number;
   title: string;
   update: (data) => any;
+  postTelemetry: (data) => any;
 }
 export interface State {}
 

@@ -12,9 +12,7 @@ const UNSUBSCRIBE_TELEMETRY = "aziot/telemetry/SUBSCRIBE";
 
 const initialState = {
   isLoading: false,
-  data: {},
-  subscription: null,
-  history: []
+  data: {}
 };
 
 // reducer
@@ -24,13 +22,14 @@ export default function reducer(state = initialState, action) {
       const telemetry = action.data;
       return { ...state, data: { ...state.data, ...telemetry } };
     case SEND_TELEMETRY:
+      /*
       const history = state.history
         ? state.history.concat(action.telemetry)
         : [action.telemetry];
       if (history.length > 60) {
         history.shift();
-      }
-      return { ...state, isLoading: true, history };
+      }*/
+      return { ...state, isLoading: true };
     case SEND_TELEMETRY_SUCCESS:
       return { ...state, isLoading: false };
     case SEND_TELEMETRY_FAIL:
@@ -50,6 +49,10 @@ export function _postingTelemetry(telemetry) {
 
 export function _postingTelemetrySuccess() {
   return { type: SEND_TELEMETRY_SUCCESS };
+}
+
+export function _postingTelemetryFail() {
+  return { type: SEND_TELEMETRY_FAIL };
 }
 // action creators
 export function updateTelemetry(data) {
@@ -77,16 +80,20 @@ function gatherTelemetry(state) {
   return telemetry;
 }
 
-export function postTelemetryOnInterval() {
+export function postTelemetry(data) {
   return async (dispatch, getState) => {
-    dispatch(stopSendingTelemetry());
-    const subscription = setInterval(async () => {
-      const telemetry = gatherTelemetry(getState());
-      dispatch(_postingTelemetry(telemetry));
-      await sendTelemetry(telemetry);
-      dispatch(_postingTelemetrySuccess());
-    }, 10000);
-    dispatch(_subscribeTelemetry(subscription));
+    //dispatch(stopSendingTelemetry());
+    //const subscription = setInterval(async () => {
+    //const telemetry = gatherTelemetry(getState());
+    dispatch(_postingTelemetry(data));
+    sendTelemetry(data)
+      .then(
+        _ => {
+          dispatch(_postingTelemetrySuccess());
+        },
+        _ => dispatch(_postingTelemetryFail())
+      )
+      .catch(_ => dispatch(_postingTelemetryFail()));
   };
 }
 
