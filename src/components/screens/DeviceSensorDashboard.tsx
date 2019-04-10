@@ -1,6 +1,7 @@
 import { Component } from "react";
 import React from "react";
-import { Button, SectionList, Text, ScrollView, Slider } from "react-native";
+import { Button, SectionList, Text, ScrollView } from "react-native";
+import Slider from "@react-native-community/slider";
 import { SafeAreaView } from "react-navigation";
 import * as Colors from "../styling/colors";
 import { StyleSheet, View, Geolocation } from "react-native";
@@ -34,17 +35,6 @@ export default class DeviceSensorDashboard extends Component<Props, State> {
 
   async componentDidMount() {
     await this.props.subscribe();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    Object.entries(this.props).forEach(
-      ([key, val]) =>
-        prevProps[key] !== val && console.log(`Prop '${key}' changed`)
-    );
-    Object.entries(this.state).forEach(
-      ([key, val]) =>
-        prevState[key] !== val && console.log(`State '${key}' changed`)
-    );
   }
 
   async componentWillUnmount() {

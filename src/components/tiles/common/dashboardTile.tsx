@@ -11,9 +11,6 @@ export interface Props {
   interval: number;
 }
 
-const isConnected = true;
-const interval = 5;
-
 export interface State {}
 export default class DashboardTile extends Component<Props, State> {
   render() {

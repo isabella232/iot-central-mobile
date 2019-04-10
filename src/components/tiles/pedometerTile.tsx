@@ -25,16 +25,20 @@ const options = {
 export default class PedometerTile extends Component<Props, State> {
   private subscription;
   async componentDidMount() {
-    AppleHealthKit.initHealthKit(options, (err: string, results: Object) => {
-      if (err) {
-        console.log("error initializing Healthkit: ", err);
-        return;
-      }
-      this.subscription = setInterval(async () => {
-        const steps = await getSteps();
-        this.props.update({ steps });
-      }, 1010);
-      /*
+    this.subscription = setInterval(async () => {
+      AppleHealthKit.initHealthKit(
+        options,
+        async (err: string, results: Object) => {
+          if (err) {
+            console.log("error initializing Healthkit: ", err);
+            return;
+          }
+          const steps = await getSteps();
+          this.props.update({ steps });
+        }
+      );
+    }, 1010);
+    /*
       AppleHealthKit.initStepCountObserver({}, () => {});
       this.subscription = NativeAppEventEmitter.addListener(
         "change:steps",
@@ -51,7 +55,6 @@ export default class PedometerTile extends Component<Props, State> {
         }
       );
       */
-    });
   }
 
   componentWillUnmount() {
@@ -74,13 +77,13 @@ function getSteps(): Promise<any> {
   const startDate = new Date();
   const endDate = new Date();
   startDate.setHours(0, 0, 0, 0);
-
+  console.log();
   let options = {
     startDate: startDate.toISOString(),
     endDate: endDate.toISOString()
   };
   return new Promise((resolve, reject) => {
-    AppleHealthKit.getStepCount(options, (err, result) => {
+    AppleHealthKit.getStepCount(null, (err, result) => {
       if (err || !result) {
         return reject(err || "No result");
       }

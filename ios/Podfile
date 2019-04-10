@@ -18,7 +18,7 @@ target 'aziotmobile' do
     'RCTText',
     'RCTVibration',
     'RCTWebSocket',
-    'RCTGeolocation'
+    'RCTGeolocation',
   ]
 
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
@@ -36,5 +36,7 @@ target 'aziotmobile' do
   pod 'react-native-torch', :path => '../node_modules/react-native-torch'
 
   pod 'RNSensors', :path => '../node_modules/react-native-sensors'
+
+  pod 'react-native-slider', :path => '../node_modules/@react-native-community/slider'
 
 end

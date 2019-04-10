@@ -3,6 +3,7 @@ package com.aziotmobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.reactnative.googlefit.GoogleFitPackage;
 import com.sensors.RNSensorsPackage;
 import com.cubicphuse.RCTTorch.RCTTorchPackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactSliderPackage(),
             new GoogleFitPackage(),
             new RNSensorsPackage(),
             new RCTTorchPackage(),

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { NavigationProps } from "../props/NavigationProps";
+import { NavigationProps } from "../../props/NavigationProps";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import { View, Text, Switch, StyleSheet } from "react-native";
-import * as Colors from "../styling/colors";
+import * as Colors from "../../styling/colors";
 
 export interface Props extends NavigationProps {
   shouldSend: boolean;
@@ -15,9 +15,9 @@ export interface Props extends NavigationProps {
   updateSimulate: (simulate: boolean) => any;
   updateSimulatedValue: (value: any) => any;
   updateSendFrequency: (value: number) => any;
-  SmallTileComponent: Component;
-  LargeTileComponent: Component;
-  SimulatedValueSelectorComponent: Component;
+  SmallTileComponent: any;
+  LargeTileComponent: any;
+  SimulatedValueSelectorComponent: any;
 }
 export interface State {}
 export default class SensorDetails extends Component<Props, State> {
@@ -45,12 +45,12 @@ export default class SensorDetails extends Component<Props, State> {
             onValueChange={value => this.props.updateSimulate(value)}
           />
         </View>
-        <View style={style.tileRow}>
+        <View style={style.tileContainer}>
           {this.props.shouldUseLargeTile
             ? this.props.LargeTileComponent
             : this.props.SmallTileComponent}
         </View>
-        <View>{this.props.SimulatedValueSelectorComponent}</View>
+        {this.props.SimulatedValueSelectorComponent}
         <View />
       </View>
     );
@@ -73,11 +73,17 @@ const style = StyleSheet.create({
   tileRow: {
     flexDirection: "column",
     justifyContent: "flex-start",
-    alignItems: "center"
+    alignItems: "stretch"
+  },
+  tileContainer: {
+    height: 200
   },
   switchLabel: {
     color: Colors.TILE_TITLE_COLOR,
     fontSize: 18,
     fontWeight: "500"
+  },
+  simulatedSelectorContainer: {
+    flex: 1
   }
 });
