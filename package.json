@@ -15,6 +15,7 @@
     "react-native-dotenv": "^0.2.0",
     "react-native-easy-grid": "^0.2.1",
     "react-native-gesture-handler": "^1.1.0",
+    "react-native-google-fit": "^0.9.12",
     "react-native-ms-adal": "^0.4.2",
     "react-native-sensors": "^5.1.8",
     "react-native-torch": "^1.1.5",
@@ -24,7 +25,8 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "rn-apple-healthkit": "^0.6.5"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

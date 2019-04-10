@@ -1,6 +1,42 @@
 import DefaultSensor from "../common/defaultSensor";
-import { Pedometer as ExpoPedometer } from "expo-sensors";
 import IntervalSensor from "../common/intervalSensor";
+import AppleHealthKit from "rn-apple-healthkit";
+
+const options = {
+  permissions: {
+    read: ["StepCount"],
+    write: []
+  }
+};
+
+AppleHealthKit.initHealthKit(options, (err: string, results: Object) => {
+  if (err) {
+    console.log("error initializing Healthkit: ", err);
+    return;
+  }
+});
+
+function getSteps(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    AppleHealthKit.getStepCount(null, (err, result) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(result);
+    });
+  });
+}
+
+function isAvailable(): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    AppleHealthKit.isAvailable((err, available) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(available);
+    });
+  });
+}
 
 interface Data {
   steps: number;
@@ -8,15 +44,14 @@ interface Data {
 
 class Pedometer extends IntervalSensor<Data> {
   constructor() {
-    super("pedometer", ExpoPedometer, initialDataState);
+    super("pedometer", AppleHealthKit, initialDataState);
   }
   async _isAvailable() {
-    return this.sensor.isAvailableAsync();
+    return isAvailable();
   }
-  _getData() {
-    const start = new Date();
-    start.setUTCHours(0, 0, 0, 0);
-    return this.sensor.getStepCountAsync(start, new Date());
+  async _getData() {
+    const result = await getSteps();
+    return { steps: result.value };
   }
 }
 

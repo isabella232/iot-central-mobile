@@ -56,7 +56,9 @@ export default class DeviceSensorDashboard extends Component<Props, State> {
           <Col>
             <GyroscopeDashboard />
           </Col>
-          <Col />
+          <Col>
+            <PedometerDashboard />
+          </Col>
         </Row>
         <Row size={30} />
       </Grid>
