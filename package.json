@@ -41,6 +41,8 @@
     "metro-react-native-babel-preset": "^0.53.1",
     "react-native-typescript-transformer": "^1.2.12",
     "react-test-renderer": "16.8.3",
+    "reactotron-react-native": "^3.2.1",
+    "reactotron-redux": "^3.1.0",
     "ts-jest": "^24.0.2",
     "typescript": "^3.4.2"
   },

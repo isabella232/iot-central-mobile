@@ -1,4 +1,10 @@
-import { applyMiddleware, combineReducers, createStore, Store } from "redux";
+import {
+  applyMiddleware,
+  combineReducers,
+  createStore,
+  Store,
+  compose
+} from "redux";
 import { createLogger } from "redux-logger";
 import telemetry from "./telemetry/telemetryduck";
 import applications from "./applications/applicationsduck";
@@ -12,6 +18,7 @@ import thunkMiddleware from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import storage from "redux-persist/lib/storage";
+import Reactotron from "../../ReactotronConfig";
 import {
   SEND_TELEMETRY,
   SEND_TELEMETRY_FAIL,
@@ -58,7 +65,7 @@ function _initializeStore(): Store {
   console.log("Creating store...");
   const middlewares: Array<any> = [];
   middlewares.push(thunkMiddleware);
-  if (process.env.NODE_ENV === `development`) {
+  if (process.env.NODE_ENV === `development` && false) {
     const blacklistedActions = []; /* [
       SEND_TELEMETRY_FAIL,
       SEND_TELEMETRY_SUCCESS,
@@ -74,7 +81,17 @@ function _initializeStore(): Store {
     middlewares.push(logger);
   }
   const persistedReducer = persistReducer(persistConfig, rootReducer);
-  _store = createStore(persistedReducer, applyMiddleware(...middlewares));
+  let enhancer;
+  if (Reactotron.createEnhancer) {
+    enhancer = Reactotron.createEnhancer();
+  }
+  _store = createStore(
+    persistedReducer,
+    compose(
+      applyMiddleware(...middlewares),
+      enhancer
+    )
+  );
   //initSubscriber(_store);
   console.log("Store Created!!");
   return _store;
