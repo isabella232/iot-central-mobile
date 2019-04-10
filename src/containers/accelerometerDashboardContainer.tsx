@@ -17,7 +17,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    update: data => dispatch({ type: "aziot/accelerometer/UPDATE", data })
+  };
 };
 
 const VisibleAccelerometer = connect(

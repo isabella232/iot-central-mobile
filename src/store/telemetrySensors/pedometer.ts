@@ -9,12 +9,13 @@ const options = {
   }
 };
 
+/*
 AppleHealthKit.initHealthKit(options, (err: string, results: Object) => {
   if (err) {
     console.log("error initializing Healthkit: ", err);
     return;
   }
-});
+});*/
 
 function getSteps(): Promise<any> {
   return new Promise((resolve, reject) => {

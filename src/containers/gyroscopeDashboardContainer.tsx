@@ -13,7 +13,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    update: data => dispatch({ type: "aziot/gyroscope/UPDATE", data })
+  };
 };
 
 const visibleGyroscope = connect(

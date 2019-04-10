@@ -11,7 +11,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    update: data => dispatch({ type: "aziot/pedometer/UPDATE", data })
+  };
 };
 
 const visibleMagnetometer = connect(

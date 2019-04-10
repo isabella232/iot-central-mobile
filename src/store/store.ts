@@ -59,15 +59,17 @@ function _initializeStore(): Store {
   const middlewares: Array<any> = [];
   middlewares.push(thunkMiddleware);
   if (process.env.NODE_ENV === `development`) {
-    const blacklistedActions = [
+    const blacklistedActions = []; /* [
       SEND_TELEMETRY_FAIL,
       SEND_TELEMETRY_SUCCESS,
       UPDATE_TELEMETRY,
       SEND_TELEMETRY
-    ]; //.concat(SENSOR_ACTION_TYPES);
-    const logger = createLogger({
+    ]; */
+    //.concat(SENSOR_ACTION_TYPES);
+    const logger = createLogger();
+    /*{
       predicate: (getState, action) => !blacklistedActions.includes(action.type)
-    });
+    });*/
 
     middlewares.push(logger);
   }
