@@ -11,16 +11,9 @@ export default class DefaultSensor<Data extends Object>
   sensorName: string;
   sensor: any;
   initialState: SensorState<Data>;
-  transform?: (Object) => Data;
-  constructor(
-    sensorName,
-    sensor,
-    initialDataState: Data,
-    transform?: (Object) => Data
-  ) {
+  constructor(sensorName, sensor, initialDataState: Data) {
     this.sensorName = sensorName;
     this.sensor = sensor;
-    this.transform = transform;
     this.initialState = {
       largeTile: false,
       send: true,
@@ -52,19 +45,16 @@ export default class DefaultSensor<Data extends Object>
         return {
           ...state,
           simulate: action.simulate,
-          simulatedValue: action.simulatedValue || state.simulatedValue
+          simulatedValue: { ...state.simulatedValue, ...action.simulatedValue }
         };
       case this.SUBSCRIBE:
         return { ...state, subscription: action.subscription || true };
       case this.UNSUBSCRIBE:
         return { ...state, subscription: null };
       case this.UPDATE:
-        const newData = this.transform
-          ? this.transform(action.data)
-          : action.data;
         return {
           ...state,
-          data: { ...state.data, ...newData }
+          data: { ...state.data, ...action.data }
         };
       default:
         return state;

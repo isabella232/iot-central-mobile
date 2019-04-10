@@ -35,7 +35,9 @@ export default class AccelerometerDetails extends Component<Props, State> {
               <Slider
                 style={style.slider}
                 value={this.props.simulatedValue.x}
-                onSlidingComplete={value => this.update({ x: value })}
+                onSlidingComplete={value =>
+                  this.props.updateSimulatedValue({ x: value })
+                }
               />
             </View>
             <View style={style.sliderRow}>
@@ -43,7 +45,9 @@ export default class AccelerometerDetails extends Component<Props, State> {
               <Slider
                 style={style.slider}
                 value={this.props.simulatedValue.y}
-                onSlidingComplete={value => this.update({ y: value })}
+                onSlidingComplete={value =>
+                  this.props.updateSimulatedValue({ y: value })
+                }
               />
             </View>
             <View style={style.sliderRow}>
@@ -51,7 +55,9 @@ export default class AccelerometerDetails extends Component<Props, State> {
               <Slider
                 style={style.slider}
                 value={this.props.simulatedValue.z}
-                onSlidingComplete={value => this.update({ z: value })}
+                onSlidingComplete={value =>
+                  this.props.updateSimulatedValue({ z: value })
+                }
               />
             </View>
           </View>
@@ -59,10 +65,6 @@ export default class AccelerometerDetails extends Component<Props, State> {
       />
     );
   }
-  update = value => {
-    const data = { ...this.props.simulatedValue, ...value };
-    this.props.updateSimulatedValue(data);
-  };
 }
 
 const style = StyleSheet.create({
@@ -70,7 +72,7 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 5
+    padding: 3
   },
   slider: {
     flexGrow: 1,

@@ -50,7 +50,12 @@ export default class SensorDetails extends Component<Props, State> {
             ? this.props.LargeTileComponent
             : this.props.SmallTileComponent}
         </View>
-        {this.props.SimulatedValueSelectorComponent}
+        <View style={style.simulatedSelectorContainer}>
+          <Text style={style.switchLabel}>Override Values</Text>
+          <View style={{ paddingLeft: 30 }}>
+            {this.props.SimulatedValueSelectorComponent}
+          </View>
+        </View>
         <View />
       </View>
     );
@@ -84,6 +89,6 @@ const style = StyleSheet.create({
     fontWeight: "500"
   },
   simulatedSelectorContainer: {
-    flex: 1
+    padding: 10
   }
 });

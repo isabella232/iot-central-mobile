@@ -16,12 +16,7 @@ const initialDataState: Data = {
 const sensorName = "accelerometer";
 const sensor = Accelerometer;
 
-const accelerometer = new ThreeAxisSensor(
-  sensorName,
-  sensor,
-  initialDataState,
-  transformData
-);
+const accelerometer = new ThreeAxisSensor(sensorName, sensor, initialDataState);
 
 export default accelerometer;
 

@@ -25,7 +25,7 @@ function transformData(position) {
 
 class Geolocation extends PropertySensor<Data> {
   constructor() {
-    super("geolocation", navigator.geolocation, initialState, transformData);
+    super("geolocation", navigator.geolocation, initialState);
   }
   subscribe() {
     return async (dispatch, getState) => {

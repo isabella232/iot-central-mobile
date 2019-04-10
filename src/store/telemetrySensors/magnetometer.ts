@@ -16,12 +16,7 @@ const initialDataState: Data = {
 const sensorName = "magnetometer";
 const sensor = Magnetometer;
 
-const magnetometer = new ThreeAxisSensor(
-  sensorName,
-  sensor,
-  initialDataState,
-  transformData
-);
+const magnetometer = new ThreeAxisSensor(sensorName, sensor, initialDataState);
 
 export default magnetometer;
 

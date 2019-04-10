@@ -7,9 +7,7 @@ import AccelerometerTile from "../components/tiles/accelerometerTile";
 // TODO: refactor state to contain original format, transform before sending to backend
 const mapStateToProps = state => {
   return {
-    x: state.accelerometer.data.accelerometerX,
-    y: state.accelerometer.data.accelerometerY,
-    z: state.accelerometer.data.accelerometerZ,
+    ...state.accelerometer.data,
     isConnected: state.accelerometer.send,
     interval: Math.round(state.accelerometer.interval / 1000 / 60),
     title: "Accelerometer"

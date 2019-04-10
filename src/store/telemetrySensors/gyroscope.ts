@@ -16,12 +16,7 @@ const initialDataState: Data = {
 const sensorName = "gyroscope";
 const sensor = Gyroscope;
 
-const gyroscope = new ThreeAxisSensor(
-  sensorName,
-  sensor,
-  initialDataState,
-  transformData
-);
+const gyroscope = new ThreeAxisSensor(sensorName, sensor, initialDataState);
 
 export default gyroscope;
 
