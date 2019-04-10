@@ -36,6 +36,17 @@ export default class DeviceSensorDashboard extends Component<Props, State> {
     await this.props.subscribe();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    Object.entries(this.props).forEach(
+      ([key, val]) =>
+        prevProps[key] !== val && console.log(`Prop '${key}' changed`)
+    );
+    Object.entries(this.state).forEach(
+      ([key, val]) =>
+        prevState[key] !== val && console.log(`State '${key}' changed`)
+    );
+  }
+
   async componentWillUnmount() {
     await this.props.stopSendingTelemetry();
     await this.props.unsubscribeAll();

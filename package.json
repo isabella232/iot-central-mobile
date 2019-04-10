@@ -26,7 +26,8 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
-    "rn-apple-healthkit": "^0.6.5"
+    "rn-apple-healthkit": "^0.6.5",
+    "rxjs": "^6.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

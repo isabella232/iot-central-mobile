@@ -13,7 +13,7 @@ export default class IntervalSensor<Data extends Object> extends DefaultSensor<
         const subscription = setInterval(async () => {
           const data = await this._getData();
           dispatch(this._update(data));
-        }, 1000);
+        }, 30000);
         dispatch(this._subscribe(subscription));
       }
     };

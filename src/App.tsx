@@ -6,7 +6,7 @@ import nodejs from "nodejs-mobile-react-native";
 import { getStore, getPersistor } from "./store/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-const _ = require("./helpers/fetchhelper");
+// const _ = require("./helpers/fetchhelper");
 
 export default class App extends Component {
   render() {
