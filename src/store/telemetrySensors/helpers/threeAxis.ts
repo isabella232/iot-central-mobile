@@ -1,9 +1,8 @@
 import DefaultSensor from "../../common/defaultSensor";
 import { setUpdateIntervalForType } from "react-native-sensors";
+import { SensorState } from "../../common/SensorDuckInterface";
 
-export default class ThreeAxisSensor<Data extends Object> extends DefaultSensor<
-  Data
-> {
+export default class ThreeAxisSensor extends DefaultSensor<ThreeAxisData> {
   private subscription;
   subscribe() {
     return async (dispatch, getState) => {
@@ -14,7 +13,7 @@ export default class ThreeAxisSensor<Data extends Object> extends DefaultSensor<
         return Promise.resolve();
       } else {
         this.subscription = await this.sensor.subscribe(data => {
-          dispatch(this._update(data));
+          dispatch(this.updateData(data));
         });
         dispatch(this._subscribe());
         setUpdateIntervalForType(this.sensorName, 500); //getState()[this.sensorName].interval);
@@ -37,3 +36,11 @@ export default class ThreeAxisSensor<Data extends Object> extends DefaultSensor<
     };
   }
 }
+
+export interface ThreeAxisData {
+  x: number;
+  y: number;
+  z: number;
+}
+
+export interface ThreeAxisSensorState extends SensorState<ThreeAxisData> {}

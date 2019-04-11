@@ -5,13 +5,10 @@ import Slider from "@react-native-community/slider";
 import * as Colors from "../styling/colors";
 import SensorDetails from "./common/SensorDetails";
 import AccelerometerTile from "../../containers/accelerometerDashboardContainer";
+import { SensorState } from "../../store/common/SensorDuckInterface";
+import { ThreeAxisSensorState } from "../../store/telemetrySensors/helpers/threeAxis";
 
-export interface Props extends NavigationProps {
-  shouldSend: boolean;
-  shouldUseLargeTile: boolean;
-  shouldSimulate: boolean;
-  simulatedValue: { x: number; y: number; z: number };
-  sendFrequency: number;
+export interface Props extends NavigationProps, ThreeAxisSensorState {
   updateSend: (send: boolean) => any;
   updateUseLargeTile: (use: boolean) => any;
   updateSimulate: (simulate: boolean) => any;
@@ -72,7 +69,7 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 3
+    padding: 0
   },
   slider: {
     flexGrow: 1,

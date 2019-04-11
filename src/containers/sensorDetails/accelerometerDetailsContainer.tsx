@@ -16,22 +16,20 @@ shouldSend: boolean;
   updateSendFrequency: (value: number) => any;*/
 const mapStateToProps = state => {
   return {
-    shouldSend: state.accelerometer.send,
-    shouldUseLargeTile: state.accelerometer.largeTile,
-    shouldSimulate: state.accelerometer.simulate,
-    simulatedValue: state.accelerometer.simulatedValue,
-    sendFrequency: state.accelerometer.interval
+    ...state.accelerometer
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateSend: value => dispatch(accelerometer.sendToCloud(value)),
-    updateUseLargeTile: value => dispatch(accelerometer.useLargeTile(value)),
-    updateSimulate: value => dispatch(accelerometer.simulate(value)),
+    updateSend: value => dispatch(accelerometer.updateSend(value)),
+    updateUseLargeTile: value =>
+      dispatch(accelerometer.updateUseLargeTile(value)),
+    updateSimulate: value => dispatch(accelerometer.updateSimulate(value)),
     updateSimulatedValue: value =>
-      dispatch(accelerometer.simulate(true, value)),
-    updateSendFrequency: value => {}
+      dispatch(accelerometer.updateSimulatedValue(value)),
+    updateSendFrequency: value =>
+      dispatch(accelerometer.updateSendFrequency(value))
   };
 };
 

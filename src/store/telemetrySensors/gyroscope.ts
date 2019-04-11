@@ -1,16 +1,10 @@
 import ThreeAxisSensor from "./helpers/threeAxis";
 import { gyroscope as Gyroscope } from "react-native-sensors";
 
-interface Data {
-  gyroscopeX: number;
-  gyroscopeY: number;
-  gyroscopeZ: number;
-}
-
-const initialDataState: Data = {
-  gyroscopeX: 0,
-  gyroscopeY: 0,
-  gyroscopeZ: 0
+const initialDataState = {
+  x: 0,
+  y: 0,
+  z: 0
 };
 
 const sensorName = "gyroscope";

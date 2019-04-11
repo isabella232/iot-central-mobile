@@ -1,7 +1,6 @@
 import { BACKEND_API } from "react-native-dotenv";
 
 export function updateProperties(properties) {
-  console.log(properties);
   return fetch(BACKEND_API + "api/device/property/reported", {
     method: "POST",
     headers: {
@@ -12,11 +11,7 @@ export function updateProperties(properties) {
     body: JSON.stringify(properties)
   })
     .then(res => {
-      console.log(res);
       return res;
     })
-    .catch(err => {
-      console.log("Error in sending props");
-      console.log(err);
-    });
+    .catch(err => {});
 }

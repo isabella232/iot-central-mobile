@@ -12,9 +12,9 @@ export default class IntervalSensor<Data extends Object> extends DefaultSensor<
         await this.unsubscribe();
         const subscription = setInterval(async () => {
           const data = await this._getData();
-          dispatch(this._update(data));
+          dispatch(this.updateData(data));
         }, 30000);
-        dispatch(this._subscribe(subscription));
+        dispatch(this._subscribe());
       }
     };
   }

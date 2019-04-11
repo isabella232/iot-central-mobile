@@ -62,8 +62,6 @@ export function subscribe() {
   return (dispatch, getState) => {
     const watchId = navigator.geolocation.watchPosition(
       position => {
-        console.log("Updating Geolocation.");
-        console.log(`${JSON.stringify(position)}`);
         dispatch(_updateGeolocation(position));
         return dispatch(postProperties(getState().sensors.geolocation.data));
       },

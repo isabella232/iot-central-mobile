@@ -32,9 +32,7 @@ class Geolocation extends PropertySensor<Data> {
       await dispatch(this.unsubscribe());
       const watchId = navigator.geolocation.watchPosition(
         position => {
-          console.log("Updating Geolocation.");
-          console.log(`${JSON.stringify(position)}`);
-          dispatch(this._update(position));
+          dispatch(this._updateData(position));
         },
         error => {
           console.log("Error watching geolocation.");

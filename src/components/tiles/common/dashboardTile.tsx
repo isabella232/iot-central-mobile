@@ -3,12 +3,11 @@ import { TouchableHighlight, View, StyleSheet, Text } from "react-native";
 import * as Colors from "../../styling/colors";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import IconComponent from "react-native-vector-icons/FontAwesome";
+import { SensorState } from "../../../store/common/SensorDuckInterface";
 
-export interface Props {
+export interface Props extends SensorState<any> {
   onPress: () => any;
   title: string;
-  isConnected: boolean;
-  interval: number;
 }
 
 export interface State {}
@@ -39,16 +38,16 @@ export default class DashboardTile extends Component<Props, State> {
             </Row>
             <Row size={10}>
               <View style={style.headerContainer}>
-                <Text style={style.subTitle}>{`Every ${
-                  this.props.interval
-                } minutes`}</Text>
+                <Text style={style.subTitle}>{`Every ${Math.round(
+                  this.props.sendInterval / 1000 / 60
+                )} minutes`}</Text>
                 <View style={style.iconContainer}>
                   <IconComponent
                     name="signal"
                     size={20}
                     // TODO link to real data
                     color={
-                      this.props.isConnected
+                      this.props.shouldSend
                         ? Colors.TILE_ACTIVE_COLOR
                         : Colors.TILE_INACTIVE_COLOR
                     }

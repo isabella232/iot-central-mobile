@@ -1,18 +1,17 @@
 import { connect } from "react-redux";
 import PedometerTile from "../components/tiles/pedometerTile";
+import pedometer from "../store/telemetrySensors/pedometer";
 // TODO: refactor state to contain original format, transform before sending to backend
 const mapStateToProps = state => {
   return {
-    ...state.pedometer.data,
-    isConnected: state.pedometer.send,
-    interval: Math.round(state.pedometer.interval / 1000 / 60),
+    ...state.pedometer,
     title: "Pedometer"
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    update: data => dispatch({ type: "aziot/pedometer/UPDATE", data })
+    update: data => dispatch(pedometer.updateData(data))
   };
 };
 

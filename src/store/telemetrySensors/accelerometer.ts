@@ -1,16 +1,10 @@
 import ThreeAxisSensor from "./helpers/threeAxis";
 import { accelerometer as Accelerometer } from "react-native-sensors";
 
-interface Data {
-  accelerometerX: number;
-  accelerometerY: number;
-  accelerometerZ: number;
-}
-
-const initialDataState: Data = {
-  accelerometerX: 0,
-  accelerometerY: 0,
-  accelerometerZ: 0
+const initialDataState = {
+  x: 0,
+  y: 0,
+  z: 0
 };
 
 const sensorName = "accelerometer";

@@ -4,16 +4,16 @@ import { NavigationProps } from "../../props/NavigationProps";
 import ThreeAxisText from "./threeAxisText";
 import { Observable, Subscription } from "rxjs";
 import { setUpdateIntervalForType, SensorTypes } from "react-native-sensors";
+import { SensorState } from "../../../store/common/SensorDuckInterface";
+import {
+  ThreeAxisSensorState,
+  ThreeAxisData
+} from "../../../store/telemetrySensors/helpers/threeAxis";
 
-export interface Props extends NavigationProps {
-  x: number;
-  y: number;
-  z: number;
+export interface Props extends NavigationProps, ThreeAxisSensorState {
   title: string;
-  isConnected: boolean;
-  interval: number;
   onPress: () => any;
-  observable: Observable<{ x: number; y: number; z: number }>;
+  observable: Observable<ThreeAxisData>;
   type: SensorTypes;
   update: (data) => any;
   postTelemetry: (data) => any;
@@ -32,11 +32,9 @@ export default class ThreeAxisTile extends Component<Props, State> {
     });
     this.telemetrySubscription = setInterval(() => {
       this.props.postTelemetry({
-        x: this.props.x,
-        y: this.props.y,
-        z: this.props.z
+        ...this.props.data
       });
-    }, this.props.interval);
+    }, this.props.sendInterval);
   }
 
   componentWillUnmount() {
@@ -45,8 +43,8 @@ export default class ThreeAxisTile extends Component<Props, State> {
   }
   render() {
     return (
-      <DashboardTile {...this.props}>
-        <ThreeAxisText {...this.props} />
+      <DashboardTile {...this.props} {...this.props}>
+        <ThreeAxisText {...this.props.data} />
       </DashboardTile>
     );
   }

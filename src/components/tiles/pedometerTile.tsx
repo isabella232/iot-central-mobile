@@ -4,12 +4,11 @@ import { NavigationProps } from "../props/NavigationProps";
 import KeyValueText from "./common/keyValueText";
 import AppleHealthKit from "rn-apple-healthkit";
 import { NativeAppEventEmitter } from "react-native";
+import { SensorState } from "../../store/common/SensorDuckInterface";
 
-export interface Props extends NavigationProps {
-  steps: number;
-  title: string;
-  isConnected: boolean;
-  interval: number;
+export interface Props extends NavigationProps, SensorState<{ steps: number }> {
+  postTelemetry: (data) => any;
+  title: "Pedometer";
   update: (data) => any;
 }
 
@@ -37,7 +36,7 @@ export default class PedometerTile extends Component<Props, State> {
           this.props.update({ steps });
         }
       );
-    }, 1010);
+    }, 1000);
     /*
       AppleHealthKit.initStepCountObserver({}, () => {});
       this.subscription = NativeAppEventEmitter.addListener(
@@ -67,7 +66,7 @@ export default class PedometerTile extends Component<Props, State> {
         onPress={() => this.props.navigation.navigate("PedometerDetails")}
         {...this.props}
       >
-        <KeyValueText title={"Steps"} value={this.props.steps} />
+        <KeyValueText title={"Steps"} value={this.props.data.steps} />
       </DashboardTile>
     );
   }
@@ -77,7 +76,6 @@ function getSteps(): Promise<any> {
   const startDate = new Date();
   const endDate = new Date();
   startDate.setHours(0, 0, 0, 0);
-  console.log();
   let options = {
     startDate: startDate.toISOString(),
     endDate: endDate.toISOString()
@@ -87,8 +85,6 @@ function getSteps(): Promise<any> {
       if (err || !result) {
         return reject(err || "No result");
       }
-      console.log("Step Result!!");
-      console.log(result);
 
       resolve(result.value);
     });

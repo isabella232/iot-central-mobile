@@ -4,10 +4,12 @@ export default class DefaultSensor<Data extends Object>
   implements Sensor<Data> {
   SUBSCRIBE: string;
   UNSUBSCRIBE: string;
-  SEND_TO_CLOUD: string;
-  SIMULATE: string;
-  USE_LARGE_TILE: string;
-  UPDATE: string;
+  UPDATE_DATA: string;
+  UPDATE_SEND: string;
+  UPDATE_SEND_FREQUENCY: string;
+  UPDATE_SIMULATE: string;
+  UPDATE_SIMULATED_VALUE: string;
+  UPDATE_USE_LARGE_TILE: string;
   sensorName: string;
   sensor: any;
   initialState: SensorState<Data>;
@@ -15,20 +17,21 @@ export default class DefaultSensor<Data extends Object>
     this.sensorName = sensorName;
     this.sensor = sensor;
     this.initialState = {
-      largeTile: false,
-      send: true,
-      simulate: false,
-      simulatedValue: initialDataState,
-      subscription: null,
       data: initialDataState,
-      interval: 5000
+      shouldSend: true,
+      shouldSimulate: false,
+      simulatedValue: initialDataState,
+      shouldUseLargeTile: false,
+      sendInterval: 60000
     };
-    this.UPDATE = updateAction(sensorName);
     this.SUBSCRIBE = subscribeAction(sensorName);
     this.UNSUBSCRIBE = unsubscribeAction(sensorName);
-    this.SEND_TO_CLOUD = sendToCloudAction(sensorName);
-    this.SIMULATE = simulateAction(sensorName);
-    this.USE_LARGE_TILE = useLargeTileAction(sensorName);
+    this.UPDATE_DATA = updateDataAction(sensorName);
+    this.UPDATE_SEND = updateSendAction(sensorName);
+    this.UPDATE_SEND_FREQUENCY = updateSendFrequencyAction(sensorName);
+    this.UPDATE_SIMULATE = updateSimulateAction(sensorName);
+    this.UPDATE_SIMULATED_VALUE = updateSimulatedValueAction(sensorName);
+    this.UPDATE_USE_LARGE_TILE = updateUseLargeTileAction(sensorName);
   }
 
   reducer = (
@@ -37,21 +40,25 @@ export default class DefaultSensor<Data extends Object>
   ): SensorState<Data> => {
     state = state || this.initialState;
     switch (action.type) {
-      case this.SEND_TO_CLOUD:
-        return { ...state, send: action.send };
-      case this.USE_LARGE_TILE:
-        return { ...state, largeTile: action.use };
-      case this.SIMULATE:
+      case this.UPDATE_SEND:
+        return { ...state, shouldSend: action.send };
+      case this.UPDATE_USE_LARGE_TILE:
+        return { ...state, shouldUseLargeTile: action.use };
+      case this.UPDATE_SIMULATE:
         return {
           ...state,
-          simulate: action.simulate,
+          shouldSimulate: action.simulate
+        };
+      case this.UPDATE_SIMULATED_VALUE:
+        return {
+          ...state,
           simulatedValue: { ...state.simulatedValue, ...action.simulatedValue }
         };
       case this.SUBSCRIBE:
-        return { ...state, subscription: action.subscription || true };
+        return { ...state };
       case this.UNSUBSCRIBE:
-        return { ...state, subscription: null };
-      case this.UPDATE:
+        return { ...state };
+      case this.UPDATE_DATA:
         return {
           ...state,
           data: { ...state.data, ...action.data }
@@ -66,38 +73,16 @@ export default class DefaultSensor<Data extends Object>
     };
   }
 
-  unsubscribe() {
-    return async (dispatch, getState) => {
-      dispatch(this._unsubscribe());
-    };
-  }
-
-  sendToCloud(shouldSend: boolean) {
-    return {
-      type: this.SEND_TO_CLOUD,
-      send: shouldSend
-    };
-  }
-
-  simulate(shouldSimulate: boolean, data?: Data) {
-    return {
-      type: this.SIMULATE,
-      simulate: shouldSimulate,
-      simulatedValue: data
-    };
-  }
-
-  useLargeTile(shouldUseLargeTile: boolean) {
-    return {
-      type: this.USE_LARGE_TILE,
-      use: shouldUseLargeTile
-    };
-  }
-
   protected _subscribe(subscription?) {
     return {
       type: this.SUBSCRIBE,
       subscription
+    };
+  }
+
+  unsubscribe() {
+    return async (dispatch, getState) => {
+      dispatch(this._unsubscribe());
     };
   }
 
@@ -107,12 +92,81 @@ export default class DefaultSensor<Data extends Object>
     };
   }
 
-  protected _update(data) {
+  updateData(data: Data) {
     return async (dispatch, getState) => {
-      dispatch({
-        type: this.UPDATE,
-        data
-      });
+      dispatch(this._updateData(data));
+    };
+  }
+
+  protected _updateData(data) {
+    return {
+      type: this.UPDATE_DATA,
+      data
+    };
+  }
+
+  updateSend(shouldSend: boolean) {
+    return async (dispatch, getState) => {
+      dispatch(this._updateSend(shouldSend));
+    };
+  }
+
+  protected _updateSend(shouldSend) {
+    return {
+      type: this.UPDATE_SEND,
+      shouldSend
+    };
+  }
+
+  updateSendFrequency(sendInterval: number) {
+    return async (dispatch, getState) => {
+      dispatch(this._updateSendFrequency(sendInterval));
+    };
+  }
+
+  protected _updateSendFrequency(sendInterval: number) {
+    return {
+      type: this.UPDATE_SEND_FREQUENCY,
+      sendInterval
+    };
+  }
+
+  updateUseLargeTile(shouldUseLargeTile: boolean) {
+    return async (dispatch, getState) => {
+      dispatch(this._updateUseLargeTile(shouldUseLargeTile));
+    };
+  }
+
+  protected _updateUseLargeTile(shouldUseLargeTile: boolean) {
+    return {
+      type: this.UPDATE_USE_LARGE_TILE,
+      shouldUseLargeTile
+    };
+  }
+
+  updateSimulate(shouldSimulate: boolean) {
+    return async (dispatch, getState) => {
+      dispatch(this._updateSimulate(shouldSimulate));
+    };
+  }
+
+  protected _updateSimulate(shouldSimulate: boolean) {
+    return {
+      type: this.UPDATE_SIMULATE,
+      shouldSimulate
+    };
+  }
+
+  updateSimulatedValue(simulatedValue: Data) {
+    return async (dispatch, getState) => {
+      dispatch(this._updateSimulatedValue(simulatedValue));
+    };
+  }
+
+  protected _updateSimulatedValue(simulatedValue: Data) {
+    return {
+      type: this.UPDATE_SIMULATED_VALUE,
+      simulatedValue
     };
   }
 }
@@ -125,18 +179,22 @@ function unsubscribeAction(sensorName) {
   return `aziot/${sensorName}/UNSUBSCRIBE`;
 }
 
-function updateAction(sensorName) {
-  return `aziot/${sensorName}/UPDATE`;
+function updateDataAction(sensorName) {
+  return `aziot/${sensorName}/UPDATE_DATA`;
 }
 
-function sendToCloudAction(sensorName) {
-  return `aziot/${sensorName}/SEND`;
+function updateSendAction(sensorName) {
+  return `aziot/${sensorName}/UPDATE_SEND`;
 }
-
-function simulateAction(sensorName) {
-  return `aziot/${sensorName}/SIMULATE`;
+function updateSendFrequencyAction(sensorName) {
+  return `aziot/${sensorName}/UPDAYE_SEND_FREQUENCY`;
 }
-
-function useLargeTileAction(sensorName) {
-  return `aziot/${sensorName}/LARGE_TILE`;
+function updateSimulateAction(sensorName) {
+  return `aziot/${sensorName}/UPDATE_SIMULATE`;
+}
+function updateSimulatedValueAction(sensorName) {
+  return `aziot/${sensorName}/UPDATE_SIMULATED_VALUE`;
+}
+function updateUseLargeTileAction(sensorName) {
+  return `aziot/${sensorName}/UPDATE_LARGE_TILE`;
 }

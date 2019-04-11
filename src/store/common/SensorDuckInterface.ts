@@ -42,23 +42,28 @@ type SensorActions =
 export interface Sensor<Data extends Object> {
   SUBSCRIBE: string;
   UNSUBSCRIBE: string;
-  SEND_TO_CLOUD: string;
-  SIMULATE: string;
-  USE_LARGE_TILE: string;
+  UPDATE_DATA: string;
+  UPDATE_SEND: string;
+  UPDATE_SEND_FREQUENCY: string;
+  UPDATE_SIMULATE: string;
+  UPDATE_SIMULATED_VALUE: string;
+  UPDATE_USE_LARGE_TILE: string;
   reducer(state: SensorState<Data>, action: SensorActions);
   subscribe();
   unsubscribe();
-  sendToCloud(shouldSend: boolean);
-  simulate(shouldSimulate: boolean, data?: Data);
-  useLargeTile(shouldUseLargeTile: boolean);
+  updateData(data: Data);
+  updateSend(shouldSend: boolean);
+  updateSendFrequency(sendInterval: number);
+  updateUseLargeTile(shouldUseLargeTile: boolean);
+  updateSimulate(shouldSimulate: boolean);
+  updateSimulatedValue(simulatedValue: Data);
 }
 
 export interface SensorState<Data extends Object> {
   data: Data;
-  send: boolean;
-  simulate: boolean;
+  shouldSend: boolean;
+  shouldSimulate: boolean;
   simulatedValue: Data;
-  largeTile: boolean;
-  interval: number;
-  subscription: any;
+  shouldUseLargeTile: boolean;
+  sendInterval: number;
 }

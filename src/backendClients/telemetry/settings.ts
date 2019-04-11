@@ -1,7 +1,6 @@
 import { BACKEND_API } from "react-native-dotenv";
 
 export function updateSettingsComplete(body) {
-  console.log(body);
   return fetch(BACKEND_API + "api/device/setting/update/complete", {
     method: "POST",
     headers: {
@@ -12,7 +11,6 @@ export function updateSettingsComplete(body) {
     body: JSON.stringify(body)
   })
     .then(res => {
-      console.log(res);
       return res;
     })
     .catch(err => {
