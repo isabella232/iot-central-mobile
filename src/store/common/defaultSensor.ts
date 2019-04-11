@@ -41,13 +41,15 @@ export default class DefaultSensor<Data extends Object>
     state = state || this.initialState;
     switch (action.type) {
       case this.UPDATE_SEND:
-        return { ...state, shouldSend: action.send };
+        return { ...state, shouldSend: action.shouldSend };
+      case this.UPDATE_SEND_FREQUENCY:
+        return { ...state, sendInterval: action.sendInterval };
       case this.UPDATE_USE_LARGE_TILE:
-        return { ...state, shouldUseLargeTile: action.use };
+        return { ...state, shouldUseLargeTile: action.shouldUseLargeTile };
       case this.UPDATE_SIMULATE:
         return {
           ...state,
-          shouldSimulate: action.simulate
+          shouldSimulate: action.shouldSimulate
         };
       case this.UPDATE_SIMULATED_VALUE:
         return {
@@ -187,7 +189,7 @@ function updateSendAction(sensorName) {
   return `aziot/${sensorName}/UPDATE_SEND`;
 }
 function updateSendFrequencyAction(sensorName) {
-  return `aziot/${sensorName}/UPDAYE_SEND_FREQUENCY`;
+  return `aziot/${sensorName}/UPDATE_SEND_FREQUENCY`;
 }
 function updateSimulateAction(sensorName) {
   return `aziot/${sensorName}/UPDATE_SIMULATE`;
