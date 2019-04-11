@@ -9,6 +9,9 @@
   "dependencies": {
     "@react-native-community/slider": "^1.0.4",
     "@types/node": "^11.13.2",
+    "appcenter": "1.13.0",
+    "appcenter-analytics": "1.13.0",
+    "appcenter-crashes": "1.13.0",
     "nodejs-mobile-react-native": "^0.4.0",
     "react": "16.8.3",
     "react-native": "0.59.4",
