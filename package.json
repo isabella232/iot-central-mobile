@@ -6,7 +6,7 @@
     "android": "yarn buildBackend && react-native run-android",
     "ios": "yarn buildBackend && react-native run-ios",
     "start": "yarn buildBackend && react-native start",
-    "buildBackend": "yarn --cwd ./nodejs-assets/nodejs-project build",
+    "buildBackend": "yarn --cwd ./nodejs-assets/nodejs-project && yarn --cwd ./nodejs-assets/nodejs-project build",
     "test": "jest"
   },
   "dependencies": {
