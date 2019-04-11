@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { NavigationProps } from "../props/NavigationProps";
 import ThreeAxisTile from "./common/threeAxisTile";
 import { accelerometer, SensorTypes } from "react-native-sensors";
-import { SensorState } from "../../store/common/SensorDuckInterface";
 import { ThreeAxisSensorState } from "../../store/telemetrySensors/helpers/threeAxis";
 
 export interface Props extends NavigationProps, ThreeAxisSensorState {

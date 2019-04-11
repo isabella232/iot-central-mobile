@@ -50,15 +50,15 @@ export default class DeviceSensorDashboard extends Component<Props, State> {
             <AccelerometerDashboard navigation={this.props.navigation} />
           </Col>
           <Col>
-            <MagnetometerDashboard />
+            <MagnetometerDashboard navigation={this.props.navigation} />
           </Col>
         </Row>
         <Row size={30}>
           <Col>
-            <GyroscopeDashboard />
+            <GyroscopeDashboard navigation={this.props.navigation} />
           </Col>
           <Col>
-            <PedometerDashboard />
+            <PedometerDashboard navigation={this.props.navigation} />
           </Col>
         </Row>
         <Row size={30} />

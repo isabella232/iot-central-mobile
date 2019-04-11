@@ -63,17 +63,18 @@ export default class SensorDetails extends Component<Props, State> {
               onValueChange={value => this.props.updateUseLargeTile(value)}
             />
           </View>
+
+          <View style={style.tileContainer} pointerEvents="none">
+            {this.props.shouldUseLargeTile
+              ? this.props.LargeTileComponent
+              : this.props.SmallTileComponent}
+          </View>
           <View style={style.switchRow}>
             <Text style={style.switchLabel}>Simulate Value</Text>
             <Switch
               value={this.props.shouldSimulate}
               onValueChange={value => this.props.updateSimulate(value)}
             />
-          </View>
-          <View style={style.tileContainer} pointerEvents="none">
-            {this.props.shouldUseLargeTile
-              ? this.props.LargeTileComponent
-              : this.props.SmallTileComponent}
           </View>
           <View style={style.simulatedSelectorContainer}>
             <Text style={style.switchLabel}>Override Values</Text>
@@ -127,7 +128,7 @@ const style = StyleSheet.create({
   minuteLabel: {
     color: Colors.TILE_TITLE_COLOR,
     fontSize: 18,
-    fontWeight: "bold"
+    fontWeight: "600"
   },
   simulatedSelectorContainer: {
     padding: 10
@@ -135,7 +136,8 @@ const style = StyleSheet.create({
   picker: {
     height: 160,
     width: 50,
-    marginLeft: 40
+    marginLeft: 40,
+    marginRight: 3
   },
   pickerItemStyle: {
     height: 160

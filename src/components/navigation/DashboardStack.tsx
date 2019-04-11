@@ -7,7 +7,9 @@ import {
 } from "react-navigation";
 import DeviceDashboardContainer from "../../containers/deviceDashboard";
 import * as Colors from "../styling/colors";
-import VisibleAccelerometerDetails from "../../containers/sensorDetails/accelerometerDetailsContainer";
+import AccelerometerDetails from "../../containers/sensorDetails/accelerometerDetailsContainer";
+import MagnetometerDetails from "../../containers/sensorDetails/magnetometerDetailsContainer";
+import GyroscopeDetails from "../../containers/sensorDetails/gyroscopeDetailsContainer";
 
 const StackNavigationStyle: NavigationScreenConfig<NavigationScreenOptions> = {
   headerStyle: {
@@ -21,7 +23,9 @@ const StackNavigationStyle: NavigationScreenConfig<NavigationScreenOptions> = {
 export default createStackNavigator(
   {
     Dashboard: DeviceDashboardContainer,
-    AccelerometerDetails: VisibleAccelerometerDetails
+    AccelerometerDetails,
+    MagnetometerDetails,
+    GyroscopeDetails
   },
   {
     initialRouteName: "Dashboard",

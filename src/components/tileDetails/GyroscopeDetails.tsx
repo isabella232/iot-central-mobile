@@ -21,7 +21,7 @@ export interface State {}
 export default class AccelerometerDetails extends Component<Props, State> {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Accelerometer"
+      title: "Gyroscope"
     };
   };
   render() {

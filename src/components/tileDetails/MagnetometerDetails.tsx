@@ -4,7 +4,7 @@ import { View, Text, Switch, StyleSheet } from "react-native";
 import Slider from "@react-native-community/slider";
 import * as Colors from "../styling/colors";
 import SensorDetails from "./common/SensorDetails";
-import AccelerometerTile from "../../containers/accelerometerDashboardContainer";
+import Tile from "../../containers/magnetometerDashboardContainer";
 import { SensorState } from "../../store/common/SensorDuckInterface";
 import { ThreeAxisSensorState } from "../../store/telemetrySensors/helpers/threeAxis";
 
@@ -21,15 +21,15 @@ export interface State {}
 export default class AccelerometerDetails extends Component<Props, State> {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Accelerometer"
+      title: "Magnetometer"
     };
   };
   render() {
     return (
       <SensorDetails
         {...this.props}
-        SmallTileComponent={<AccelerometerTile />}
-        LargeTileComponent={<AccelerometerTile />}
+        SmallTileComponent={<Tile />}
+        LargeTileComponent={<Tile />}
         SimulatedValueSelectorComponent={
           <View style={style.sliderContainer}>
             <View style={style.sliderRow}>
