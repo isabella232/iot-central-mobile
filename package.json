@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "android": "yarn buildBackend && react-native run-android",
+    "ios": "yarn buildBackend && react-native run-ios",
+    "start": "yarn buildBackend && react-native start",
+    "buildBackend": "yarn --cwd ./nodejs-assets/nodejs-project build",
     "test": "jest"
   },
   "dependencies": {
