@@ -1,3 +1,11 @@
+/*
+
+
+DEPRECATED
+
+
+*/
+
 import React, { Component } from "react";
 import {
   createMaterialTopTabNavigator,
