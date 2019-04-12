@@ -45,6 +45,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		85862CF0384D455BBA141AA6 /* libRCTAppleHealthKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC006807F98645939946BEC5 /* libRCTAppleHealthKit.a */; };
 		86A8CC9CECF149E9A19D9BDF /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 794ED3D5E16840779F5A6344 /* libAppCenterReactNativeAnalytics.a */; };
+		9A64830A225FEF6600F57028 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 9A6482DE225FEF6600F57028 /* AppIcon.appiconset */; };
 		9AAD6B57225D6C1B006A761A /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AAD6B56225D6C1B006A761A /* HealthKit.framework */; };
 		A96F8B7495FD432CBBDD6F2D /* NodeMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80A644206C34518A7992B37 /* NodeMobile.framework */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -436,6 +437,7 @@
 		97F133D5760F454886599BAE /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		981CAA0B86A94E708CD399F4 /* libRNNodeJsMobile.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNNodeJsMobile.a; sourceTree = "<group>"; };
 		9A2D766F225D282100559A8F /* aziotmobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = aziotmobile.entitlements; path = aziotmobile/aziotmobile.entitlements; sourceTree = "<group>"; };
+		9A6482DE225FEF6600F57028 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.appiconset; path = ../../../../AppIcon.appiconset; sourceTree = "<group>"; };
 		9AAD6B56225D6C1B006A761A /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		9BEC11E68D6942C7BD782005 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		AADB2509957E446B8247B4AB /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -606,6 +608,7 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				9A6482DE225FEF6600F57028 /* AppIcon.appiconset */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -1366,6 +1369,7 @@
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				2C2A84AC0FD94966B9938497 /* nodejs-project in Resources */,
 				6F1AD6C550D3477BBA50AF29 /* builtin_modules in Resources */,
+				9A64830A225FEF6600F57028 /* AppIcon.appiconset in Resources */,
 				F7B3CEBF1E8C4B05AED70491 /* AppCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1688,7 +1692,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 25F8632F084461D6EE2B7570 /* Pods-aziotmobile.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = CentralAppIcon;
 				CODE_SIGN_ENTITLEMENTS = aziotmobile/aziotmobile.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1708,7 +1712,7 @@
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = aziotmobile/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1725,7 +1729,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4161846C54FB51F440EEC218 /* Pods-aziotmobile.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = CentralAppIcon;
 				CODE_SIGN_ENTITLEMENTS = aziotmobile/aziotmobile.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UBF8T346G9;
@@ -1744,7 +1748,7 @@
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 				);
 				INFOPLIST_FILE = aziotmobile/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
