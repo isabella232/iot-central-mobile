@@ -3,6 +3,7 @@ package com.aziotmobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rmcfarlane.msalplugin.RNMsalPluginPackage;
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
 import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyticsPackage;
 import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage;
@@ -13,7 +14,6 @@ import com.cubicphuse.RCTTorch.RCTTorchPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobilePackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.microsoft.aad.adal.rn.RNAdalPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -35,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNMsalPluginPackage(),
             new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)),
             new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)),
             new AppCenterReactNativePackage(MainApplication.this),
@@ -45,7 +46,6 @@ public class MainApplication extends Application implements ReactApplication {
             new RNDeviceInfo(),
             new RNNodeJsMobilePackage(),
             new RNGestureHandlerPackage(),
-            new RNAdalPackage(),
             new VectorIconsPackage()
       );
     }

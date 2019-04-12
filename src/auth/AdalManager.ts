@@ -1,9 +1,10 @@
-import {
+/*import {
   MSAdalLogin,
   MSAdalLogout,
   getValidMSAdalToken,
   MSAdalAuthenticationContext
-} from "react-native-ms-adal";
+} from "react-native-ms-adal";*/
+import MsalPlugin, { MsalUIBehavior } from "react-native-msal-plugin";
 import {
   AUTHORITY,
   CLIENT_ID,
@@ -11,27 +12,51 @@ import {
   RES_IOTC
 } from "react-native-dotenv";
 
+const scopes = ["User.Read"];
+
+const login_hint = "user@domain.com";
+
+const forceTokenRefresh = false;
+
+const authClient = new MsalPlugin(AUTHORITY, CLIENT_ID);
+let tokenResult = {} as any;
+const extraQueryParameters = {};
 export default class AdalManager {
-  static login() {
-    return MSAdalLogin(AUTHORITY, CLIENT_ID, REDIRECT_URI, RES_IOTC);
+  static async login() {
+    // acquire token
+    try {
+      tokenResult = await authClient.acquireTokenAsync(
+        scopes,
+        extraQueryParameters,
+        login_hint,
+        MsalUIBehavior.SELECT_ACCOUNT
+      );
+      console.log("Store the token", tokenResult);
+      return tokenResult;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  static logout() {
-    return MSAdalLogout();
+  static async logout() {
+    try {
+      return authClient.tokenCacheDelete();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static async getToken() {
-    // TODO: run commands in parallel, benchmark, return fastest
-    // const existingToken = getValidMSAdalToken(AUTHORITY);
-    const context = new MSAdalAuthenticationContext(AUTHORITY);
-    return context.acquireTokenSilentAsync(RES_IOTC, CLIENT_ID).then(
-      token => {
-        return token;
-      },
-      _ => {
-        return null;
-      }
-    );
-    // return getValidMSAdalToken(AUTHORITY);
+    try {
+      const silentTokenresult = await authClient.acquireTokenSilentAsync(
+        scopes,
+        tokenResult.userInfo.userIdentifier,
+        forceTokenRefresh
+      );
+      console.log("Store the new token", silentTokenresult);
+      return silentTokenresult;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
