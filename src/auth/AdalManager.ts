@@ -1,18 +1,7 @@
-/*import {
-  MSAdalLogin,
-  MSAdalLogout,
-  getValidMSAdalToken,
-  MSAdalAuthenticationContext
-} from "react-native-ms-adal";*/
 import MsalPlugin, { MsalUIBehavior } from "react-native-msal-plugin";
-import {
-  AUTHORITY,
-  CLIENT_ID,
-  REDIRECT_URI,
-  RES_IOTC
-} from "react-native-dotenv";
+import { AUTHORITY, CLIENT_ID, IOTC_SCOPE } from "react-native-dotenv";
 
-const scopes = ["User.Read"];
+const scopes = [IOTC_SCOPE];
 
 const login_hint = "user@domain.com";
 
