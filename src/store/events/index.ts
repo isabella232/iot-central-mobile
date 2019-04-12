@@ -1,0 +1,40 @@
+import { postTelemetry } from "../telemetry/telemetryduck";
+
+// action types
+export const SEND = "aziot/event/SEND";
+
+const initialState = {
+  information_button: {
+    value: "This is the information message."
+  }
+};
+
+// reducer
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case SEND:
+      return Object.assign({}, state, {
+        [action.event.name]: {
+          value: action.event.value,
+          date: action.date
+        }
+      });
+    default:
+      return state;
+  }
+}
+
+export function sendEvent(event) {
+  return async (dispatch, getState) => {
+    await dispatch(postTelemetry({ [event.name]: event.value }));
+    dispatch(_sendEventAction(event));
+  };
+}
+
+function _sendEventAction(event) {
+  return {
+    type: SEND,
+    event,
+    date: Date.now()
+  };
+}

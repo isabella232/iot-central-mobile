@@ -1,9 +1,12 @@
 import dpsKeyGen from "dps-keygen/dps";
-import { connectDevice } from "../store/devices/actions";
-import { AppState, getStore } from "../store/index";
 const clientFromConnectionString = require("azure-iot-device-mqtt")
   .clientFromConnectionString;
 const rnBridge = require("rn-bridge");
+const Message = require("azure-iot-device").Message;
+
+let _client;
+let _twin;
+let _deviceId;
 
 function _computeConnectionString(
   appSymmetricKey: string,
@@ -18,8 +21,6 @@ function _computeConnectionString(
       null,
       true,
       (err, conStr) => {
-        console.log("Callback");
-
         if (err) {
           reject(err);
         }
@@ -72,17 +73,6 @@ function _listenForCommands(deviceId, client) {
       response.send(200);
     });
   });
-
-  /*
-  twin.on("message", msg => {
-    console.log("MESSAGE RECEIVED");
-    console.log(JSON.stringify(msg));
-
-    rnBridge.channel.post("/device/property/desired", {
-      deviceId,
-      msg
-    });
-  });*/
 }
 
 export async function connect(appSymmetricKey, deviceId, scopeId) {
@@ -94,45 +84,33 @@ export async function connect(appSymmetricKey, deviceId, scopeId) {
     scopeId
   );
   console.log("Connecting...");
-  const client = clientFromConnectionString(connectionString);
-  const twin = await _getTwin(client);
-  console.log("Got Twin.");
-  console.log(`${twin.properties}`);
-  _listenForSettingsUpdate(deviceId, twin);
-  _listenForCommands(deviceId, client);
-  getStore().dispatch(connectDevice(deviceId, client, twin));
+  _client = clientFromConnectionString(connectionString);
+  _twin = await _getTwin(_client);
+  _deviceId = deviceId;
+  _listenForSettingsUpdate(_deviceId, _twin);
+  _listenForCommands(_deviceId, _client);
   // console.log(twin);
-  return { deviceId, properties: twin.properties };
-}
-
-function _getAllTwins() {
-  const state: AppState = getStore().getState();
-  const twins: any[] = [];
-  for (const key in state.devices) {
-    const twin = getStore().getState().devices[key].twin;
-    twins.push(twin);
-  }
-  return twins;
+  return { deviceId, properties: _twin.properties };
 }
 
 export async function updateProperties(properties) {
+  if (!_client) {
+    return;
+  }
   console.log("Updating Properties...");
   console.log(`${properties}`);
   console.log(`${JSON.stringify(properties)}`);
-  const twins = _getAllTwins();
-  twins.map(twin => {
-    _updateProperties(twin, properties);
-  });
+  _updateProperties(_twin, properties);
 }
 
 export async function updateSettingComplete(setting, desiredChange) {
+  if (!_client) {
+    return;
+  }
   console.log("Updating Setting Complete...");
   console.log(`${setting}`);
   console.log(`${JSON.stringify(setting)}`);
-  const twins = _getAllTwins();
-  twins.map(twin => {
-    _updateSettingComplete(twin, setting, desiredChange);
-  });
+  _updateSettingComplete(_twin, setting, desiredChange);
 }
 
 async function _updateSettingComplete(twin, setting, desiredChange) {
@@ -160,6 +138,25 @@ function _updateProperties(twin, properties) {
         reject(err);
       }
       resolve();
+    });
+  });
+}
+
+export function sendTelemetry(telemetry) {
+  if (!_client) {
+    return;
+  }
+  const message = new Message(JSON.stringify(telemetry));
+  return _sendEvent(_client, message);
+}
+
+function _sendEvent(client, message) {
+  return new Promise((resolve, reject) => {
+    client.sendEvent(message, (err, res) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(res);
     });
   });
 }

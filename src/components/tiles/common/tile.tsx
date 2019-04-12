@@ -9,13 +9,16 @@ export interface Props {
   title: string;
   subTitle: string;
   subIcon: any;
+  large?: boolean;
 }
 
 export interface State {}
 export default class Tile extends Component<Props, State> {
   render() {
     return (
-      <View style={style.container}>
+      <View
+        style={{ ...style.container, aspectRatio: this.props.large ? 2 : 1 }}
+      >
         <TouchableHighlight
           underlayColor={Colors.TILE_PRESSED_COLOR}
           style={style.button}
@@ -66,8 +69,9 @@ const style = StyleSheet.create({
     padding: 10
   },
   container: {
+    width: "100%",
     aspectRatio: 1,
-    flex: 1,
+    flexShrink: 1,
     padding: 8
   },
   headerContainer: {
