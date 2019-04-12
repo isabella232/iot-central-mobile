@@ -1,6 +1,6 @@
 import DefaultSensor from "../common/defaultSensor";
 import IntervalSensor from "../common/intervalSensor";
-import AppleHealthKit from "rn-apple-healthkit";
+// import AppleHealthKit from "rn-apple-healthkit";
 
 const options = {
   permissions: {
@@ -17,6 +17,7 @@ AppleHealthKit.initHealthKit(options, (err: string, results: Object) => {
   }
 });*/
 
+/*
 function getSteps(): Promise<any> {
   return new Promise((resolve, reject) => {
     AppleHealthKit.getStepCount(null, (err, result) => {
@@ -37,7 +38,7 @@ function isAvailable(): Promise<boolean> {
       resolve(available);
     });
   });
-}
+}*/
 
 interface Data {
   steps: number;
@@ -45,15 +46,17 @@ interface Data {
 
 class Pedometer extends IntervalSensor<Data> {
   constructor() {
-    super("pedometer", AppleHealthKit, initialDataState);
+    super("pedometer", null, initialDataState);
   }
+  /*
   async _isAvailable() {
     return isAvailable();
-  }
+  }*/
+  /*
   async _getData() {
     const result = await getSteps();
     return { steps: result.value };
-  }
+  }*/
 }
 
 const initialDataState = {
