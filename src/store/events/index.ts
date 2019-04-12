@@ -2,6 +2,7 @@ import { postTelemetry } from "../telemetry/telemetryduck";
 
 // action types
 export const SEND = "aziot/event/SEND";
+export const UPDATE = "aziot/event/UPDATE";
 
 const initialState = {
   information_button: {
@@ -19,6 +20,9 @@ export default function reducer(state = initialState, action) {
           date: action.date
         }
       });
+
+    case UPDATE:
+      return { ...state, [action.event]: { value: action.value } };
     default:
       return state;
   }
@@ -29,6 +33,10 @@ export function sendEvent(event) {
     await dispatch(postTelemetry({ [event.name]: event.value }));
     dispatch(_sendEventAction(event));
   };
+}
+
+export function updateEvent(event, value) {
+  return { type: UPDATE, event, value };
 }
 
 function _sendEventAction(event) {

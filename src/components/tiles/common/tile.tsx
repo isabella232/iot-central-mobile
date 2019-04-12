@@ -38,7 +38,7 @@ export default class Tile extends Component<Props, State> {
               </View>
             </Row>
             <Row size={80}>
-              <Col style={style.content}>{this.props.children}</Col>
+              <Col style={style.childContainer}>{this.props.children}</Col>
             </Row>
             <Row size={10}>
               <View style={style.headerContainer}>
@@ -67,6 +67,12 @@ const style = StyleSheet.create({
   content: {
     flex: 1,
     padding: 10
+  },
+  childContainer: {
+    flex: 1,
+    padding: 10,
+    alignItems: "flex-start",
+    justifyContent: "center"
   },
   container: {
     width: "100%",

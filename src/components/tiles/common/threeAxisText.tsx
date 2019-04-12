@@ -29,7 +29,6 @@ function round(value) {
 
 const style = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start"

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { postTelemetry } from "../../store/telemetry/telemetryduck";
-import { sendEvent } from "../../store/events";
+import { sendEvent, updateEvent } from "../../store/events";
 import DeviceEventDashboard from "../../components/screens/DeviceEventsDashboard";
 const mapStateToProps = state => {
   return {
@@ -10,7 +10,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sendEvent: data => dispatch(sendEvent(data))
+    sendEvent: data => dispatch(sendEvent(data)),
+    updateEvent: (event, value) => dispatch(updateEvent(event, value))
   };
 };
 

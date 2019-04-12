@@ -25,11 +25,7 @@ export default class extends Component<Props, State> {
 }
 
 const style = StyleSheet.create({
-  parentContainer: {
-    height: 40
-  },
   container: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "flex-start"
