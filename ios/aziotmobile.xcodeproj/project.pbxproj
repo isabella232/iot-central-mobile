@@ -45,6 +45,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		86A8CC9CECF149E9A19D9BDF /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 794ED3D5E16840779F5A6344 /* libAppCenterReactNativeAnalytics.a */; };
 		9A64830A225FEF6600F57028 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 9A6482DE225FEF6600F57028 /* AppIcon.appiconset */; };
+		9A6483682260199900F57028 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		A96F8B7495FD432CBBDD6F2D /* NodeMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80A644206C34518A7992B37 /* NodeMobile.framework */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C36D7DC509D512EDD53EA620 /* libPods-aziotmobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0003B660C5AD1F882477125F /* libPods-aziotmobile.a */; };
@@ -449,6 +450,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A6483682260199900F57028 /* JavaScriptCore.framework in Frameworks */,
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
