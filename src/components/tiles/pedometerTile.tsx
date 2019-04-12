@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DashboardTile from "./common/dashboardTile";
 import { NavigationProps } from "../props/NavigationProps";
 import KeyValueText from "./common/keyValueText";
-import AppleHealthKit from "rn-apple-healthkit";
+// import AppleHealthKit from "rn-apple-healthkit";
 import { NativeAppEventEmitter } from "react-native";
 import { SensorState } from "../../store/common/SensorDuckInterface";
 
@@ -24,6 +24,7 @@ const options = {
 export default class PedometerTile extends Component<Props, State> {
   private subscription;
   async componentDidMount() {
+    /*
     this.subscription = setInterval(async () => {
       AppleHealthKit.initHealthKit(
         options,
@@ -36,7 +37,7 @@ export default class PedometerTile extends Component<Props, State> {
           this.props.update({ steps });
         }
       );
-    }, 1000);
+    }, 1000);*/
     /*
       AppleHealthKit.initStepCountObserver({}, () => {});
       this.subscription = NativeAppEventEmitter.addListener(
@@ -57,7 +58,7 @@ export default class PedometerTile extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    clearInterval(this.subscription);
+    // clearInterval(this.subscription);
   }
 
   render() {
@@ -72,6 +73,7 @@ export default class PedometerTile extends Component<Props, State> {
   }
 }
 
+/*
 function getSteps(): Promise<any> {
   const startDate = new Date();
   const endDate = new Date();
@@ -100,4 +102,4 @@ function isAvailable(): Promise<boolean> {
       resolve(available);
     });
   });
-}
+}*/
