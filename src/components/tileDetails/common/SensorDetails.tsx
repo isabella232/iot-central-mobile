@@ -118,6 +118,8 @@ const style = StyleSheet.create({
     alignItems: "stretch"
   },
   tileContainer: {
+    alignItems: "center",
+    justifyContent: "center",
     height: 200
   },
   switchLabel: {

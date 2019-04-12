@@ -7,6 +7,7 @@ import SensorDetails from "./common/SensorDetails";
 import AccelerometerTile from "../../containers/accelerometerDashboardContainer";
 import { SensorState } from "../../store/common/SensorDuckInterface";
 import { ThreeAxisSensorState } from "../../store/telemetrySensors/helpers/threeAxis";
+import VisibleGyroscope from "../../containers/gyroscopeDashboardContainer";
 
 export interface Props extends NavigationProps, ThreeAxisSensorState {
   updateSend: (send: boolean) => any;
@@ -28,8 +29,8 @@ export default class AccelerometerDetails extends Component<Props, State> {
     return (
       <SensorDetails
         {...this.props}
-        SmallTileComponent={<AccelerometerTile />}
-        LargeTileComponent={<AccelerometerTile />}
+        SmallTileComponent={<VisibleGyroscope />}
+        LargeTileComponent={<VisibleGyroscope />}
         SimulatedValueSelectorComponent={
           <View style={style.sliderContainer}>
             <View style={style.sliderRow}>

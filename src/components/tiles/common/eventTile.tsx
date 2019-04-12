@@ -5,7 +5,7 @@ import IconComponent from "react-native-vector-icons/FontAwesome";
 import { SensorState } from "../../../store/common/SensorDuckInterface";
 import Tile from "./tile";
 
-export interface Props extends SensorState<any> {
+export interface Props {
   onPress: () => any;
   title: string;
 }
@@ -14,24 +14,7 @@ export interface State {}
 export default class DashboardTile extends Component<Props, State> {
   render() {
     return (
-      <Tile
-        {...this.props}
-        subTitle={`Every ${Math.round(
-          this.props.sendInterval / 1000 / 60
-        )} minutes`}
-        subIcon={
-          <IconComponent
-            name="signal"
-            size={20}
-            // TODO link to real data
-            color={
-              this.props.shouldSend
-                ? Colors.TILE_ACTIVE_COLOR
-                : Colors.TILE_INACTIVE_COLOR
-            }
-          />
-        }
-      >
+      <Tile {...this.props} subTitle={`Last sent X minutes ago`} subIcon={null}>
         {this.props.children}
       </Tile>
     );
