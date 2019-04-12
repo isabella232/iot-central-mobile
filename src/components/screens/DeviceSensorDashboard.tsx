@@ -44,25 +44,16 @@ export default class DeviceSensorDashboard extends Component<Props, State> {
   render() {
     return (
       // <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>å
-      <Grid style={style.container}>
-        <Row size={30}>
-          <Col>
-            <AccelerometerDashboard navigation={this.props.navigation} />
-          </Col>
-          <Col>
-            <MagnetometerDashboard navigation={this.props.navigation} />
-          </Col>
-        </Row>
-        <Row size={30}>
-          <Col>
-            <GyroscopeDashboard navigation={this.props.navigation} />
-          </Col>
-          <Col>
-            <PedometerDashboard navigation={this.props.navigation} />
-          </Col>
-        </Row>
-        <Row size={30} />
-      </Grid>
+      <View style={style.container}>
+        <View style={{ flexDirection: "row" }}>
+          <AccelerometerDashboard navigation={this.props.navigation} />
+          <MagnetometerDashboard navigation={this.props.navigation} />
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <GyroscopeDashboard navigation={this.props.navigation} />
+          <PedometerDashboard navigation={this.props.navigation} />
+        </View>
+      </View>
       /*
       <Grid style={style.container}>
         <Row size={1}>

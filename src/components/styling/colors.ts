@@ -12,3 +12,7 @@ export const IOTC_TEXT_COLOR = "#ffffff";
 export const IOTC_SUB_TEXT_COLOR = "#a5a2a2";
 export const SEPARATOR_BACKGROUND_COLOR = "#8E8E8E";
 export const HEADER_BACKGROUND_COLOR = "#adaeb5";
+
+// Button
+export const BUTTON = IOTC_BUTTON_BACKGROUND_COLOR;
+export const BUTTON_TEXT = "#ffffff";

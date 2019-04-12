@@ -19,6 +19,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import storage from "redux-persist/lib/storage";
 import Reactotron from "../../ReactotronConfig";
+import events from "./events";
 import {
   SEND_TELEMETRY,
   SEND_TELEMETRY_FAIL,
@@ -38,7 +39,8 @@ const rootReducer = combineReducers({
   properties,
   settings,
   backend,
-  controls
+  controls,
+  events
 });
 
 const persistConfig = {

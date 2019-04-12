@@ -18,12 +18,12 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const visibleGyroscope = connect(
+const VisibleGyroscope = connect(
   mapStateToProps,
   mapDispatchToProps
 )(GyroscopeTile);
 
-export default visibleGyroscope;
+export default VisibleGyroscope;
 
 function transformData(data) {
   return {

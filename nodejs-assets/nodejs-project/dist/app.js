@@ -44,7 +44,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ConnectionManager = __importStar(require("./connection/connectionManager"));
-var TelemetryManager = __importStar(require("./telemetry/telemetryManager"));
 var rnBridge = require("rn-bridge");
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -102,7 +101,9 @@ app.post("/api/device/property/reported", function (req, res) { return __awaiter
 app.post("/api/telemetry", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, TelemetryManager.sendTelemetry(req.body)];
+            case 0:
+                console.log("Sending... " + req.body);
+                return [4 /*yield*/, ConnectionManager.sendTelemetry(req.body)];
             case 1:
                 _a.sent();
                 res.send("OK");

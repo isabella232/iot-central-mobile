@@ -1,5 +1,4 @@
 import * as ConnectionManager from "./connection/connectionManager";
-import * as TelemetryManager from "./telemetry/telemetryManager";
 const rnBridge = require("rn-bridge");
 
 const express = require("express");
@@ -46,7 +45,8 @@ app.post("/api/device/property/reported", async (req, res) => {
 });
 
 app.post("/api/telemetry", async (req, res) => {
-  await TelemetryManager.sendTelemetry(req.body);
+  console.log(`Sending... ${req.body}`);
+  await ConnectionManager.sendTelemetry(req.body);
   res.send("OK");
 });
 

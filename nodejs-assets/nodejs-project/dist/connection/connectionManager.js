@@ -39,15 +39,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var dps_1 = __importDefault(require("dps-keygen/dps"));
-var actions_1 = require("../store/devices/actions");
-var index_1 = require("../store/index");
 var clientFromConnectionString = require("azure-iot-device-mqtt")
     .clientFromConnectionString;
 var rnBridge = require("rn-bridge");
+var Message = require("azure-iot-device").Message;
+var _client;
+var _twin;
+var _deviceId;
 function _computeConnectionString(appSymmetricKey, deviceId, scopeId) {
     return new Promise(function (resolve, reject) {
         dps_1.default.getConnectionString(deviceId, appSymmetricKey, scopeId, null, true, function (err, conStr) {
-            console.log("Callback");
             if (err) {
                 reject(err);
             }
@@ -95,20 +96,10 @@ function _listenForCommands(deviceId, client) {
             response.send(200);
         });
     });
-    /*
-    twin.on("message", msg => {
-      console.log("MESSAGE RECEIVED");
-      console.log(JSON.stringify(msg));
-  
-      rnBridge.channel.post("/device/property/desired", {
-        deviceId,
-        msg
-      });
-    });*/
 }
 function connect(appSymmetricKey, deviceId, scopeId) {
     return __awaiter(this, void 0, void 0, function () {
-        var connectionString, client, twin;
+        var connectionString;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -117,42 +108,30 @@ function connect(appSymmetricKey, deviceId, scopeId) {
                 case 1:
                     connectionString = _a.sent();
                     console.log("Connecting...");
-                    client = clientFromConnectionString(connectionString);
-                    return [4 /*yield*/, _getTwin(client)];
+                    _client = clientFromConnectionString(connectionString);
+                    return [4 /*yield*/, _getTwin(_client)];
                 case 2:
-                    twin = _a.sent();
-                    console.log("Got Twin.");
-                    console.log("" + twin.properties);
-                    _listenForSettingsUpdate(deviceId, twin);
-                    _listenForCommands(deviceId, client);
-                    index_1.getStore().dispatch(actions_1.connectDevice(deviceId, client, twin));
+                    _twin = _a.sent();
+                    _deviceId = deviceId;
+                    _listenForSettingsUpdate(_deviceId, _twin);
+                    _listenForCommands(_deviceId, _client);
                     // console.log(twin);
-                    return [2 /*return*/, { deviceId: deviceId, properties: twin.properties }];
+                    return [2 /*return*/, { deviceId: deviceId, properties: _twin.properties }];
             }
         });
     });
 }
 exports.connect = connect;
-function _getAllTwins() {
-    var state = index_1.getStore().getState();
-    var twins = [];
-    for (var key in state.devices) {
-        var twin = index_1.getStore().getState().devices[key].twin;
-        twins.push(twin);
-    }
-    return twins;
-}
 function updateProperties(properties) {
     return __awaiter(this, void 0, void 0, function () {
-        var twins;
         return __generator(this, function (_a) {
+            if (!_client) {
+                return [2 /*return*/];
+            }
             console.log("Updating Properties...");
             console.log("" + properties);
             console.log("" + JSON.stringify(properties));
-            twins = _getAllTwins();
-            twins.map(function (twin) {
-                _updateProperties(twin, properties);
-            });
+            _updateProperties(_twin, properties);
             return [2 /*return*/];
         });
     });
@@ -160,15 +139,14 @@ function updateProperties(properties) {
 exports.updateProperties = updateProperties;
 function updateSettingComplete(setting, desiredChange) {
     return __awaiter(this, void 0, void 0, function () {
-        var twins;
         return __generator(this, function (_a) {
+            if (!_client) {
+                return [2 /*return*/];
+            }
             console.log("Updating Setting Complete...");
             console.log("" + setting);
             console.log("" + JSON.stringify(setting));
-            twins = _getAllTwins();
-            twins.map(function (twin) {
-                _updateSettingComplete(twin, setting, desiredChange);
-            });
+            _updateSettingComplete(_twin, setting, desiredChange);
             return [2 /*return*/];
         });
     });
@@ -201,6 +179,24 @@ function _updateProperties(twin, properties) {
                 reject(err);
             }
             resolve();
+        });
+    });
+}
+function sendTelemetry(telemetry) {
+    if (!_client) {
+        return;
+    }
+    var message = new Message(JSON.stringify(telemetry));
+    return _sendEvent(_client, message);
+}
+exports.sendTelemetry = sendTelemetry;
+function _sendEvent(client, message) {
+    return new Promise(function (resolve, reject) {
+        client.sendEvent(message, function (err, res) {
+            if (err) {
+                reject(err);
+            }
+            resolve(res);
         });
     });
 }
