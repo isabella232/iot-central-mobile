@@ -1,9 +1,9 @@
 import telemetryReducers, {
   sensors as telemetrySensors
-} from "../telemetrySensors";
+} from "./telemetrySensors";
 import propertyReducers, {
   sensors as propertySensors
-} from "../propertySensors";
+} from "./propertySensors";
 
 export default { ...telemetryReducers, ...propertyReducers };
 const sensors = propertySensors;

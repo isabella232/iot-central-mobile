@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import AccelerometerTile from "../components/tiles/accelerometerTile";
 import { postTelemetry } from "../store/telemetry/telemetryduck";
-import accelerometer from "../store/telemetrySensors/accelerometer";
+import accelerometer from "../store/sensors/telemetrySensors/accelerometer";
 
 // TODO: refactor state to contain original format, transform before sending to backend
 const mapStateToProps = state => {

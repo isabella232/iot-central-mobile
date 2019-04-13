@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import SensorDetails from "../../components/tileDetails/MagnetometerDetails";
-import sensor from "../../store/telemetrySensors/magnetometer";
+import sensor from "../../store/sensors/telemetrySensors/magnetometer";
 
 // TODO: refactor state to contain original format, transform before sending to backend
 /*

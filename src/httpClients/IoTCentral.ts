@@ -35,7 +35,6 @@ export interface Application {
 
 async function makeRequest(path, method = "GET", body?: {}) {
   const credentials = await AuthManager.getToken();
-  console.log(credentials);
   try {
     const response = await fetch(IOTC_API + path, {
       method: method,

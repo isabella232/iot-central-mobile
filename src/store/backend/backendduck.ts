@@ -1,8 +1,7 @@
 import backend from "nodejs-mobile-react-native";
 import { getState as fetchState } from "../../backendClients/telemetry/telemetry";
 import { connectExistingDevices } from "../devices/devicesduck";
-import { subscribeAll } from "../sensors/sensors";
-import { postTelemetryOnInterval } from "../telemetry/telemetryduck";
+import { subscribeAll } from "../sensors";
 import { receiveSettings } from "../properties/desiredduck";
 import { receiveCommand } from "../commands/commandsduck";
 
@@ -43,7 +42,6 @@ function initialized() {
     }
 
     await dispatch(subscribeAll());
-    return dispatch(postTelemetryOnInterval());
   };
 }
 

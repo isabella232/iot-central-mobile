@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import DeviceSensorDashboard from "../components/screens/DeviceSensorDashboard";
-import { subscribeAll, unsubscribeAll } from "../store/sensors/sensors";
+import { subscribeAll, unsubscribeAll } from "../store/sensors";
 import { update as updateSlider } from "../store/controls/sliderduck";
 import { stopSendingTelemetry } from "../store/telemetry/telemetryduck";
 import { subscribe as subscribeBackend } from "../store/backend/backendduck";
