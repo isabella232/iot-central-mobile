@@ -1,5 +1,5 @@
 // export const IOTC_BACKGROUND_COLOR = "#1f2328";
-export const IOTC_BACKGROUND_COLOR = "#0c3b6d";
+export const IOTC_BACKGROUND_COLOR = "#1f2328"; //"#0c3b6d";
 export const IOTC_BUTTON_BACKGROUND_COLOR = "#136bfb";
 export const TILE_BACKGROUND_COLOR = "#ededed";
 export const TILE_TITLE_COLOR = "black";

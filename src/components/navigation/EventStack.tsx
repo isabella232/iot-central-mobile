@@ -7,6 +7,7 @@ import {
 } from "react-navigation";
 import * as Colors from "../styling/colors";
 import VisibleEventDashboard from "../../containers/events/EventDashboard";
+import VisibleEventDetails from "../../containers/events/EventDetailsContainer";
 
 const StackNavigationStyle: NavigationScreenConfig<NavigationScreenOptions> = {
   headerStyle: {
@@ -19,7 +20,8 @@ const StackNavigationStyle: NavigationScreenConfig<NavigationScreenOptions> = {
 };
 export default createStackNavigator(
   {
-    EventDashboard: VisibleEventDashboard
+    EventDashboard: VisibleEventDashboard,
+    EventDetails: VisibleEventDetails
   },
   {
     initialRouteName: "EventDashboard",
