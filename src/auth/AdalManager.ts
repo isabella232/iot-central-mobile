@@ -1,5 +1,6 @@
 import MsalPlugin, { MsalUIBehavior } from "react-native-msal-plugin";
 import { AUTHORITY, CLIENT_ID, IOTC_SCOPE } from "react-native-dotenv";
+import { AsyncStorage } from "react-native";
 
 const scopes = [IOTC_SCOPE];
 
@@ -8,7 +9,7 @@ const login_hint = "user@domain.com";
 const forceTokenRefresh = false;
 
 const authClient = new MsalPlugin(AUTHORITY, CLIENT_ID);
-let tokenResult = {} as any;
+let tokenResult = null as any;
 const extraQueryParameters = {};
 export default class AdalManager {
   static async login() {
@@ -17,11 +18,11 @@ export default class AdalManager {
       tokenResult = await authClient.acquireTokenAsync(
         scopes,
         extraQueryParameters,
-        login_hint,
+        undefined,
         MsalUIBehavior.SELECT_ACCOUNT
       );
-      console.log(tokenResult.userInfo.userIdentifier);
-      console.log("Store the token", tokenResult);
+      await AsyncStorage.setItem("userId", tokenResult.userInfo.userIdentifier);
+
       return tokenResult;
     } catch (error) {
       console.log(error);
@@ -39,18 +40,22 @@ export default class AdalManager {
   static async getToken() {
     try {
       // TODO: fix all of this--add auth to state management
-      const silentTokenresult = await authClient.acquireTokenSilentAsync(
+      const userId =
+        (tokenResult && tokenResult.userInfo.userIdentifier) ||
+        (await AsyncStorage.getItem("userId"));
+      if (!userId) {
+        return null;
+      }
+      tokenResult = await authClient.acquireTokenSilentAsync(
         scopes,
-        tokenResult &&
-          tokenResult.userInfo &&
-          tokenResult.userInfo.userIdentifier
-          ? tokenResult.userInfo.userIdentifier
-          : "98ab46b9-d712-4f6f-a4ea-d8bafad65a44.72f988bf-86f1-41af-91ab-2d7cd011db47",
+        userId,
         forceTokenRefresh
       );
-      console.log("Store the new token", silentTokenresult);
-      tokenResult = silentTokenresult;
-      return silentTokenresult;
+      await AsyncStorage.setItem(
+        "userToken",
+        tokenResult.userInfo.userIdentifier
+      );
+      return tokenResult;
     } catch (error) {
       console.log(error);
     }
