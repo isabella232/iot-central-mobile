@@ -22,7 +22,11 @@ export default function reducer(state = initialState, action) {
       });
 
     case UPDATE:
-      return { ...state, [action.event]: { value: action.value } };
+      const currentState = state[action.event] ? state[action.event] : {};
+      return {
+        ...state,
+        [action.event]: { ...currentState, value: action.value }
+      };
     default:
       return state;
   }

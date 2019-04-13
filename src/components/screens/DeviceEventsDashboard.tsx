@@ -12,6 +12,11 @@ export interface Props extends NavigationProps {
 export interface State {}
 
 export default class DeviceEventDashboard extends Component<Props, State> {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "Events"
+    };
+  };
   render() {
     return (
       <View style={style.container}>

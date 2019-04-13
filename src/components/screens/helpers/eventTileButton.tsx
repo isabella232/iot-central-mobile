@@ -23,7 +23,8 @@ export default class EventTileButton extends Component<Props, State> {
           title={this.props.title}
           onPress={() =>
             this.props.navigation.navigate("EventDetails", {
-              eventName: this.props.eventName
+              eventName: this.props.eventName,
+              title: this.props.title
             })
           }
         >
