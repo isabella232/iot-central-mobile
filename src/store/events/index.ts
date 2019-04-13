@@ -1,4 +1,4 @@
-import { postTelemetry } from "../telemetry/telemetryduck";
+import { postTelemetry } from "../telemetry";
 
 // action types
 export const SEND = "aziot/event/SEND";

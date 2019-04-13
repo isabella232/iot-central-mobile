@@ -1,7 +1,7 @@
 import { Geolocation } from "react-native";
-import { postProperties } from "./reportedduck";
+import { postProperties } from "../properties/reportedduck";
 import { updateSettingsComplete as postUpdateComplete } from "../../backendClients/telemetry/settings";
-import settingMapping from "./settingMapping";
+import settingMapping from "../properties/settingMapping";
 
 const UPDATE_SETTINGS = "aziot/settings/UPDATE";
 const UPDATE_SETTINGS_SUCCESS = "aziot/settings/UPDATE_SUCCESS";

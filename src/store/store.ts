@@ -6,13 +6,13 @@ import {
   compose
 } from "redux";
 import { createLogger } from "redux-logger";
-import telemetry from "./telemetry/telemetryduck";
-import applications from "./applications/applicationsduck";
-import devices from "./devices/devicesduck";
+import telemetry from "./telemetry";
+import applications from "./applications";
+import devices from "./devices";
 import sensors from "./sensors";
 import properties from "./properties";
-import settings from "./properties/desiredduck";
-import backend from "./backend/backendduck";
+import settings from "./settings";
+import backend from "./backend";
 import controls from "./controls/controls";
 import thunkMiddleware from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
@@ -25,7 +25,7 @@ import {
   SEND_TELEMETRY_FAIL,
   SEND_TELEMETRY_SUCCESS,
   UPDATE_TELEMETRY
-} from "./telemetry/telemetryduck";
+} from "./telemetry";
 //import { SENSOR_ACTION_TYPES } from "./sensors/index";
 
 let store: Store;

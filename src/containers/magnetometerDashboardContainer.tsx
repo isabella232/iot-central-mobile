@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import MagnetometerTile from "../components/tiles/magnetometerTile";
-import { postTelemetry } from "../store/telemetry/telemetryduck";
+import { postTelemetry } from "../store/telemetry";
 import magnetometer from "../store/sensors/telemetrySensors/magnetometer";
 
 // TODO: refactor state to contain original format, transform before sending to backend

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import GyroscopeTile from "../components/tiles/gyroscopeTile";
-import { postTelemetry } from "../store/telemetry/telemetryduck";
+import { postTelemetry } from "../store/telemetry";
 import gyroscope from "../store/sensors/telemetrySensors/gyroscope";
 
 // TODO: refactor state to contain original format, transform before sending to backend
