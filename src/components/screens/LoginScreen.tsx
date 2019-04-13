@@ -30,9 +30,7 @@ export default class LoginScreen extends Component<Props, State> {
             style={LoginStyle.photo}
             source={require("../../../assets/images/iotc-logo.png")}
           />
-          <Text style={LoginStyle.infoText}>
-            {"Sign in to add and manage devices in your application"}
-          </Text>
+          <Text style={LoginStyle.infoText}>{"Azure IoT Mobile"}</Text>
         </View>
         <IoTCentralButton onPress={this.login} title="Log In" />
       </View>
@@ -63,7 +61,7 @@ const LoginStyle = StyleSheet.create({
     color: Colors.IOTC_TEXT_COLOR,
     textAlign: "center",
     paddingBottom: 60,
-    paddingTop: 60,
-    fontSize: 16
+    paddingTop: 40,
+    fontSize: 24
   }
 });

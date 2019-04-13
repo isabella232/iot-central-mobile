@@ -799,6 +799,11 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
+"@react-native-community/async-storage@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.3.1.tgz#66b02438289ea1f525eca65ea2535b7d6ece5eb7"
+  integrity sha512-RTQ/Jmk3j8SsRQCIu89o0TjN8/IIGCiManePhOahSKYGKn0dJw+5lSUSNDca1jboAbytsEowxZXsMSxs1hv6FA==
+
 "@react-native-community/cli@^1.2.1":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli/-/cli-1.6.0.tgz#889fbb1eff961945df28bb7e896dcee8516b010f"
@@ -5312,10 +5317,10 @@ react-native-google-fit@^0.9.12:
   resolved "https://registry.yarnpkg.com/react-native-google-fit/-/react-native-google-fit-0.9.12.tgz#8013979232e1babe975f05b08781f10fc0576bf3"
   integrity sha512-fYq96aJsPwPmrwQJEGbaIU/BxwzGHZOYTMvgTbeiV7wSrOsp3XIT7vBxiLyZoLm4+oPvFbDn0M35cwk1dw8aKg==
 
-react-native-ms-adal@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/react-native-ms-adal/-/react-native-ms-adal-0.4.2.tgz#e58d8ac7c58b558a156192c5df161348c976b922"
-  integrity sha512-CNfgbA/J3SzC4MoSuMlnyFnqftwpLL9KMi2EFhXQPkAa80jdTwsXripuCTLTtl9GsKVHvx+eBTmpBXsqOAcwew==
+react-native-msal-plugin@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-msal-plugin/-/react-native-msal-plugin-3.0.0.tgz#ee13985a6a1da829fbc760932ed4bbb60d19b2a4"
+  integrity sha512-ouRz3P5QSFwCmiYoMGeP3zv/aIFBJwRV7xjLSEm6n9dd67UvkIVP34hVRmeTKBL+YUY5D74Vxnljphv7IL+8BQ==
 
 react-native-safe-area-view@^0.13.0:
   version "0.13.1"

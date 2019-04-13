@@ -29,7 +29,9 @@ target 'aziotmobile' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   # End React
-  pod 'ADAL', '~> 4.0'
+  # pod 'ADAL', '~> 4.0'
+  pod 'MSAL', '~> 0.2'
+
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'

@@ -14,6 +14,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+#import <MSAL/MSAL.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -35,6 +37,13 @@
   [self.window makeKeyAndVisible];
   return YES;
 }
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
+  {
+ 
+    [MSALPublicClientApplication handleMSALResponse:url];
+    return YES;
+  }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {

@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { postTelemetry } from "../../store/telemetry/telemetryduck";
 import { sendEvent, updateEvent } from "../../store/events";
 import DeviceEventDashboard from "../../components/screens/DeviceEventsDashboard";
 const mapStateToProps = state => {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavigationProps } from "../../props/NavigationProps";
-import { StyleSheet, Button, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import EventTile from "../../tiles/common/eventTile";
 import * as Colors from "../../styling/colors";
 
@@ -18,26 +18,24 @@ export default class EventTileButton extends Component<Props, State> {
   render() {
     return (
       <View style={style.container}>
-        <EventTile {...this.props} title={this.props.title} onPress={() => {}}>
+        <EventTile
+          {...this.props}
+          title={this.props.title}
+          onPress={() =>
+            this.props.navigation.navigate("EventDetails", {
+              eventName: this.props.eventName,
+              title: this.props.title
+            })
+          }
+        >
           <Text style={{ color: Colors.TILE_TITLE_COLOR, fontSize: 18 }}>
             {this.props.event ? this.props.event.value : "No Value Defined"}
           </Text>
         </EventTile>
-        <TouchableOpacity
+        <TouchableHighlight
           style={{
-            backgroundColor: this.props.buttonColor || Colors.BUTTON,
-            height: 40,
-            alignItems: "center",
-            justifyContent: "center",
-            margin: 8,
-            marginBottom: 15,
-            marginTop: 6,
-            shadowColor: Colors.SHADOW_COLOR,
-            shadowOpacity: 0.5,
-            shadowOffset: { width: 0, height: 5 },
-            shadowRadius: 3,
-            elevation: 5,
-            flex: 1
+            ...style.button,
+            backgroundColor: this.props.buttonColor || Colors.BUTTON
           }}
           onPress={() =>
             this.props.sendEvent({
@@ -49,7 +47,7 @@ export default class EventTileButton extends Component<Props, State> {
           }
         >
           <Text style={{ color: Colors.BUTTON_TEXT, fontSize: 20 }}>Send</Text>
-        </TouchableOpacity>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -59,5 +57,20 @@ const style = StyleSheet.create({
   container: {
     alignItems: "stretch",
     justifyContent: "flex-start"
+  },
+  button: {
+    backgroundColor: Colors.BUTTON,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 8,
+    marginBottom: 15,
+    marginTop: 6,
+    shadowColor: Colors.SHADOW_COLOR,
+    shadowOpacity: 0.5,
+    shadowOffset: { width: 0, height: 5 },
+    shadowRadius: 3,
+    elevation: 5,
+    flex: 1
   }
 });

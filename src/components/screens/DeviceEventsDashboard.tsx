@@ -12,6 +12,11 @@ export interface Props extends NavigationProps {
 export interface State {}
 
 export default class DeviceEventDashboard extends Component<Props, State> {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "Events"
+    };
+  };
   render() {
     return (
       <View style={style.container}>
@@ -27,12 +32,14 @@ export default class DeviceEventDashboard extends Component<Props, State> {
             title="Warning Event"
             eventName="warning_button"
             event={this.props.events.warning_button}
+            buttonColor="orange"
           />
           <EventTileButton
             {...this.props}
             title="Error Event"
             eventName="error_button"
             event={this.props.events.error_button}
+            buttonColor="red"
           />
         </ScrollView>
       </View>

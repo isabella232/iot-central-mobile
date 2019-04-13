@@ -1,9 +1,4 @@
 PODS:
-  - ADAL (4.0.0):
-    - ADAL/app-lib (= 4.0.0)
-  - ADAL/app-lib (4.0.0):
-    - ADAL/tokencacheheader
-  - ADAL/tokencacheheader (4.0.0)
   - AppCenter/Analytics (1.14.0):
     - AppCenter/Core
   - AppCenter/Core (1.14.0)
@@ -18,6 +13,9 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
+  - MSAL (0.2.3):
+    - MSAL/app-lib (= 0.2.3)
+  - MSAL/app-lib (0.2.3)
   - React (0.59.4):
     - React/Core (= 0.59.4)
   - react-native-slider (1.0.4):
@@ -88,13 +86,13 @@ PODS:
   - yoga (0.59.4.React)
 
 DEPENDENCIES:
-  - ADAL (~> 4.0)
   - AppCenter/Analytics (~> 1.14.0)
   - AppCenter/Crashes (~> 1.14.0)
   - AppCenterReactNativeShared (~> 1.13.0)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - MSAL (~> 0.2)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-torch (from `../node_modules/react-native-torch`)
   - React/Core (from `../node_modules/react-native`)
@@ -119,10 +117,10 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - ADAL
     - AppCenter
     - AppCenterReactNativeShared
     - boost-for-react-native
+    - MSAL
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -149,13 +147,13 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  ADAL: 2f09070fb5a7095172e34409459eca3f3f1d0d23
   AppCenter: 02c5efe08d3bbab5421ae41d5f7aa7238906b817
   AppCenterReactNativeShared: 00f470c3c17b47718db8733cbe811ccdcfd86282
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
+  MSAL: 2592b744b9215d9b7463f02fb9afd4e432c75c62
   React: 5cb71fb1a15b5ce04794ab49e24b48ebe4c94e65
   react-native-slider: f9e501d8ae01322ac4246c57c3655005269c8928
   react-native-torch: bff9b2c4230e183b8cc74c4f0c4cca70bcf16170
@@ -165,6 +163,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 6607bd3a30291d0edb56f9bbe7ae411ee2b928b0
   yoga: 596e61c9b57751d08a22b07aba310dbd3e65ab75
 
-PODFILE CHECKSUM: 356c9897434804b4c1e33550e3318bb9b36f948c
+PODFILE CHECKSUM: cd71e7dcda3534ee25dbf3292613080f18e358fa
 
 COCOAPODS: 1.6.1
