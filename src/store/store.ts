@@ -12,6 +12,7 @@ import devices from "./devices";
 import sensors from "./sensors";
 import properties from "./properties";
 import settings from "./settings";
+import state from "./state";
 import backend from "./backend";
 import controls from "./controls/controls";
 import thunkMiddleware from "redux-thunk";
@@ -20,6 +21,7 @@ import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import storage from "redux-persist/lib/storage";
 import Reactotron from "../../ReactotronConfig";
 import events from "./events";
+import flashlight from "./flashlight";
 import {
   SEND_TELEMETRY,
   SEND_TELEMETRY_FAIL,
@@ -40,7 +42,9 @@ const rootReducer = combineReducers({
   settings,
   backend,
   controls,
-  events
+  events,
+  state,
+  flashlight
 });
 
 const persistConfig = {

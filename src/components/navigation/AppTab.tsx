@@ -1,22 +1,21 @@
 import React from "react";
 import { createBottomTabNavigator } from "react-navigation";
-import DeviceDashboardContainer from "../../containers/deviceDashboard";
 import * as Colors from "../styling/colors";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Octicon from "react-native-vector-icons/Octicons";
 import SelfProvisioningStack from "./SelfProvisioningStack";
-import DashboardTab from "./DashboardTab";
 import SettingsStack from "./SettingsStack";
 import DashboardStack from "./DashboardStack";
-import DeviceEventDashboard from "../screens/DeviceEventsDashboard";
 import EventStack from "./EventStack";
+import DeviceStateStack from "./DeviceStateStack";
 
 const AppTabNavigator = createBottomTabNavigator(
   {
     Dashboard: DashboardStack,
     Events: EventStack,
     Connect: SelfProvisioningStack,
-    Settings: SettingsStack
+    Settings: SettingsStack,
+    State: DeviceStateStack
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -32,6 +31,8 @@ const AppTabNavigator = createBottomTabNavigator(
           iconName = "gear";
         } else if (routeName === "Events") {
           return <Octicon name="flame" size={25} color={tintColor} />;
+        } else if (routeName === "State") {
+          iconName = "toggle-on";
         }
         return <IconComponent name={iconName} size={25} color={tintColor} />;
       }

@@ -1,12 +1,13 @@
 import { postTelemetry } from "../telemetry";
+import mapping from "../settings/actionMapping";
 
 // action types
 
 export const UPDATE = "aziot/state/UPDATE";
 
 const initialState = {
-  information_button: {
-    value: "This is the information message."
+  flashlight: {
+    value: "off"
   }
 };
 
@@ -26,6 +27,13 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export function updateDeviceState(stateName, value) {
+export function sendDeviceState(stateName, value) {
+  return async (dispatch, getState) => {
+    dispatch(postTelemetry({ [stateName]: value }));
+    dispatch(updateDeviceState(stateName, value));
+  };
+}
+
+function updateDeviceState(stateName, value) {
   return { type: UPDATE, stateName, value };
 }
