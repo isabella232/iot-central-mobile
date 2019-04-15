@@ -3,11 +3,13 @@ import { createBottomTabNavigator } from "react-navigation";
 import * as Colors from "../styling/colors";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Octicon from "react-native-vector-icons/Octicons";
+import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import SelfProvisioningStack from "./SelfProvisioningStack";
 import SettingsStack from "./SettingsStack";
 import DashboardStack from "./DashboardStack";
 import EventStack from "./EventStack";
 import DeviceStateStack from "./DeviceStateStack";
+import PropertiesStack from "./PropertiesStack";
 
 const AppTabNavigator = createBottomTabNavigator(
   {
@@ -15,7 +17,8 @@ const AppTabNavigator = createBottomTabNavigator(
     Events: EventStack,
     Connect: SelfProvisioningStack,
     Settings: SettingsStack,
-    State: DeviceStateStack
+    State: DeviceStateStack,
+    Properties: PropertiesStack
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -33,6 +36,10 @@ const AppTabNavigator = createBottomTabNavigator(
           return <Octicon name="flame" size={25} color={tintColor} />;
         } else if (routeName === "State") {
           iconName = "toggle-on";
+        } else if (routeName === "Properties") {
+          return (
+            <MaterialIcon name="info-outline" size={25} color={tintColor} />
+          );
         }
         return <IconComponent name={iconName} size={25} color={tintColor} />;
       }

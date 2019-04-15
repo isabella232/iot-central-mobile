@@ -16,11 +16,11 @@ export default class EventTile extends Component<Props, State> {
         {...this.props}
         subTitle={
           this.props.event && this.props.event.date
-            ? moment(this.props.event.date).fromNow()
+            ? `Last sent ${moment(this.props.event.date).fromNow()}`
             : "Not sent yet"
         }
         subIcon={null}
-        large={true}
+        wide={true}
       >
         {this.props.children}
       </Tile>

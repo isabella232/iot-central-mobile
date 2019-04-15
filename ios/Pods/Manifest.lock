@@ -18,6 +18,8 @@ PODS:
   - MSAL/app-lib (0.2.3)
   - React (0.59.4):
     - React/Core (= 0.59.4)
+  - react-native-maps (0.24.0):
+    - React
   - react-native-slider (1.0.4):
     - React
   - react-native-torch (1.1.5):
@@ -93,6 +95,7 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - MSAL (~> 0.2)
+  - react-native-maps (from `../node_modules/react-native-maps`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-torch (from `../node_modules/react-native-torch`)
   - React/Core (from `../node_modules/react-native`)
@@ -131,6 +134,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
     :path: "../node_modules/react-native"
+  react-native-maps:
+    :path: "../node_modules/react-native-maps"
   react-native-slider:
     :path: "../node_modules/@react-native-community/slider"
   react-native-torch:
@@ -155,6 +160,7 @@ SPEC CHECKSUMS:
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   MSAL: 2592b744b9215d9b7463f02fb9afd4e432c75c62
   React: 5cb71fb1a15b5ce04794ab49e24b48ebe4c94e65
+  react-native-maps: d87d8ed456d4132112fb1d2ee9baf3470c0f211d
   react-native-slider: f9e501d8ae01322ac4246c57c3655005269c8928
   react-native-torch: bff9b2c4230e183b8cc74c4f0c4cca70bcf16170
   RNDeviceInfo: 0e4abfc346f969b784f92da61d9c7509eac91510
@@ -163,6 +169,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 6607bd3a30291d0edb56f9bbe7ae411ee2b928b0
   yoga: 596e61c9b57751d08a22b07aba310dbd3e65ab75
 
-PODFILE CHECKSUM: 44d096c1f8b3235c1fd5de7eb45eb0971243a1a0
+PODFILE CHECKSUM: 56dca29a917d1ec2d4fb12f36dcb878d3a02c9d7
 
 COCOAPODS: 1.6.1
