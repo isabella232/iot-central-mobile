@@ -104,13 +104,14 @@ function connect(appSymmetricKey, deviceId, scopeId) {
             switch (_a.label) {
                 case 0:
                     console.log("appSymm " + appSymmetricKey + " devId " + deviceId + " scope " + scopeId);
+                    console.log("Connecting...");
+                    if (_deviceId === deviceId) {
+                        console.log("Already Connected!");
+                        return [2 /*return*/, { deviceId: deviceId, properties: _twin.properties }];
+                    }
                     return [4 /*yield*/, _computeConnectionString(appSymmetricKey, deviceId, scopeId)];
                 case 1:
                     connectionString = _a.sent();
-                    console.log("Connecting...");
-                    if (_deviceId === deviceId) {
-                        return [2 /*return*/, { deviceId: deviceId, properties: _twin.properties }];
-                    }
                     _client = clientFromConnectionString(connectionString);
                     return [4 /*yield*/, _getTwin(_client)];
                 case 2:

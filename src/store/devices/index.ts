@@ -53,7 +53,6 @@ function requestCreate() {
     type: CREATE_DEVICE
   };
 }
-
 function receiveDevice(device) {
   return {
     type: CREATE_DEVICE_SUCCESS,

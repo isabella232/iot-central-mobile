@@ -61,6 +61,7 @@ const commands = [
 ];
 
 function _listenForCommands(deviceId, client) {
+  console.log("Listening for commands...");
   commands.forEach(command => {
     client.onDeviceMethod(command, (request, response) => {
       console.log(`command received: ${command}`);
@@ -79,6 +80,8 @@ export async function connect(appSymmetricKey, deviceId, scopeId) {
   console.log(`appSymm ${appSymmetricKey} devId ${deviceId} scope ${scopeId}`);
   console.log("Connecting...");
   if (_deviceId === deviceId) {
+    console.log("Already Connected!");
+
     return { deviceId, properties: _twin.properties };
   }
   const connectionString = await _computeConnectionString(
