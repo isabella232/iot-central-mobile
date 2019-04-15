@@ -1,4 +1,5 @@
 import PropertySensor from "./helpers/propertySensor";
+import { SensorState } from "../../common/SensorDuckInterface";
 
 interface Data {
   location: {
@@ -63,3 +64,18 @@ class Geolocation extends PropertySensor<Data> {
 }
 
 export default new Geolocation();
+
+export interface GeolocationData {
+  coords: {
+    altitude: number;
+    altitudeAccuracy: number;
+    latitude: number;
+    accuracy: number;
+    longitude: number;
+    heading: number;
+    speed: number;
+  };
+  timestamp: number;
+}
+
+export interface GeolocationState extends SensorState<GeolocationData> {}

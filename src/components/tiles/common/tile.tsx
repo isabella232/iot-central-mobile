@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { TouchableHighlight, View, StyleSheet, Text } from "react-native";
+import {
+  TouchableHighlight,
+  View,
+  StyleSheet,
+  Text,
+  StyleSheetProperties
+} from "react-native";
 import * as Colors from "../../styling/colors";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import IconComponent from "react-native-vector-icons/FontAwesome";
@@ -9,7 +15,8 @@ export interface Props {
   title: string;
   subTitle: string;
   subIcon: any;
-  large?: boolean;
+  wide?: boolean;
+  style?: any;
 }
 
 export interface State {}
@@ -17,7 +24,11 @@ export default class Tile extends Component<Props, State> {
   render() {
     return (
       <View
-        style={{ ...style.container, aspectRatio: this.props.large ? 2 : 1 }}
+        style={{
+          ...style.container,
+          aspectRatio: this.props.wide ? 2 : 1,
+          ...this.props.style
+        }}
       >
         <TouchableHighlight
           underlayColor={Colors.TILE_PRESSED_COLOR}
