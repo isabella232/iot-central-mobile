@@ -22,7 +22,7 @@ export default class DefaultSensor<Data extends Object>
       shouldSimulate: false,
       simulatedValue: initialDataState,
       shouldUseLargeTile: false,
-      sendInterval: 60000
+      sendInterval: 5000
     };
     this.SUBSCRIBE = subscribeAction(sensorName);
     this.UNSUBSCRIBE = unsubscribeAction(sensorName);
