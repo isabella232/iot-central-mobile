@@ -1,6 +1,6 @@
 import PropertySensor from "./helpers/propertySensor";
 import DeviceInformation from "react-native-device-info";
-
+import { SensorState } from "../../common/SensorDuckInterface";
 const initialDataState = {
   locale: "",
   id: "",
@@ -10,7 +10,7 @@ const initialDataState = {
   battery: 0
 };
 
-interface Data {
+export interface DeviceInfoData {
   locale: string;
   id: string;
   ip: string;
@@ -19,7 +19,8 @@ interface Data {
   battery: number;
 }
 
-class DeviceInfo extends PropertySensor<Data> {
+export interface DeviceInfoState extends SensorState<DeviceInfoData> {}
+class DeviceInfo extends PropertySensor<DeviceInfoData> {
   constructor() {
     super("deviceInfo", DeviceInformation, initialDataState);
   }

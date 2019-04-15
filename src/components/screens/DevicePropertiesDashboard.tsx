@@ -3,7 +3,7 @@ import { NavigationProps } from "../props/NavigationProps";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import VisibleGeolocation from "../../containers/properties/geolocationTileContainer";
-import MapView from "react-native-maps";
+import VisibleDeviceInfo from "../../containers/properties/deviceInfoContainer";
 
 export interface Props extends NavigationProps {
   events: any;
@@ -22,13 +22,12 @@ export default class DevicePropertiesDashboard extends Component<Props, State> {
     return (
       <ScrollView contentContainerStyle={style.container}>
         <VisibleGeolocation />
+        <VisibleDeviceInfo />
       </ScrollView>
     );
   }
 }
 
 const style = StyleSheet.create({
-  container: {
-    flex: 1
-  }
+  container: {}
 });
