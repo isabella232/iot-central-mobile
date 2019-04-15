@@ -23,6 +23,7 @@ import Reactotron from "../../ReactotronConfig";
 import events from "./events";
 import flashlight from "./flashlight";
 import deviceList from "./deviceList";
+import brightness from "./brightness";
 import {
   SEND_TELEMETRY,
   SEND_TELEMETRY_FAIL,
@@ -46,7 +47,8 @@ const rootReducer = combineReducers({
   events,
   state,
   flashlight,
-  deviceList
+  deviceList,
+  brightness
 });
 
 const persistConfig = {

@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -14,6 +15,7 @@
 		00E356F31AD99517003FC87E /* aziotmobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* aziotmobileTests.m */; };
 		00E8689261B8405997263909 /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79181F4525B24FE792B82D60 /* libAppCenterReactNativeCrashes.a */; };
 		01A52C290557436BA998C6A6 /* libRNNodeJsMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 981CAA0B86A94E708CD399F4 /* libRNNodeJsMobile.a */; };
+		05F15C839C0D402A8BF9FE1D /* libRNDeviceBrightness.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39434606449E42768FF14154 /* libRNDeviceBrightness.a */; };
 		08F4C03D3F544DC2AF2D9E7F /* NodeMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D80A644206C34518A7992B37 /* NodeMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
@@ -348,6 +350,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNMsalPlugin;
 		};
+		9A8A0DB822651EE700ACFDA8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 577C138555EA41B9B3E5857F /* RNDeviceBrightness.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 189E4F931E73FA6B00C0D8E0;
+			remoteInfo = RNDeviceBrightness;
+		};
 		9AAD6AFE225D3959006A761A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D290095430C54237A3EBF775 /* RNNodeJsMobile.xcodeproj */;
@@ -407,9 +416,11 @@
 		2D02E4901E0B4A5D006451C7 /* aziotmobile-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "aziotmobile-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		349DAC923146456C9AA06B0C /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		39434606449E42768FF14154 /* libRNDeviceBrightness.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceBrightness.a; sourceTree = "<group>"; };
 		4161846C54FB51F440EEC218 /* Pods-aziotmobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aziotmobile.release.xcconfig"; path = "Target Support Files/Pods-aziotmobile/Pods-aziotmobile.release.xcconfig"; sourceTree = "<group>"; };
 		43CDE0BA16464DE8975A29E5 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		5612CC71529D4E18B5306C3A /* builtin_modules */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = builtin_modules; path = "../node_modules/nodejs-mobile-react-native/install/resources/nodejs-modules/builtin_modules"; sourceTree = "<group>"; };
+		577C138555EA41B9B3E5857F /* RNDeviceBrightness.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceBrightness.xcodeproj; path = "../node_modules/react-native-device-brightness/RNDeviceBrightness.xcodeproj"; sourceTree = "<group>"; };
 		5DB37B59FF114A73BDC784B6 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6D482A16BA864E38A6CB12A6 /* nodejs-project */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "nodejs-project"; path = "../nodejs-assets/nodejs-project"; sourceTree = "<group>"; };
@@ -476,6 +487,7 @@
 				86A8CC9CECF149E9A19D9BDF /* libAppCenterReactNativeAnalytics.a in Frameworks */,
 				00E8689261B8405997263909 /* libAppCenterReactNativeCrashes.a in Frameworks */,
 				1C05FC4321CC4CD18C88DCC8 /* libRNMsalPlugin.a in Frameworks */,
+				05F15C839C0D402A8BF9FE1D /* libRNDeviceBrightness.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +694,7 @@
 				B93A27C46D344EE184A1AC3E /* AppCenterReactNativeAnalytics.xcodeproj */,
 				105B3609373249AC9F8CF823 /* AppCenterReactNativeCrashes.xcodeproj */,
 				6E4E497C58604C959298473C /* RNMsalPlugin.xcodeproj */,
+				577C138555EA41B9B3E5857F /* RNDeviceBrightness.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -729,12 +742,12 @@
 		9A2D75ED225D1DC600559A8F /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				52E4571B1E314730A3E25E07 /* libRNAdalPlugin.a */,
 				981CAA0B86A94E708CD399F4 /* libRNNodeJsMobile.a */,
 				F90170FC02454E22B5FA6F67 /* libAppCenterReactNative.a */,
 				794ED3D5E16840779F5A6344 /* libAppCenterReactNativeAnalytics.a */,
 				79181F4525B24FE792B82D60 /* libAppCenterReactNativeCrashes.a */,
 				A46889A5388E4B3DBE7A6952 /* libRNMsalPlugin.a */,
+				39434606449E42768FF14154 /* libRNDeviceBrightness.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -767,6 +780,14 @@
 			isa = PBXGroup;
 			children = (
 				9A64841E2261485100F57028 /* libRNMsalPlugin.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9A8A0DB522651EE700ACFDA8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A8A0DB922651EE700ACFDA8 /* libRNDeviceBrightness.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -999,6 +1020,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = 9A8A0DB522651EE700ACFDA8 /* Products */;
+					ProjectRef = 577C138555EA41B9B3E5857F /* RNDeviceBrightness.xcodeproj */;
 				},
 				{
 					ProductGroup = 9A64841A2261485100F57028 /* Products */;
@@ -1300,6 +1325,13 @@
 			remoteRef = 9A64841D2261485100F57028 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		9A8A0DB922651EE700ACFDA8 /* libRNDeviceBrightness.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNDeviceBrightness.a;
+			remoteRef = 9A8A0DB822651EE700ACFDA8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		9AAD6AFF225D3959006A761A /* libRNNodeJsMobile.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1583,12 +1615,14 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
+					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
 				);
 				INFOPLIST_FILE = aziotmobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1619,12 +1653,14 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
+					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
 				);
 				INFOPLIST_FILE = aziotmobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1657,6 +1693,7 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
+					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
 				);
 				INFOPLIST_FILE = aziotmobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1692,6 +1729,7 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
+					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
 				);
 				INFOPLIST_FILE = aziotmobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1732,11 +1770,13 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
+					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
 				);
 				INFOPLIST_FILE = "aziotmobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1775,11 +1815,13 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
+					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
 				);
 				INFOPLIST_FILE = "aziotmobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1817,11 +1859,13 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
+					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
 				);
 				INFOPLIST_FILE = "aziotmobile-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1859,11 +1903,13 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
+					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
 				);
 				INFOPLIST_FILE = "aziotmobile-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

@@ -1,5 +1,7 @@
-import { setFlashlight } from "../flashlight";
+import { setBrightness } from "../brightness";
 
-const settingMapping = {};
+const settingMapping = {
+  brightness: setBrightness
+};
 
 export default settingMapping;
