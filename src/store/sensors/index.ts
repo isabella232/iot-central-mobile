@@ -6,7 +6,7 @@ import propertyReducers, {
 } from "./propertySensors";
 
 export default { ...telemetryReducers, ...propertyReducers };
-const sensors = propertySensors;
+const sensors: Array<any> = [];
 export function subscribeAll() {
   return async dispatch => {
     await dispatch(unsubscribeAll());

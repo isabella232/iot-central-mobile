@@ -5,13 +5,13 @@ import { Application } from "../../httpClients/IoTCentral";
 import IconComponent from "react-native-vector-icons/FontAwesome";
 
 export interface Props {
-  handlePressed: (app: Application) => any;
-  application: Application;
+  handlePressed: (device) => any;
+  device: any;
 }
 
 export interface State {}
 
-export default class ApplicationRow extends React.Component<Props, State> {
+export default class DeviceRow extends React.Component<Props, State> {
   constructor(props) {
     super(props);
   }
@@ -19,10 +19,10 @@ export default class ApplicationRow extends React.Component<Props, State> {
   render() {
     return (
       <TouchableOpacity
-        onPress={() => this.props.handlePressed(this.props.application)}
+        onPress={() => this.props.handlePressed(this.props.device)}
       >
         <View style={RowStyle.container}>
-          <Text style={RowStyle.text}>{`${this.props.application.name}`}</Text>
+          <Text style={RowStyle.text}>{`${this.props.device.name}`}</Text>
           <IconComponent
             name="angle-right"
             size={20}

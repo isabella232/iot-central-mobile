@@ -55,7 +55,6 @@ export default class DeviceInfoView extends Component<Props, State> {
   }
 
   InfoBar = props => {
-    console.log(props);
     return (
       <View style={style.infoContainer}>
         <Text style={style.labelText}>{props.label}</Text>

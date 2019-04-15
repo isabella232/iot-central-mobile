@@ -5,6 +5,10 @@ export async function getApps() {
   return (await makeRequest("applications/")).value;
 }
 
+export async function getDevices(appId) {
+  return (await makeRequest(`applications/${appId}/devices/`)).value;
+}
+
 export function createDevice(
   appId: string,
   deviceName: string,

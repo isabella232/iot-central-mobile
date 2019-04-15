@@ -6,7 +6,7 @@ import { sendDeviceState } from "../state";
 export const UPDATE = "aziot/flashlight/UPDATE";
 
 const initialState = {
-  value: "false"
+  value: false
 };
 
 // reducer

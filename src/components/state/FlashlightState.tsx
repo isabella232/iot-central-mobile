@@ -25,11 +25,11 @@ export default class FlashlightState extends Component<Props, State> {
               ...style.toggle,
               backgroundColor: this.props.value
                 ? Colors.BUTTON
-                : Colors.TILE_BACKGROUND_COLOR,
-              underlayColor: !this.props.value
-                ? Colors.BUTTON
                 : Colors.TILE_BACKGROUND_COLOR
             }}
+            underlayColor={
+              !this.props.value ? Colors.TILE_BACKGROUND_COLOR : Colors.BUTTON
+            }
           >
             <Text style={{ ...style.toggleText }}>On</Text>
           </TouchableHighlight>
@@ -39,11 +39,11 @@ export default class FlashlightState extends Component<Props, State> {
               ...style.toggle,
               backgroundColor: this.props.value
                 ? Colors.TILE_BACKGROUND_COLOR
-                : Colors.BUTTON,
-              underlayColor: !this.props.value
-                ? Colors.TILE_BACKGROUND_COLOR
                 : Colors.BUTTON
             }}
+            underlayColor={
+              !this.props.value ? Colors.TILE_BACKGROUND_COLOR : Colors.BUTTON
+            }
           >
             <Text style={{ ...style.toggleText }}>Off</Text>
           </TouchableHighlight>

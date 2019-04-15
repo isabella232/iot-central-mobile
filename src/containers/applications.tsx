@@ -13,8 +13,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getApps: () => dispatch(fetchApplications()),
-    provisionDevice: appId => dispatch(createDevice(appId))
+    getApps: () => dispatch(fetchApplications())
+    // provisionDevice: appId => dispatch(createDevice(appId))
   };
 };
 

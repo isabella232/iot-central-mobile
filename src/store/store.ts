@@ -22,6 +22,7 @@ import storage from "redux-persist/lib/storage";
 import Reactotron from "../../ReactotronConfig";
 import events from "./events";
 import flashlight from "./flashlight";
+import deviceList from "./deviceList";
 import {
   SEND_TELEMETRY,
   SEND_TELEMETRY_FAIL,
@@ -44,7 +45,8 @@ const rootReducer = combineReducers({
   controls,
   events,
   state,
-  flashlight
+  flashlight,
+  deviceList
 });
 
 const persistConfig = {

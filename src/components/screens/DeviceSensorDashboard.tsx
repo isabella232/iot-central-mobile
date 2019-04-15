@@ -34,12 +34,12 @@ export default class DeviceSensorDashboard extends Component<Props, State> {
   });
 
   async componentDidMount() {
-    //await this.props.subscribe();
+    await this.props.subscribe();
   }
 
   async componentWillUnmount() {
-    //await this.props.stopSendingTelemetry();
-    //await this.props.unsubscribeAll();
+    await this.props.stopSendingTelemetry();
+    await this.props.unsubscribeAll();
   }
   render() {
     return (
