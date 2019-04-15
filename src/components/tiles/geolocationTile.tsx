@@ -29,6 +29,7 @@ export default class GeolocationTile extends Component<Props, State> {
   subscribe = () => {
     this.geolocationSubscription = navigator.geolocation.watchPosition(
       position => {
+        this.props.update(position);
         this.props.post(position);
       },
       error => {
@@ -60,7 +61,13 @@ export default class GeolocationTile extends Component<Props, State> {
             : "Not sent yet"
         }
         wide={this.props.shouldUseLargeTile}
-        style={{ padding: 0, paddingTop: 10 }}
+        style={{
+          padding: 0,
+          paddingTop: 10,
+          paddingBottom: 20,
+          flexGrow: 1,
+          flexShrink: 0
+        }}
         subIcon={
           <IconComponent
             name="signal"

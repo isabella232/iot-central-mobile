@@ -15,6 +15,7 @@
     "appcenter": "1.13.0",
     "appcenter-analytics": "1.13.0",
     "appcenter-crashes": "1.13.0",
+    "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "nodejs-mobile-react-native": "^0.4.0",
     "react": "16.8.3",
