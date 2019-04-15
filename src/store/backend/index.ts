@@ -1,10 +1,9 @@
 import backend from "nodejs-mobile-react-native";
 import { getState as fetchState } from "../../backendClients/telemetry/telemetry";
-import { connectExistingDevices } from "../devices/devicesduck";
-import { subscribeAll } from "../sensors/sensors";
-import { postTelemetryOnInterval } from "../telemetry/telemetryduck";
-import { receiveSettings } from "../properties/desiredduck";
-import { receiveCommand } from "../commands/commandsduck";
+import { connectExistingDevices } from "../devices";
+import { subscribeAll } from "../sensors";
+import { receiveSettings } from "../settings";
+import { receiveCommand } from "../commands";
 
 const SUBSCRIBE = "aziot/backend/SUBSCRIBE";
 const INITIALIZED = "aziot/backend/INITIALIZED";
@@ -43,7 +42,6 @@ function initialized() {
     }
 
     await dispatch(subscribeAll());
-    return dispatch(postTelemetryOnInterval());
   };
 }
 

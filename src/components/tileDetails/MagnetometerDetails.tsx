@@ -6,7 +6,7 @@ import * as Colors from "../styling/colors";
 import SensorDetails from "./common/SensorDetails";
 import Tile from "../../containers/magnetometerDashboardContainer";
 import { SensorState } from "../../store/common/SensorDuckInterface";
-import { ThreeAxisSensorState } from "../../store/telemetrySensors/helpers/threeAxis";
+import { ThreeAxisSensorState } from "../../store/sensors/telemetrySensors/helpers/threeAxis";
 
 export interface Props extends NavigationProps, ThreeAxisSensorState {
   updateSend: (send: boolean) => any;

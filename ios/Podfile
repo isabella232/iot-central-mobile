@@ -44,6 +44,8 @@ target 'aziotmobile' do
 
   pod 'react-native-slider', :path => '../node_modules/@react-native-community/slider'
 
+
+
   post_install do |installer|
     installer.pods_project.targets.each do |target|
 

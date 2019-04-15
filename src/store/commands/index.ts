@@ -14,15 +14,16 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-function _execute(setting) {
+function _execute(command) {
   return {
     type: EXECUTE,
-    setting
+    command
   };
 }
 
 export function receiveCommand(command) {
   return async (dispatch, getState) => {
-    executeCommand(command);
+    await dispatch(executeCommand(command));
+    dispatch(_execute(command));
   };
 }

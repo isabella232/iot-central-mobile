@@ -6,7 +6,7 @@ import * as Colors from "../styling/colors";
 import SensorDetails from "./common/SensorDetails";
 import AccelerometerTile from "../../containers/accelerometerDashboardContainer";
 import { SensorState } from "../../store/common/SensorDuckInterface";
-import { ThreeAxisSensorState } from "../../store/telemetrySensors/helpers/threeAxis";
+import { ThreeAxisSensorState } from "../../store/sensors/telemetrySensors/helpers/threeAxis";
 import VisibleGyroscope from "../../containers/gyroscopeDashboardContainer";
 
 export interface Props extends NavigationProps, ThreeAxisSensorState {

@@ -8,7 +8,7 @@ import { SensorState } from "../../../store/common/SensorDuckInterface";
 import {
   ThreeAxisSensorState,
   ThreeAxisData
-} from "../../../store/telemetrySensors/helpers/threeAxis";
+} from "../../../store/sensors/telemetrySensors/helpers/threeAxis";
 
 export interface Props extends NavigationProps, ThreeAxisSensorState {
   title: string;

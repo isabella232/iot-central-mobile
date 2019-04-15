@@ -1,5 +1,5 @@
-import DefaultSensor from "../common/defaultSensor";
-import IntervalSensor from "../common/intervalSensor";
+import DefaultSensor from "../../common/defaultSensor";
+import IntervalSensor from "../../common/intervalSensor";
 // import AppleHealthKit from "rn-apple-healthkit";
 
 const options = {

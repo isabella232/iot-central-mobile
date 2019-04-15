@@ -1,5 +1,4 @@
-import { updateTelemetry } from "../telemetry/telemetryduck";
-import { Pedometer } from "expo-sensors";
+import { updateTelemetry } from "../../telemetry";
 
 export const UPDATE = "aziot/slider/UPDATE";
 

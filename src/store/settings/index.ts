@@ -1,7 +1,7 @@
 import { Geolocation } from "react-native";
-import { postProperties } from "./reportedduck";
+import { postProperties } from "../properties/reportedduck";
 import { updateSettingsComplete as postUpdateComplete } from "../../backendClients/telemetry/settings";
-import settingMapping from "./settingMapping";
+import settingMapping from "./actionMapping";
 
 const UPDATE_SETTINGS = "aziot/settings/UPDATE";
 const UPDATE_SETTINGS_SUCCESS = "aziot/settings/UPDATE_SUCCESS";
@@ -31,13 +31,14 @@ function _updateSettings(setting) {
     setting
   };
 }
-function updateSettings(settingName, settingValue) {
+function handleSetting(settingName, settingValue) {
   return dispatch => {
     if (settingMapping[settingName]) {
-      settingMapping[settingName](settingValue);
+      dispatch(settingMapping[settingName](settingValue));
+    } else {
+      const setting = { [settingName]: settingValue };
+      dispatch(_updateSettings(setting));
     }
-    const setting = { [settingName]: settingValue };
-    dispatch(_updateSettings(setting));
   };
 }
 
@@ -47,12 +48,19 @@ function _updateSettingsComplete() {
   };
 }
 
+export function updateSetting(settingName: string, value) {
+  return dispatch => {
+    const setting = { [settingName]: value };
+    dispatch(_updateSettings(setting));
+  };
+}
+
 export function receiveSettings(msg) {
   return async (dispatch, getState) => {
     const desiredChange = msg.desiredChange;
     for (let settingName in desiredChange) {
       await dispatch(
-        updateSettings(settingName, desiredChange[settingName].value)
+        handleSetting(settingName, desiredChange[settingName].value)
       );
       await postUpdateComplete({ setting: settingName, desiredChange });
     }
