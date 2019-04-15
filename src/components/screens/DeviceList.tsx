@@ -5,7 +5,9 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  Button,
+  TouchableOpacity
 } from "react-native";
 import { getApps, Application } from "../../httpClients/IoTCentral";
 import * as Colors from "../styling/colors";
@@ -40,7 +42,23 @@ export default class DeviceList extends Component<Props, State> {
     const app = navigation.getParam("app");
     const title = app ? app.name : "Devices";
     return {
-      title
+      title,
+      headerRight: (
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={() => {
+            navigation.navigate("NewDevice", {
+              app
+            });
+          }}
+        >
+          <Text
+            style={{ color: Colors.BUTTON, fontSize: 30, paddingRight: 10 }}
+          >
+            +
+          </Text>
+        </TouchableOpacity>
+      )
     };
   };
 
@@ -126,5 +144,8 @@ const ListStyle = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "flex-start"
+  },
+  buttonContainer: {
+    flex: 1
   }
 });
