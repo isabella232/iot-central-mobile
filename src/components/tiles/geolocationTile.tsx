@@ -106,7 +106,7 @@ function Map(props) {
   return (
     <MapView
       style={{ flexGrow: 1, alignSelf: "stretch" }}
-      initialRegion={{
+      region={{
         latitude: props.data.coords.latitude,
         longitude: props.data.coords.longitude,
         latitudeDelta: 0.0922,

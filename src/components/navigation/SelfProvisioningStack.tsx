@@ -8,6 +8,8 @@ import {
 import ApplicationContainer from "../../containers/applications";
 import DeviceDashboardContainer from "../../containers/deviceDashboard";
 import * as Colors from "../styling/colors";
+import VisibleDeviceList from "../../containers/provisioning/deviceList";
+import VisibleNewDevice from "../../containers/provisioning/newDevice";
 
 const StackNavigationStyle: NavigationScreenConfig<NavigationScreenOptions> = {
   headerStyle: {
@@ -20,7 +22,9 @@ const StackNavigationStyle: NavigationScreenConfig<NavigationScreenOptions> = {
 };
 export default createStackNavigator(
   {
-    ApplicationList: ApplicationContainer
+    ApplicationList: ApplicationContainer,
+    DeviceList: VisibleDeviceList,
+    NewDevice: VisibleNewDevice
   },
   {
     initialRouteName: "ApplicationList",

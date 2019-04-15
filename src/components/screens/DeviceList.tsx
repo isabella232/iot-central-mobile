@@ -5,47 +5,81 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  Button,
+  TouchableOpacity
 } from "react-native";
-import { Application } from "../../httpClients/IoTCentral";
+import { getApps, Application } from "../../httpClients/IoTCentral";
 import * as Colors from "../styling/colors";
 import ApplicationRow from "../rows/ApplicationRow";
 import { NavigationProps } from "../props/NavigationProps";
 import DeviceInfo from "react-native-device-info";
 import { SafeAreaView } from "react-navigation";
+import DeviceRow from "../rows/DeviceRow";
 
 export interface Props extends NavigationProps {
-  applications: Application[];
+  devices: Array<any>;
   isLoading: boolean;
   deviceLoading;
-  getApps;
+  getDevices: (appId) => any;
+  provisionDevice;
+  selectDevice;
 }
 
-export interface State {}
+export interface State {
+  application;
+}
 
-export default class ApplicationList extends Component<Props, State> {
+export default class DeviceList extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    const application = props.navigation.getParam("app");
+
+    this.state = { application };
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    title: "Applications"
-  });
+  static navigationOptions = ({ navigation }) => {
+    const app = navigation.getParam("app");
+    const title = app ? app.name : "Devices";
+    return {
+      title,
+      headerRight: (
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={() => {
+            navigation.navigate("NewDevice", {
+              app
+            });
+          }}
+        >
+          <Text
+            style={{ color: Colors.BUTTON, fontSize: 30, paddingRight: 10 }}
+          >
+            +
+          </Text>
+        </TouchableOpacity>
+      )
+    };
+  };
 
   async componentDidMount() {
-    this.props.getApps();
+    this.props.getDevices(this.state.application.id);
   }
 
   // TODO migrate to fully managed react navigation
-  handleTapped = (app: Application) => {
-    this.props.navigation.navigate("DeviceList", { app });
+  handleTapped = async device => {
+    await this.props.selectDevice({
+      ...device,
+      appId: this.state.application.id
+    });
+    this.props.navigation.navigate("Dashboard");
   };
 
   render() {
     if (
       this.props.deviceLoading ||
       (this.props.isLoading &&
-        (!this.props.applications || this.props.applications.length == 0))
+        (!this.props.devices || this.props.devices.length == 0))
     ) {
       return (
         <SafeAreaView style={ListStyle.loadingContainer}>
@@ -57,16 +91,13 @@ export default class ApplicationList extends Component<Props, State> {
         <SafeAreaView style={ListStyle.safeArea}>
           <FlatList
             style={ListStyle.container}
-            data={this.props.applications}
+            data={this.props.devices}
             renderItem={({ item }) => (
-              <ApplicationRow
-                application={item}
-                handlePressed={this.handleTapped}
-              />
+              <DeviceRow device={item} handlePressed={this.handleTapped} />
             )}
             refreshing={this.props.isLoading}
-            onRefresh={this.props.getApps}
-            keyExtractor={(item, index) => item.id}
+            onRefresh={() => this.props.getDevices(this.state.application.id)}
+            keyExtractor={(item, index) => item.deviceId}
             ItemSeparatorComponent={() => <View style={ListStyle.separator} />}
             ListFooterComponent={() => <View style={ListStyle.footer} />}
           />
@@ -113,5 +144,8 @@ const ListStyle = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "flex-start"
+  },
+  buttonContainer: {
+    flex: 1
   }
 });

@@ -9,10 +9,16 @@ interface Data {
 }
 
 const initialState = {
-  location: {
-    lat: 0,
-    lon: 0
-  }
+  coords: {
+    altitude: 0,
+    altitudeAccuracy: 1,
+    latitude: 0,
+    accuracy: 1,
+    longitude: 0,
+    heading: 0,
+    speed: 0
+  },
+  timestamp: 0
 };
 
 function transformData(position) {
@@ -24,7 +30,7 @@ function transformData(position) {
   };
 }
 
-class Geolocation extends PropertySensor<Data> {
+class Geolocation extends PropertySensor<GeolocationData> {
   constructor() {
     super("geolocation", navigator.geolocation, initialState);
   }

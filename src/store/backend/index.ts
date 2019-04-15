@@ -40,8 +40,6 @@ function initialized() {
       dispatch(_initialized());
       await dispatch(connectExistingDevices());
     }
-
-    await dispatch(subscribeAll());
   };
 }
 

@@ -77,13 +77,15 @@ function _listenForCommands(deviceId, client) {
 
 export async function connect(appSymmetricKey, deviceId, scopeId) {
   console.log(`appSymm ${appSymmetricKey} devId ${deviceId} scope ${scopeId}`);
-
+  console.log("Connecting...");
+  if (_deviceId === deviceId) {
+    return { deviceId, properties: _twin.properties };
+  }
   const connectionString = await _computeConnectionString(
     appSymmetricKey,
     deviceId,
     scopeId
   );
-  console.log("Connecting...");
   _client = clientFromConnectionString(connectionString);
   _twin = await _getTwin(_client);
   _deviceId = deviceId;

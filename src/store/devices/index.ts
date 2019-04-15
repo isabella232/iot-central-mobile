@@ -8,6 +8,7 @@ import {
   MOBILE_DEVICE_TEMPLATE_VERSION
 } from "react-native-dotenv";
 import DeviceInfo from "react-native-device-info";
+import { dispatch } from "rxjs/internal/observable/range";
 
 const CREATE_DEVICE = "aziot/devices/CREATE";
 const CREATE_DEVICE_SUCCESS = "aziot/devices/CREATE_SUCCESS";
@@ -23,7 +24,8 @@ const MOBILE_TEMPLATE = {
 };
 
 const initialState = {
-  list: [],
+  deviceId: null,
+  appId: null,
   isLoading: false
 };
 
@@ -36,7 +38,8 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        list: state.list.concat(action.device)
+        appId: action.device.appId,
+        deviceId: action.device.deviceId
       };
     case CREATE_DEVICE_FAIL:
       return { ...state, isLoading: false };
@@ -76,9 +79,16 @@ export function createDevice(appId, deviceName?, deviceTemplate?) {
   };
 }
 
+export function selectDevice(device) {
+  return async dispatch => {
+    dispatch(receiveDevice(device));
+    await dispatch(connectDevice(device));
+  };
+}
+
 export function connectExistingDevices() {
   return (dispatch, getState) => {
-    getState().devices.list.forEach(device => dispatch(connectDevice(device)));
+    dispatch(connectDevice({ ...getState().devices }));
   };
 }
 

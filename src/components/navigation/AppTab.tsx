@@ -15,10 +15,10 @@ const AppTabNavigator = createBottomTabNavigator(
   {
     Dashboard: DashboardStack,
     Events: EventStack,
-    Connect: SelfProvisioningStack,
-    Settings: SettingsStack,
     State: DeviceStateStack,
-    Properties: PropertiesStack
+    Properties: PropertiesStack,
+    Connect: SelfProvisioningStack,
+    Settings: SettingsStack
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
