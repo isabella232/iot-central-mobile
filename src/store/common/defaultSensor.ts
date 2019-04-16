@@ -1,4 +1,6 @@
 import { Sensor, SensorState } from "./SensorDuckInterface";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 export default class DefaultSensor<Data extends Object>
   implements Sensor<Data> {
@@ -13,6 +15,7 @@ export default class DefaultSensor<Data extends Object>
   sensorName: string;
   sensor: any;
   initialState: SensorState<Data>;
+  sensorPersistConfig: any;
   constructor(sensorName, sensor, initialDataState: Data) {
     this.sensorName = sensorName;
     this.sensor = sensor;
@@ -24,6 +27,12 @@ export default class DefaultSensor<Data extends Object>
       shouldUseLargeTile: false,
       sendInterval: 5000
     };
+    this.sensorPersistConfig = {
+      key: this.sensorName,
+      storage: storage,
+      blacklist: ["sensorSubscription", "telemetrySubscription"]
+    };
+    this.reducer = persistReducer(this.sensorPersistConfig, this._reducer);
     this.SUBSCRIBE = subscribeAction(sensorName);
     this.UNSUBSCRIBE = unsubscribeAction(sensorName);
     this.UPDATE_DATA = updateDataAction(sensorName);
@@ -33,8 +42,8 @@ export default class DefaultSensor<Data extends Object>
     this.UPDATE_SIMULATED_VALUE = updateSimulatedValueAction(sensorName);
     this.UPDATE_USE_LARGE_TILE = updateUseLargeTileAction(sensorName);
   }
-
-  reducer = (
+  reducer;
+  _reducer = (
     state: SensorState<Data> | undefined,
     action
   ): SensorState<Data> => {

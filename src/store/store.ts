@@ -54,7 +54,17 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["backend", "applications", "deviceList"]
+  whitelist: [
+    "telemetry",
+    "device",
+    "properties",
+    "settings",
+    "controls",
+    "events",
+    "state",
+    "flashlight",
+    "brightness"
+  ]
 };
 
 export function getStore(): Store {
@@ -72,24 +82,8 @@ export function getPersistor() {
 
 function _initializeStore(): Store {
   let _store: Store;
-  console.log("Creating store...");
   const middlewares: Array<any> = [];
   middlewares.push(thunkMiddleware);
-  if (process.env.NODE_ENV === `development` && false) {
-    const blacklistedActions = []; /* [
-      SEND_TELEMETRY_FAIL,
-      SEND_TELEMETRY_SUCCESS,
-      UPDATE_TELEMETRY,
-      SEND_TELEMETRY
-    ]; */
-    //.concat(SENSOR_ACTION_TYPES);
-    const logger = createLogger();
-    /*{
-      predicate: (getState, action) => !blacklistedActions.includes(action.type)
-    });*/
-
-    middlewares.push(logger);
-  }
   const persistedReducer = persistReducer(persistConfig, rootReducer);
   let enhancer;
   if (Reactotron.createEnhancer) {
@@ -103,7 +97,6 @@ function _initializeStore(): Store {
     )
   );
   //initSubscriber(_store);
-  console.log("Store Created!!");
   return _store;
 }
 
