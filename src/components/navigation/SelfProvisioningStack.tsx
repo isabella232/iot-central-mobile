@@ -5,8 +5,7 @@ import {
   NavigationScreenConfig,
   NavigationScreenOptions
 } from "react-navigation";
-import ApplicationContainer from "../../containers/applications";
-import DeviceDashboardContainer from "../../containers/deviceDashboard";
+import ApplicationContainer from "../../containers/provisioning/applications";
 import * as Colors from "../styling/colors";
 import VisibleDeviceList from "../../containers/provisioning/deviceList";
 import VisibleNewDevice from "../../containers/provisioning/newDevice";

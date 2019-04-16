@@ -7,6 +7,8 @@ const GET_APPLICATIONS = "aziot/applications/GET";
 const GET_APPLICATIONS_SUCCESS = "aziot/applications/GET_SUCCESS";
 const GET_APPLICATIONS_FAIL = "aziot/applications/GET_FAIL";
 
+const CLEAR = "aziot/applications/GET_FAIL";
+
 const initialState = {
   list: [],
   isLoading: false
@@ -26,7 +28,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        error: "Error while fetching applications."
+        error: action.error || "Error while fetching applications."
       };
     default:
       return state;
@@ -60,16 +62,30 @@ function receiveApplications(applications) {
   };
 }
 
+function receiveFailure(error) {
+  return {
+    type: GET_APPLICATIONS_FAIL,
+    error
+  };
+}
+
+function clearList() {
+  return {
+    type: GET_APPLICATIONS_SUCCESS,
+    applications: []
+  };
+}
+
 export function fetchApplications() {
   return dispatch => {
     // TODO: Add token management
     dispatch(requestApplications());
-    return getApps().then(result => {
-      dispatch(receiveApplications(result));
-    });
-    /*
-    return AuthManager.getToken().then(credentials => {
-      dispatch(getApplications(credentials.accessToken));
-    });*/
+    return getApps()
+      .then(result => {
+        dispatch(receiveApplications(result));
+      })
+      .catch(error => {
+        dispatch(receiveFailure(error));
+      });
   };
 }

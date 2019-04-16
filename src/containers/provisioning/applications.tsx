@@ -1,13 +1,11 @@
 import { connect } from "react-redux";
-import ApplicationList from "../components/screens/ApplicationList";
-import { fetchApplications } from "../store/applications";
-import { createDevice } from "../store/devices";
+import ApplicationList from "../../components/screens/ApplicationList";
+import { fetchApplications } from "../../store/applications";
 // TODO: refactor state to contain original format, transform before sending to backend
 const mapStateToProps = state => {
   return {
     applications: state.applications.list,
-    isLoading: state.applications.isLoading,
-    deviceLoading: state.devices.isLoading
+    isLoading: state.applications.isLoading
   };
 };
 

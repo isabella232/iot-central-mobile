@@ -1,7 +1,6 @@
 import backend from "nodejs-mobile-react-native";
 import { getState as fetchState } from "../../backendClients/telemetry/telemetry";
-import { connectExistingDevices } from "../devices";
-import { subscribeAll } from "../sensors";
+import { connectExistingDevices } from "../device";
 import { receiveSettings } from "../settings";
 import { receiveCommand } from "../commands";
 

@@ -8,7 +8,7 @@ import {
 import { createLogger } from "redux-logger";
 import telemetry from "./telemetry";
 import applications from "./applications";
-import devices from "./devices";
+import device from "./device";
 import sensors from "./sensors";
 import properties from "./properties";
 import settings from "./settings";
@@ -38,7 +38,7 @@ const rootReducer = combineReducers({
   // @ts-ignore
   telemetry,
   applications,
-  devices,
+  device,
   ...sensors,
   properties,
   settings,
@@ -54,7 +54,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["backend"]
+  blacklist: ["backend", "applications", "deviceList"]
 };
 
 export function getStore(): Store {

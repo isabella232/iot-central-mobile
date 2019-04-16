@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
 import NewDevice from "../../components/screens/NewDevice";
 import { fetchDevices } from "../../store/deviceList";
-import { createDevice, selectDevice } from "../../store/devices";
+import { createDevice, selectDevice } from "../../store/device";
 // TODO: refactor state to contain original format, transform before sending to backend
 const mapStateToProps = state => {
   return {
-    isLoading: state.devices.isLoading
+    isLoading: state.device.isLoading
   };
 };
 
