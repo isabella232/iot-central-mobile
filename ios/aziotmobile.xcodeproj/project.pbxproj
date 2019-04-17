@@ -46,9 +46,11 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		86A8CC9CECF149E9A19D9BDF /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 794ED3D5E16840779F5A6344 /* libAppCenterReactNativeAnalytics.a */; };
 		9A6483682260199900F57028 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
+		9A65B8C12267C679002E649E /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A65B8C02267C678002E649E /* HealthKit.framework */; };
 		A96F8B7495FD432CBBDD6F2D /* NodeMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80A644206C34518A7992B37 /* NodeMobile.framework */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C36D7DC509D512EDD53EA620 /* libPods-aziotmobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0003B660C5AD1F882477125F /* libPods-aziotmobile.a */; };
+		E79F85AA3D6A4874BF2C75FB /* libRCTAppleHealthKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C7BAE9C12042E3BF2AA7A4 /* libRCTAppleHealthKit.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 		EE58A4C3FAFE4BE4892CE6E6 /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F90170FC02454E22B5FA6F67 /* libAppCenterReactNative.a */; };
@@ -350,6 +352,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNMsalPlugin;
 		};
+		9A65B87F2267C1A0002E649E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 94EEBFEF094B47B09FA8D07B /* RCTAppleHealthKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3774C88D1D2092F20000B3F3;
+			remoteInfo = RCTAppleHealthKit;
+		};
 		9A8A0DB822651EE700ACFDA8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 577C138555EA41B9B3E5857F /* RNDeviceBrightness.xcodeproj */;
@@ -434,9 +443,11 @@
 		829DDC2BDE6943DE999D25A6 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		83A2F188B4ED42E491A8ED29 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		94EEBFEF094B47B09FA8D07B /* RCTAppleHealthKit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAppleHealthKit.xcodeproj; path = "../node_modules/rn-apple-healthkit/RCTAppleHealthKit.xcodeproj"; sourceTree = "<group>"; };
 		97F133D5760F454886599BAE /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		981CAA0B86A94E708CD399F4 /* libRNNodeJsMobile.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNNodeJsMobile.a; sourceTree = "<group>"; };
 		9A2D766F225D282100559A8F /* aziotmobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = aziotmobile.entitlements; path = aziotmobile/aziotmobile.entitlements; sourceTree = "<group>"; };
+		9A65B8C02267C678002E649E /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		9BEC11E68D6942C7BD782005 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		A46889A5388E4B3DBE7A6952 /* libRNMsalPlugin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNMsalPlugin.a; sourceTree = "<group>"; };
 		AADB2509957E446B8247B4AB /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -446,6 +457,7 @@
 		B93A27C46D344EE184A1AC3E /* AppCenterReactNativeAnalytics.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AppCenterReactNativeAnalytics.xcodeproj; path = "../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics.xcodeproj"; sourceTree = "<group>"; };
 		D290095430C54237A3EBF775 /* RNNodeJsMobile.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNNodeJsMobile.xcodeproj; path = "../node_modules/nodejs-mobile-react-native/ios/RNNodeJsMobile.xcodeproj"; sourceTree = "<group>"; };
 		D80A644206C34518A7992B37 /* NodeMobile.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = NodeMobile.framework; path = "../node_modules/nodejs-mobile-react-native/ios/NodeMobile.framework"; sourceTree = "<group>"; };
+		E0C7BAE9C12042E3BF2AA7A4 /* libRCTAppleHealthKit.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAppleHealthKit.a; sourceTree = "<group>"; };
 		E7E9DA12DC754663A1FF0AC5 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		EAFA0D90CD2542A590E3350F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -472,6 +484,7 @@
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
+				9A65B8C12267C679002E649E /* HealthKit.framework in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
@@ -488,6 +501,7 @@
 				00E8689261B8405997263909 /* libAppCenterReactNativeCrashes.a in Frameworks */,
 				1C05FC4321CC4CD18C88DCC8 /* libRNMsalPlugin.a in Frameworks */,
 				05F15C839C0D402A8BF9FE1D /* libRNDeviceBrightness.a in Frameworks */,
+				E79F85AA3D6A4874BF2C75FB /* libRCTAppleHealthKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,6 +661,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9A65B8C02267C678002E649E /* HealthKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
@@ -695,6 +710,7 @@
 				105B3609373249AC9F8CF823 /* AppCenterReactNativeCrashes.xcodeproj */,
 				6E4E497C58604C959298473C /* RNMsalPlugin.xcodeproj */,
 				577C138555EA41B9B3E5857F /* RNDeviceBrightness.xcodeproj */,
+				94EEBFEF094B47B09FA8D07B /* RCTAppleHealthKit.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -748,6 +764,7 @@
 				79181F4525B24FE792B82D60 /* libAppCenterReactNativeCrashes.a */,
 				A46889A5388E4B3DBE7A6952 /* libRNMsalPlugin.a */,
 				39434606449E42768FF14154 /* libRNDeviceBrightness.a */,
+				E0C7BAE9C12042E3BF2AA7A4 /* libRCTAppleHealthKit.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -780,6 +797,14 @@
 			isa = PBXGroup;
 			children = (
 				9A64841E2261485100F57028 /* libRNMsalPlugin.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9A65B87C2267C19F002E649E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A65B8802267C1A0002E649E /* libRCTAppleHealthKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -930,7 +955,7 @@
 						DevelopmentTeam = UBF8T346G9;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Keychain = {
 								enabled = 1;
@@ -980,6 +1005,10 @@
 				{
 					ProductGroup = 5E91572E1DD0AC6500FF2AA8 /* Products */;
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
+				},
+				{
+					ProductGroup = 9A65B87C2267C19F002E649E /* Products */;
+					ProjectRef = 94EEBFEF094B47B09FA8D07B /* RCTAppleHealthKit.xcodeproj */;
 				},
 				{
 					ProductGroup = ADBDB9201DFEBF0600ED6528 /* Products */;
@@ -1325,6 +1354,13 @@
 			remoteRef = 9A64841D2261485100F57028 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		9A65B8802267C1A0002E649E /* libRCTAppleHealthKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTAppleHealthKit.a;
+			remoteRef = 9A65B87F2267C1A0002E649E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		9A8A0DB922651EE700ACFDA8 /* libRNDeviceBrightness.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1616,12 +1652,14 @@
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
+					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
 				);
 				INFOPLIST_FILE = aziotmobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1654,12 +1692,14 @@
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
+					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
 				);
 				INFOPLIST_FILE = aziotmobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1694,6 +1734,7 @@
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
+					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
 				);
 				INFOPLIST_FILE = aziotmobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1730,6 +1771,7 @@
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
+					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
 				);
 				INFOPLIST_FILE = aziotmobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1771,11 +1813,13 @@
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
+					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
 				);
 				INFOPLIST_FILE = "aziotmobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1816,11 +1860,13 @@
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
+					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
 				);
 				INFOPLIST_FILE = "aziotmobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1860,11 +1906,13 @@
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
+					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
 				);
 				INFOPLIST_FILE = "aziotmobile-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1904,11 +1952,13 @@
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-msal-plugin/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-brightness/RNDeviceBrightness",
+					"$(SRCROOT)/../node_modules/rn-apple-healthkit/RCTAppleHealthKit",
 				);
 				INFOPLIST_FILE = "aziotmobile-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
