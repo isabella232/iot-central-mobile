@@ -4,6 +4,7 @@ import {
   subscribe as subscribeBackend,
   unsubscribe as unsubscribeBackend
 } from "../../store/backend";
+import { subscribeAll, unsubscribeAll } from "../../store/sensors";
 const mapStateToProps = state => {
   return {
     sliderValue: state.controls.slider.data.slider
@@ -13,7 +14,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     unsubscribe: () => dispatch(unsubscribeBackend()),
-    subscribe: () => dispatch(subscribeBackend())
+    subscribe: () => dispatch(subscribeBackend()),
+    subscribeSensors: () => dispatch(subscribeAll()),
+    unsubscribeSensors: () => dispatch(unsubscribeAll())
   };
 };
 
