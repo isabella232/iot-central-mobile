@@ -1,9 +1,10 @@
 import backend from "nodejs-mobile-react-native";
 import { getState as fetchState } from "../../backendClients/telemetry/telemetry";
-import { connectExistingDevices } from "../devices";
-import { subscribeAll } from "../sensors";
+import { connectExistingDevice } from "../device";
 import { receiveSettings } from "../settings";
 import { receiveCommand } from "../commands";
+import { subscribeAll, unsubscribeAll } from "../sensors";
+import { sendAllState } from "../state";
 
 const SUBSCRIBE = "aziot/backend/SUBSCRIBE";
 const INITIALIZED = "aziot/backend/INITIALIZED";
@@ -38,7 +39,9 @@ function initialized() {
   return async (dispatch, getState) => {
     if (!getState().backend.initialized) {
       dispatch(_initialized());
-      await dispatch(connectExistingDevices());
+      await dispatch(connectExistingDevice());
+      await dispatch(subscribeAll());
+      await dispatch(sendAllState());
     }
   };
 }
@@ -60,18 +63,24 @@ function listenForCommands() {
 }
 
 export function subscribe() {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     dispatch(_subscribe());
     dispatch(listenForCommands());
     dispatch(listenForSettings());
     backend.channel.addListener("/initialized", _ => {
       dispatch(initialized());
     });
-    fetchState().then(
+    await fetchState().then(
       _ => {
         dispatch(initialized());
       },
       _ => {}
     );
+  };
+}
+
+export function unsubscribe() {
+  return async (dispatch, getState) => {
+    await dispatch(unsubscribeAll());
   };
 }

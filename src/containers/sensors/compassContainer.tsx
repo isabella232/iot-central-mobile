@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Compass from "../components/sensorVisualization/compass";
+import Compass from "../../components/sensorVisualization/compass";
 
 // TODO: refactor state to contain original format, transform before sending to backend
 const mapStateToProps = state => {

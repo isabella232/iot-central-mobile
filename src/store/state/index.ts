@@ -34,6 +34,12 @@ export function sendDeviceState(stateName, value) {
   };
 }
 
+export function sendAllState() {
+  return async (dispatch, getState) => {
+    dispatch(postTelemetry({ ...getState().state }));
+  };
+}
+
 function updateDeviceState(stateName, value) {
   return { type: UPDATE, stateName, value };
 }

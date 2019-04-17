@@ -96,12 +96,3 @@ export function postTelemetry(data) {
       .catch(_ => dispatch(_postingTelemetryFail()));
   };
 }
-
-export function stopSendingTelemetry() {
-  return (dispatch, getState) => {
-    if (getState().telemetry.subscription) {
-      clearInterval(getState().telemetry.subscription);
-      dispatch(_unsubscribeTelemetry());
-    }
-  };
-}

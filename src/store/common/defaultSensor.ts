@@ -1,4 +1,10 @@
-import { Sensor, SensorState } from "./SensorDuckInterface";
+import {
+  Sensor,
+  SensorState,
+  InternalSensorState
+} from "./SensorDuckInterface";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 export default class DefaultSensor<Data extends Object>
   implements Sensor<Data> {
@@ -13,6 +19,7 @@ export default class DefaultSensor<Data extends Object>
   sensorName: string;
   sensor: any;
   initialState: SensorState<Data>;
+  sensorPersistConfig: any;
   constructor(sensorName, sensor, initialDataState: Data) {
     this.sensorName = sensorName;
     this.sensor = sensor;
@@ -24,6 +31,12 @@ export default class DefaultSensor<Data extends Object>
       shouldUseLargeTile: false,
       sendInterval: 5000
     };
+    this.sensorPersistConfig = {
+      key: this.sensorName,
+      storage: storage,
+      blacklist: ["sensorSubscription", "telemetrySubscription"]
+    };
+    this.reducer = persistReducer(this.sensorPersistConfig, this._reducer);
     this.SUBSCRIBE = subscribeAction(sensorName);
     this.UNSUBSCRIBE = unsubscribeAction(sensorName);
     this.UPDATE_DATA = updateDataAction(sensorName);
@@ -33,11 +46,11 @@ export default class DefaultSensor<Data extends Object>
     this.UPDATE_SIMULATED_VALUE = updateSimulatedValueAction(sensorName);
     this.UPDATE_USE_LARGE_TILE = updateUseLargeTileAction(sensorName);
   }
-
-  reducer = (
-    state: SensorState<Data> | undefined,
+  reducer;
+  _reducer = (
+    state: InternalSensorState<Data> | undefined,
     action
-  ): SensorState<Data> => {
+  ): InternalSensorState<Data> => {
     state = state || this.initialState;
     switch (action.type) {
       case this.UPDATE_SEND:
@@ -57,9 +70,19 @@ export default class DefaultSensor<Data extends Object>
           simulatedValue: { ...state.simulatedValue, ...action.simulatedValue }
         };
       case this.SUBSCRIBE:
-        return { ...state };
+        return {
+          ...state,
+          telemetrySubscription:
+            action.telemetrySubscription || state.telemetrySubscription,
+          sensorSubscription:
+            action.sensorSubscription || state.sensorSubscription
+        };
       case this.UNSUBSCRIBE:
-        return { ...state };
+        return {
+          ...state,
+          telemetrySubscription: null,
+          sensorSubscription: null
+        };
       case this.UPDATE_DATA:
         return {
           ...state,
@@ -75,10 +98,11 @@ export default class DefaultSensor<Data extends Object>
     };
   }
 
-  protected _subscribe(subscription?) {
+  protected _subscribe(sensorSubscription?, telemetrySubscription?) {
     return {
       type: this.SUBSCRIBE,
-      subscription
+      sensorSubscription,
+      telemetrySubscription
     };
   }
 

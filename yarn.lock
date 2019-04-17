@@ -5808,6 +5808,11 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
+rn-apple-healthkit@^0.6.5:
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/rn-apple-healthkit/-/rn-apple-healthkit-0.6.5.tgz#49d3c64ebf8fce7f9905ebdfa350cb8ba9d59d65"
+  integrity sha512-7nS1NPiOwDDRrwcuSenCQWdPVlE/hH+6+qRBLrBKYEJJ3Wbke0j5RXTZUEDpKNepkr9yBXhKFvrHMBUiiw6C4Q==
+
 rn-host-detect@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/rn-host-detect/-/rn-host-detect-1.1.5.tgz#fbecb982b73932f34529e97932b9a63e58d8deb6"

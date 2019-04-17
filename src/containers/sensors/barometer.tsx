@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import ThreeAxisText from "../components/tiles/common/threeAxisText";
+import ThreeAxisText from "../../components/tiles/common/threeAxisText";
 
 // TODO: refactor state to contain original format, transform before sending to backend
 const mapStateToProps = state => {

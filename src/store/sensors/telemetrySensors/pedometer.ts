@@ -1,23 +1,16 @@
 import DefaultSensor from "../../common/defaultSensor";
-import IntervalSensor from "../../common/intervalSensor";
-// import AppleHealthKit from "rn-apple-healthkit";
-
+import AppleHealthKit from "rn-apple-healthkit";
+import { NativeAppEventEmitter } from "react-native";
+import logger from "../../../common/logger";
+import { postTelemetry } from "../../telemetry";
+const PERMS = AppleHealthKit.Constants.Permissions;
 const options = {
   permissions: {
-    read: ["StepCount"],
+    read: [PERMS.StepCount, PERMS.Steps],
     write: []
   }
 };
 
-/*
-AppleHealthKit.initHealthKit(options, (err: string, results: Object) => {
-  if (err) {
-    console.log("error initializing Healthkit: ", err);
-    return;
-  }
-});*/
-
-/*
 function getSteps(): Promise<any> {
   return new Promise((resolve, reject) => {
     AppleHealthKit.getStepCount(null, (err, result) => {
@@ -38,25 +31,51 @@ function isAvailable(): Promise<boolean> {
       resolve(available);
     });
   });
-}*/
+}
 
 interface Data {
   steps: number;
 }
 
-class Pedometer extends IntervalSensor<Data> {
+class Pedometer extends DefaultSensor<Data> {
   constructor() {
     super("pedometer", null, initialDataState);
   }
-  /*
-  async _isAvailable() {
-    return isAvailable();
-  }*/
-  /*
+
+  subscribe() {
+    return async (dispatch, getState) => {
+      AppleHealthKit.initHealthKit(options, (err: string, results: Object) => {
+        if (err) {
+          console.log("error initializing Healthkit: ", err);
+          return;
+        }
+        AppleHealthKit.initStepCountObserver({}, () => {});
+        const subscription = NativeAppEventEmitter.addListener(
+          "change:steps",
+          async evt => {
+            const data = await this._getData();
+            logger(data);
+            dispatch(this.updateData(data));
+            dispatch(postTelemetry(data));
+          }
+        );
+        dispatch(this._subscribe(subscription));
+      });
+    };
+  }
+
+  unsubscribe() {
+    return async (dispatch, getState) => {
+      const sensorState = getState()[this.sensorName];
+      sensorState.sensorSubscription && sensorState.sensorSubscription.remove();
+      dispatch(this._unsubscribe());
+    };
+  }
+
   async _getData() {
     const result = await getSteps();
     return { steps: result.value };
-  }*/
+  }
 }
 
 const initialDataState = {

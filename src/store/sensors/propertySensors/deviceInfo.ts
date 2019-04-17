@@ -1,6 +1,8 @@
 import PropertySensor from "./helpers/propertySensor";
 import DeviceInformation from "react-native-device-info";
 import { SensorState } from "../../common/SensorDuckInterface";
+import DefaultSensor from "../../common/defaultSensor";
+import { postProperties } from "../../properties/reportedduck";
 const initialDataState = {
   locale: "",
   id: "",
@@ -20,9 +22,33 @@ export interface DeviceInfoData {
 }
 
 export interface DeviceInfoState extends SensorState<DeviceInfoData> {}
-class DeviceInfo extends PropertySensor<DeviceInfoData> {
+class DeviceInfo extends DefaultSensor<DeviceInfoData> {
   constructor() {
     super("deviceInfo", DeviceInformation, initialDataState);
+  }
+
+  subscribe() {
+    return async (dispatch, getState) => {
+      // todo extract memory and battery as telemetry
+      const data = await this._getData();
+      dispatch(this.updateData(data));
+      dispatch(postProperties(data));
+      const subscription = setInterval(async () => {
+        const data = await this._getData();
+        dispatch(this.updateData(data));
+        dispatch(postProperties(data));
+      }, 5000);
+
+      dispatch(this._subscribe(subscription));
+    };
+  }
+
+  unsubscribe() {
+    return async (dispatch, getState) => {
+      const sensorState = getState()[this.sensorName];
+
+      clearInterval(sensorState.sensorSubscription);
+    };
   }
 
   async _getData() {

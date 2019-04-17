@@ -1,5 +1,10 @@
-import ThreeAxisSensor from "./helpers/threeAxis";
-import { accelerometer as Accelerometer } from "react-native-sensors";
+import ThreeAxisSensor, { ThreeAxisData } from "./helpers/threeAxis";
+import {
+  accelerometer as AccelerometerSensor,
+  setUpdateIntervalForType
+} from "react-native-sensors";
+import DefaultSensor from "../../common/defaultSensor";
+import { postTelemetry } from "../../telemetry";
 
 const initialDataState = {
   x: 0,
@@ -8,11 +13,22 @@ const initialDataState = {
 };
 
 const sensorName = "accelerometer";
-const sensor = Accelerometer;
+const sensor = AccelerometerSensor;
 
-const accelerometer = new ThreeAxisSensor(sensorName, sensor, initialDataState);
+class Accelerometer extends ThreeAxisSensor {
+  constructor() {
+    super(sensorName, sensor, initialDataState);
+  }
+  protected transformData(data) {
+    return {
+      accelerometerX: data.x,
+      accelerometerY: data.y,
+      accelerometerZ: data.z
+    };
+  }
+}
 
-export default accelerometer;
+export default new Accelerometer();
 
 function transformData(data) {
   return {

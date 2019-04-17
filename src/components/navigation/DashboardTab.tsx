@@ -15,7 +15,7 @@ import {
   MaterialTopTabBar
 } from "react-navigation";
 import * as Colors from "../styling/colors";
-import DeviceDashboardContainer from "../../containers/deviceDashboard";
+import DeviceDashboardContainer from "../../containers/dashboards/deviceDashboard";
 
 const DashboardTabNavigator = createMaterialTopTabNavigator(
   {

@@ -84,6 +84,7 @@ var commands = [
     "play_music"
 ];
 function _listenForCommands(deviceId, client) {
+    console.log("Listening for commands...");
     commands.forEach(function (command) {
         client.onDeviceMethod(command, function (request, response) {
             console.log("command received: " + command);

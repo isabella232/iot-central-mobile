@@ -19,6 +19,7 @@ export interface State {}
 export default class DeviceInfoView extends Component<Props, State> {
   private subscription;
 
+  /*
   componentDidMount() {
     this.subscribe();
   }
@@ -41,7 +42,7 @@ export default class DeviceInfoView extends Component<Props, State> {
 
   componentWillUnmount() {
     this.unsubscribe();
-  }
+  }*/
   render() {
     return (
       <View style={style.container}>

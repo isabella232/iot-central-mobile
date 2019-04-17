@@ -25,6 +25,7 @@ export default class ThreeAxisTile extends Component<Props, State> {
   private sensorSubscription;
   private telemetrySubscription;
 
+  /*
   componentDidMount() {
     setUpdateIntervalForType(this.props.type, 500);
     this.sensorSubscription = this.props.observable.subscribe(data => {
@@ -40,7 +41,7 @@ export default class ThreeAxisTile extends Component<Props, State> {
   componentWillUnmount() {
     this.sensorSubscription && this.sensorSubscription.unsubscribe();
     clearInterval(this.telemetrySubscription);
-  }
+  }*/
   render() {
     return (
       <DashboardTile {...this.props} {...this.props}>

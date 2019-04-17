@@ -8,6 +8,7 @@ const GET_SUCCESS = "aziot/devices/GET_SUCCESS";
 const GET_FAIL = "aziot/devices/GET_FAIL";
 
 const initialState = {
+  appId: null,
   list: [],
   isLoading: false
 };
@@ -15,7 +16,8 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET:
-      return { ...state, isLoading: true };
+      const list = state.appId === action.appId ? state.list : [];
+      return { ...state, list, appId: action.appId, isLoading: true };
     case GET_SUCCESS:
       return {
         ...state,
@@ -28,16 +30,17 @@ export default function reducer(state = initialState, action) {
         isLoading: false,
         error: action.error
           ? action.error.message
-          : "Error while fetching applications."
+          : "Error while fetching devices."
       };
     default:
       return state;
   }
 }
 
-function request() {
+function request(appId: string) {
   return {
-    type: GET
+    type: GET,
+    appId
   };
 }
 function receive(devices) {
@@ -53,10 +56,10 @@ function receiveFaiure(error) {
   };
 }
 
-export function fetchDevices(appId) {
+export function fetchDevices(appId: string) {
   return dispatch => {
     // TODO: Add token management
-    dispatch(request());
+    dispatch(request(appId));
     return getDevices(appId)
       .then(result => {
         dispatch(receive(result));
@@ -64,9 +67,5 @@ export function fetchDevices(appId) {
       .catch(error => {
         dispatch(receiveFaiure(error));
       });
-    /*
-    return AuthManager.getToken().then(credentials => {
-      dispatch(getApplications(credentials.accessToken));
-    });*/
   };
 }

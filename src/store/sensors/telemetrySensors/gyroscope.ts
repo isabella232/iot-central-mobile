@@ -1,5 +1,5 @@
 import ThreeAxisSensor from "./helpers/threeAxis";
-import { gyroscope as Gyroscope } from "react-native-sensors";
+import { gyroscope as GyroscopeSensor } from "react-native-sensors";
 
 const initialDataState = {
   x: 0,
@@ -8,11 +8,22 @@ const initialDataState = {
 };
 
 const sensorName = "gyroscope";
-const sensor = Gyroscope;
+const sensor = GyroscopeSensor;
 
-const gyroscope = new ThreeAxisSensor(sensorName, sensor, initialDataState);
+class Gyroscope extends ThreeAxisSensor {
+  constructor() {
+    super(sensorName, sensor, initialDataState);
+  }
+  protected transformData(data) {
+    return {
+      gyroscopeX: data.x,
+      gyroscopeY: data.y,
+      gyroscopeZ: data.z
+    };
+  }
+}
 
-export default gyroscope;
+export default new Gyroscope();
 
 function transformData(data) {
   return {

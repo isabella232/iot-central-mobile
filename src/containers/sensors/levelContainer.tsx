@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Level from "../components/sensorVisualization/level";
+import Level from "../../components/sensorVisualization/level";
 
 // TODO: refactor state to contain original format, transform before sending to backend
 const mapStateToProps = state => {
