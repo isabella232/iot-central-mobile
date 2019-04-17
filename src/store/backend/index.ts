@@ -1,6 +1,6 @@
 import backend from "nodejs-mobile-react-native";
 import { getState as fetchState } from "../../backendClients/telemetry/telemetry";
-import { connectExistingDevices } from "../device";
+import { connectExistingDevice } from "../device";
 import { receiveSettings } from "../settings";
 import { receiveCommand } from "../commands";
 import { subscribeAll, unsubscribeAll } from "../sensors";
@@ -39,7 +39,7 @@ function initialized() {
   return async (dispatch, getState) => {
     if (!getState().backend.initialized) {
       dispatch(_initialized());
-      await dispatch(connectExistingDevices());
+      await dispatch(connectExistingDevice());
       await dispatch(subscribeAll());
       await dispatch(sendAllState());
     }

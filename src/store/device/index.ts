@@ -8,7 +8,6 @@ import {
   MOBILE_DEVICE_TEMPLATE_VERSION
 } from "react-native-dotenv";
 import DeviceInfo from "react-native-device-info";
-import { dispatch } from "rxjs/internal/observable/range";
 
 const CREATE_DEVICE = "aziot/devices/CREATE";
 const CREATE_DEVICE_SUCCESS = "aziot/devices/CREATE_SUCCESS";
@@ -85,9 +84,9 @@ export function selectDevice(device) {
   };
 }
 
-export function connectExistingDevices() {
+export function connectExistingDevice() {
   return (dispatch, getState) => {
-    dispatch(connectDevice({ ...getState().devices }));
+    dispatch(connectDevice({ ...getState().device }));
   };
 }
 
