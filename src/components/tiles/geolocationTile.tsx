@@ -22,10 +22,12 @@ export interface State {}
 export default class GeolocationTile extends Component<Props, State> {
   private geolocationSubscription;
 
+  /*
   componentDidMount() {
     this.subscribe();
   }
 
+  
   subscribe = () => {
     this.geolocationSubscription = navigator.geolocation.watchPosition(
       position => {
@@ -49,7 +51,7 @@ export default class GeolocationTile extends Component<Props, State> {
 
   componentWillUnmount() {
     this.unsubscribe();
-  }
+  }*/
   render() {
     const Child = this.props.shouldUseLargeTile ? Map : Map;
     return (

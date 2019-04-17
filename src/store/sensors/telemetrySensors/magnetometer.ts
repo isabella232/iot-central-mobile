@@ -1,5 +1,5 @@
 import ThreeAxisSensor from "./helpers/threeAxis";
-import { magnetometer as Magnetometer } from "react-native-sensors";
+import { magnetometer as MagnetometerSensor } from "react-native-sensors";
 
 const initialDataState = {
   x: 0,
@@ -8,11 +8,21 @@ const initialDataState = {
 };
 
 const sensorName = "magnetometer";
-const sensor = Magnetometer;
+const sensor = MagnetometerSensor;
+class Magnetometer extends ThreeAxisSensor {
+  constructor() {
+    super(sensorName, sensor, initialDataState);
+  }
+  protected transformData(data) {
+    return {
+      magnetometerX: data.x,
+      magnetometerY: data.y,
+      magnetometerZ: data.z
+    };
+  }
+}
 
-const magnetometer = new ThreeAxisSensor(sensorName, sensor, initialDataState);
-
-export default magnetometer;
+export default new Magnetometer();
 
 function transformData(data) {
   return {

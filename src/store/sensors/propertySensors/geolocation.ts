@@ -1,5 +1,7 @@
 import PropertySensor from "./helpers/propertySensor";
 import { SensorState } from "../../common/SensorDuckInterface";
+import { postTelemetry } from "../../telemetry";
+import { postProperties } from "../../properties/reportedduck";
 
 interface Data {
   location: {
@@ -36,10 +38,10 @@ class Geolocation extends PropertySensor<GeolocationData> {
   }
   subscribe() {
     return async (dispatch, getState) => {
-      await dispatch(this.unsubscribe());
-      const watchId = navigator.geolocation.watchPosition(
-        position => {
-          dispatch(this._updateData(position));
+      const geolocationSubscription = navigator.geolocation.watchPosition(
+        async position => {
+          dispatch(this.updateData(position));
+          await dispatch(postProperties(transformData(position)));
         },
         error => {
           console.log("Error watching geolocation.");
@@ -47,23 +49,18 @@ class Geolocation extends PropertySensor<GeolocationData> {
         },
         {
           enableHighAccuracy: true,
+          // TODO: this would be the equivalent of "send frequency"
           maximumAge: 10000
         }
       );
-      dispatch(this._subscribe(watchId));
+      dispatch(this._subscribe(geolocationSubscription));
     };
   }
 
   unsubscribe() {
     return async (dispatch, getState) => {
-      if (
-        getState()[this.sensorName] &&
-        getState()[this.sensorName].subscription
-      ) {
-        navigator.geolocation.clearWatch(
-          getState()[this.sensorName].subscription
-        );
-      }
+      const sensorState = getState().geolocation;
+      navigator.geolocation.clearWatch(sensorState.sensorSubscription);
       dispatch(this._unsubscribe());
     };
   }

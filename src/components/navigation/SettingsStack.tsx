@@ -3,7 +3,7 @@ import {
   NavigationScreenConfig,
   NavigationScreenOptions
 } from "react-navigation";
-import SettingsContainer from "../../containers/settingsContainer";
+import SettingsContainer from "../../containers/dashboards/settingsContainer";
 import * as Colors from "../styling/colors";
 
 const StackNavigationStyle: NavigationScreenConfig<NavigationScreenOptions> = {

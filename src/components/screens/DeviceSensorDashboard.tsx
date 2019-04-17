@@ -5,22 +5,19 @@ import Slider from "@react-native-community/slider";
 import { SafeAreaView } from "react-navigation";
 import * as Colors from "../styling/colors";
 import { StyleSheet, View, Geolocation } from "react-native";
-import Compass from "../../containers/compassContainer";
-import Level from "../../containers/levelContainer";
+import Compass from "../../containers/sensors/compassContainer";
+import Level from "../../containers/sensors/levelContainer";
 import { NavigationProps } from "../props/NavigationProps";
 import { Grid, Col, Row } from "react-native-easy-grid";
-import MagnetometerDashboard from "../../containers/magnetometerDashboardContainer";
-import GyroscopeDashboard from "../../containers/gyroscopeDashboardContainer";
-import AccelerometerDashboard from "../../containers/accelerometerDashboardContainer";
-import PedometerDashboard from "../../containers/pedometerDashboardContainer";
+import MagnetometerDashboard from "../../containers/sensors/magnetometerDashboardContainer";
+import GyroscopeDashboard from "../../containers/sensors/gyroscopeDashboardContainer";
+import AccelerometerDashboard from "../../containers/sensors/accelerometerDashboardContainer";
+import PedometerDashboard from "../../containers/sensors/pedometerDashboardContainer";
 
 console.disableYellowBox = true;
 export interface Props extends NavigationProps {
-  unsubscribeAll: () => {};
-  stopSendingTelemetry: () => {};
-  subscribe: () => {};
-  updateSlider: (value) => {};
-  sliderValue: number;
+  subscribe;
+  unsubscribe;
 }
 export interface State {}
 
@@ -38,8 +35,7 @@ export default class DeviceSensorDashboard extends Component<Props, State> {
   }
 
   async componentWillUnmount() {
-    await this.props.stopSendingTelemetry();
-    await this.props.unsubscribeAll();
+    await this.props.unsubscribe();
   }
   render() {
     return (

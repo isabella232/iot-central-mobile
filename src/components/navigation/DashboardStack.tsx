@@ -5,7 +5,7 @@ import {
   NavigationScreenConfig,
   NavigationScreenOptions
 } from "react-navigation";
-import DeviceDashboardContainer from "../../containers/deviceDashboard";
+import DeviceDashboardContainer from "../../containers/dashboards/deviceDashboard";
 import * as Colors from "../styling/colors";
 import AccelerometerDetails from "../../containers/sensorDetails/accelerometerDetailsContainer";
 import MagnetometerDetails from "../../containers/sensorDetails/magnetometerDetailsContainer";

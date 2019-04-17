@@ -1,4 +1,8 @@
-import { Sensor, SensorState } from "./SensorDuckInterface";
+import {
+  Sensor,
+  SensorState,
+  InternalSensorState
+} from "./SensorDuckInterface";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -44,9 +48,9 @@ export default class DefaultSensor<Data extends Object>
   }
   reducer;
   _reducer = (
-    state: SensorState<Data> | undefined,
+    state: InternalSensorState<Data> | undefined,
     action
-  ): SensorState<Data> => {
+  ): InternalSensorState<Data> => {
     state = state || this.initialState;
     switch (action.type) {
       case this.UPDATE_SEND:
@@ -66,9 +70,19 @@ export default class DefaultSensor<Data extends Object>
           simulatedValue: { ...state.simulatedValue, ...action.simulatedValue }
         };
       case this.SUBSCRIBE:
-        return { ...state };
+        return {
+          ...state,
+          telemetrySubscription:
+            action.telemetrySubscription || state.telemetrySubscription,
+          sensorSubscription:
+            action.sensorSubscription || state.sensorSubscription
+        };
       case this.UNSUBSCRIBE:
-        return { ...state };
+        return {
+          ...state,
+          telemetrySubscription: null,
+          sensorSubscription: null
+        };
       case this.UPDATE_DATA:
         return {
           ...state,
@@ -84,10 +98,11 @@ export default class DefaultSensor<Data extends Object>
     };
   }
 
-  protected _subscribe(subscription?) {
+  protected _subscribe(sensorSubscription?, telemetrySubscription?) {
     return {
       type: this.SUBSCRIBE,
-      subscription
+      sensorSubscription,
+      telemetrySubscription
     };
   }
 

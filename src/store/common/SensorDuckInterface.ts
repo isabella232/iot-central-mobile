@@ -68,7 +68,8 @@ export interface SensorState<Data extends Object> {
   sendInterval: number;
 }
 
-interface InternalSensorState<Data extends Object> extends SensorState<Data> {
+export interface InternalSensorState<Data extends Object>
+  extends SensorState<Data> {
   sensorSubscription?: any;
   telemetrySubscription?: any;
 }

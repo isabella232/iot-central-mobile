@@ -44,7 +44,7 @@ interface Data {
   steps: number;
 }
 
-class Pedometer extends IntervalSensor<Data> {
+class Pedometer extends DefaultSensor<Data> {
   constructor() {
     super("pedometer", null, initialDataState);
   }
