@@ -1,6 +1,6 @@
 import DefaultSensor from "../../common/defaultSensor";
 import AppleHealthKit from "rn-apple-healthkit";
-import { NativeEventEmitter } from "react-native";
+import { NativeAppEventEmitter } from "react-native";
 import logger from "../../../common/logger";
 import { postTelemetry } from "../../telemetry";
 const PERMS = AppleHealthKit.Constants.Permissions;
@@ -50,7 +50,7 @@ class Pedometer extends DefaultSensor<Data> {
           return;
         }
         AppleHealthKit.initStepCountObserver({}, () => {});
-        const subscription = NativeEventEmitter.addListener(
+        const subscription = NativeAppEventEmitter.addListener(
           "change:steps",
           async evt => {
             const data = await this._getData();
@@ -71,10 +71,6 @@ class Pedometer extends DefaultSensor<Data> {
       dispatch(this._unsubscribe());
     };
   }
-  /*
-  async _isAvailable() {
-    return isAvailable();
-  }*/
 
   async _getData() {
     const result = await getSteps();
