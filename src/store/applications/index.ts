@@ -1,5 +1,13 @@
 import AuthManager from "../../auth/AdalManager";
-import { getApps } from "../../httpClients/IoTCentral";
+import {
+  getApps,
+  Application,
+  getDeviceTemplates
+} from "../../httpClients/IoTCentral";
+import {
+  MOBILE_DEVICE_TEMPLATE_ID,
+  MOBILE_DEVICE_TEMPLATE_VERSION
+} from "react-native-dotenv";
 
 // reference: https://github.com/erikras/ducks-modular-redux
 // Actions
@@ -81,11 +89,30 @@ export function fetchApplications() {
     // TODO: Add token management
     dispatch(requestApplications());
     return getApps()
-      .then(result => {
-        dispatch(receiveApplications(result));
+      .then(async (applications: Array<Application>) => {
+        const appsWithTemplates = await Promise.all(
+          applications.map(a => addTemplatesToApp(a))
+        );
+        const mobileApps = getMobileApps(appsWithTemplates);
+        dispatch(receiveApplications(mobileApps));
       })
       .catch(error => {
         dispatch(receiveFailure(error));
       });
   };
+}
+
+async function addTemplatesToApp(app: Application) {
+  const templates = await getDeviceTemplates(app.id);
+  return {
+    ...app,
+    templates
+  };
+}
+
+function getMobileApps(appsWithTemplates) {
+  return appsWithTemplates.filter(app => {
+    const templates = app.templates;
+    return templates.find(t => t.id === MOBILE_DEVICE_TEMPLATE_ID);
+  });
 }

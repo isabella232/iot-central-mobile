@@ -1,12 +1,29 @@
 import AuthManager from "../auth/AdalManager";
 import { IOTC_API } from "react-native-dotenv";
+import { Base64 } from "js-base64";
 
 export async function getApps() {
-  return (await makeRequest("applications/")).value;
+  return await makeRequest("applications/");
 }
 
 export async function getDevices(appId) {
-  return (await makeRequest(`applications/${appId}/devices/`)).value;
+  return await makeRequest(`applications/${appId}/devices/`);
+}
+
+export async function getDeviceTemplates(appId) {
+  const templates = await makeRequest(
+    `/display/applications/${appId}/deviceTemplates/`
+  );
+  return templates.map(t => {
+    const decoded = Base64.decode(t.id);
+    return {
+      fullId: decoded,
+      id: decoded.split("/")[0],
+      version: decoded.split("/")[1],
+      name: t.name,
+      display: t.id
+    };
+  });
 }
 
 export function createDevice(
@@ -51,7 +68,8 @@ async function makeRequest(path, method = "GET", body?: {}) {
       body: body && JSON.stringify(body)
     });
 
-    return response.json();
+    const json = await response.json();
+    return json.value || json;
   } catch (error) {
     console.log(error);
   }

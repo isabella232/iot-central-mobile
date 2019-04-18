@@ -1,5 +1,8 @@
-import AuthManager from "../../auth/AdalManager";
 import { getDevices } from "../../httpClients/IoTCentral";
+import {
+  MOBILE_DEVICE_TEMPLATE_ID,
+  MOBILE_DEVICE_TEMPLATE_VERSION
+} from "react-native-dotenv";
 
 // reference: https://github.com/erikras/ducks-modular-redux
 // Actions
@@ -62,7 +65,10 @@ export function fetchDevices(appId: string) {
     dispatch(request(appId));
     return getDevices(appId)
       .then(result => {
-        dispatch(receive(result));
+        const mobileDevices = result.filter(
+          d => d.deviceTemplate.id === MOBILE_DEVICE_TEMPLATE_ID
+        );
+        dispatch(receive(mobileDevices));
       })
       .catch(error => {
         dispatch(receiveFaiure(error));
