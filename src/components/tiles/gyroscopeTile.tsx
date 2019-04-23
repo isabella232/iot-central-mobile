@@ -18,7 +18,7 @@ export default class GyroscopeTile extends Component<Props, State> {
         {...this.props}
         observable={gyroscope}
         type={SensorTypes.gyroscope}
-        onPress={() => this.props.navigation.navigate("GyroscopeDetails")}
+        onPress={() => {}} //this.props.navigation.navigate("GyroscopeDetails")}
       />
     );
   }
