@@ -18,7 +18,7 @@ export default class AccelerometerTile extends Component<Props, State> {
         {...this.props}
         observable={accelerometer}
         type={SensorTypes.accelerometer}
-        onPress={() => this.props.navigation.navigate("AccelerometerDetails")}
+        onPress={() => {}} //this.props.navigation.navigate("AccelerometerDetails")}
       />
     );
   }
