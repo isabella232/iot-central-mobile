@@ -4,7 +4,7 @@ import { NavigationProps } from "../props/NavigationProps";
 import KeyValueText from "./common/keyValueText";
 // import AppleHealthKit from "rn-apple-healthkit";
 import { NativeAppEventEmitter } from "react-native";
-import { SensorState } from "../../store/common/SensorDuckInterface";
+import { SensorState } from "../../store/sensors/common/SensorDuckInterface";
 
 export interface Props extends NavigationProps, SensorState<{ steps: number }> {
   postTelemetry: (data) => any;

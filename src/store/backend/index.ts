@@ -40,7 +40,7 @@ function initialized() {
     if (!getState().backend.initialized) {
       dispatch(_initialized());
       await dispatch(connectExistingDevice());
-      await dispatch(subscribeAll());
+      // await dispatch(subscribeAll());
       await dispatch(sendAllState());
     }
   };
@@ -81,6 +81,6 @@ export function subscribe() {
 
 export function unsubscribe() {
   return async (dispatch, getState) => {
-    await dispatch(unsubscribeAll());
+    // await dispatch(unsubscribeAll());
   };
 }

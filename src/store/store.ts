@@ -56,7 +56,6 @@ const persistConfig = {
   storage,
   whitelist: [
     "telemetry",
-    "device",
     "properties",
     "settings",
     "controls",

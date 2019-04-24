@@ -1,6 +1,6 @@
-import DefaultSensor from "../../../common/defaultSensor";
+import DefaultSensor from "../../common/defaultSensor";
 import { setUpdateIntervalForType } from "react-native-sensors";
-import { SensorState } from "../../../common/SensorDuckInterface";
+import { SensorState } from "../../common/SensorDuckInterface";
 import { postTelemetry } from "../../../telemetry";
 export default class ThreeAxisSensor extends DefaultSensor<ThreeAxisData> {
   private subscription;

@@ -1,4 +1,4 @@
-import DefaultSensor from "../../common/defaultSensor";
+import DefaultSensor from "../common/defaultSensor";
 import AppleHealthKit from "rn-apple-healthkit";
 import { NativeAppEventEmitter } from "react-native";
 import logger from "../../../common/logger";

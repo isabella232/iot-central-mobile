@@ -1,6 +1,6 @@
-import DefaultSensor from "../../../common/defaultSensor";
+import DefaultSensor from "../../common/defaultSensor";
 import { postProperties } from "../../../properties/reportedduck";
-import IntervalSensor from "../../../common/intervalSensor";
+import IntervalSensor from "../../common/intervalSensor";
 
 export default class PropertySensor<Data extends Object> extends IntervalSensor<
   Data

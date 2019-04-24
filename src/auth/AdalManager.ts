@@ -51,10 +51,7 @@ export default class AdalManager {
         userId,
         forceTokenRefresh
       );
-      await AsyncStorage.setItem(
-        "userToken",
-        tokenResult.userInfo.userIdentifier
-      );
+      await AsyncStorage.setItem("userId", tokenResult.userInfo.userIdentifier);
       return tokenResult;
     } catch (error) {
       console.log(error);

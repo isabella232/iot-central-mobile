@@ -1,5 +1,5 @@
 import PropertySensor from "./helpers/propertySensor";
-import { SensorState } from "../../common/SensorDuckInterface";
+import { SensorState } from "../common/SensorDuckInterface";
 import { postTelemetry } from "../../telemetry";
 import { postProperties } from "../../properties/reportedduck";
 

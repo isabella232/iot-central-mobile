@@ -4,7 +4,7 @@ import { NavigationProps } from "../../props/NavigationProps";
 import ThreeAxisText from "./threeAxisText";
 import { Observable, Subscription } from "rxjs";
 import { setUpdateIntervalForType, SensorTypes } from "react-native-sensors";
-import { SensorState } from "../../../store/common/SensorDuckInterface";
+import { SensorState } from "../../../store/sensors/common/SensorDuckInterface";
 import {
   ThreeAxisSensorState,
   ThreeAxisData

@@ -16,9 +16,11 @@ export default class LoginScreen extends Component<Props, State> {
   }
 
   login = () => {
-    AuthManager.login().then(() => {
-      const { navigate } = this.props.navigation;
-      navigate("App");
+    const { navigate } = this.props.navigation;
+    AuthManager.login().then(token => {
+      if (token) {
+        navigate("App");
+      }
     });
   };
 

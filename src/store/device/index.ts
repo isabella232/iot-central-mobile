@@ -8,6 +8,9 @@ import {
   MOBILE_DEVICE_TEMPLATE_VERSION
 } from "react-native-dotenv";
 import DeviceInfo from "react-native-device-info";
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
+import logger from "../../common/logger";
 
 const CREATE_DEVICE = "aziot/devices/CREATE";
 const CREATE_DEVICE_SUCCESS = "aziot/devices/CREATE_SUCCESS";
@@ -22,13 +25,19 @@ const MOBILE_TEMPLATE = {
   version: MOBILE_DEVICE_TEMPLATE_VERSION
 };
 
+const persistConfig = {
+  key: "device",
+  storage: storage,
+  blacklist: ["isLoading"]
+};
+
 const initialState = {
   deviceId: null,
   appId: null,
   isLoading: false
 };
 
-export default function reducer(state = initialState, action) {
+function reducer(state = initialState, action) {
   switch (action.type) {
     case CREATE_DEVICE:
       return { ...state, isLoading: true };
@@ -47,6 +56,8 @@ export default function reducer(state = initialState, action) {
   }
 }
 
+export default persistReducer(persistConfig, reducer);
+
 function requestCreate() {
   return {
     type: CREATE_DEVICE
@@ -56,6 +67,13 @@ function receiveDevice(device) {
   return {
     type: CREATE_DEVICE_SUCCESS,
     device
+  };
+}
+
+function receiveConnectFail(error) {
+  return {
+    type: CREATE_DEVICE_FAIL,
+    error
   };
 }
 
@@ -72,7 +90,8 @@ export function createDevice(appId, deviceName?, deviceTemplate?) {
       .then(() => dispatch(postProperties()))
       .catch(err => {
         console.log("Error Creating Device.");
-        console.log(err);
+        logger("Create Device Failure", err);
+        dispatch(receiveConnectFail(err));
       });
   };
 }
@@ -94,9 +113,11 @@ function connectDevice(device) {
   return async dispatch => {
     const { appId, deviceId } = device;
     dispatch({ type: CONNECT_DEVICE });
-    await postConnectDevice(deviceId, appId).then(
-      _ => dispatch({ type: CONNECT_DEVICE_SUCCESS }),
-      _ => dispatch({ type: CONNECT_DEVICE_FAIL })
-    );
+    await postConnectDevice(deviceId, appId)
+      .then(
+        _ => dispatch({ type: CONNECT_DEVICE_SUCCESS }),
+        _ => dispatch({ type: CONNECT_DEVICE_FAIL })
+      )
+      .catch(error => dispatch(receiveConnectFail(error)));
   };
 }

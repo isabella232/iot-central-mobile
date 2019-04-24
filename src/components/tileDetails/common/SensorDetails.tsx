@@ -12,7 +12,7 @@ import {
   ScrollView
 } from "react-native";
 import * as Colors from "../../styling/colors";
-import { SensorState } from "../../../store/common/SensorDuckInterface";
+import { SensorState } from "../../../store/sensors/common/SensorDuckInterface";
 
 export interface Props extends NavigationProps, SensorState<any> {
   updateSend: (send: boolean) => any;
