@@ -8,7 +8,6 @@ import MagnetometerDashboard from "../../containers/sensors/magnetometerDashboar
 import GyroscopeDashboard from "../../containers/sensors/gyroscopeDashboardContainer";
 import AccelerometerDashboard from "../../containers/sensors/accelerometerDashboardContainer";
 import PedometerDashboard from "../../containers/sensors/pedometerDashboardContainer";
-import logger from "../../common/logger";
 
 console.disableYellowBox = true;
 export interface Props extends NavigationProps {
@@ -29,14 +28,12 @@ export default class DeviceSensorDashboard extends Component<Props, State> {
   });
 
   async componentDidMount() {
-    logger("component mount");
     await this.props.subscribe();
     await this.props.subscribeSensors();
     AppState.addEventListener("change", this._handleAppStateChange);
   }
 
   async componentWillUnmount() {
-    logger("component unmount");
     await this.props.unsubscribe();
     await this.props.unsubscribeSensors();
     AppState.removeEventListener("change", this._handleAppStateChange);

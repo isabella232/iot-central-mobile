@@ -1,8 +1,8 @@
-import logger from "../../common/logger";
+import { logInfo } from "../../common/logger";
 
 // TODO: Once the API exposes device level SAS keys, use those instead to allow operator access.
 export function getPrimaryConnectionString(dps): string | null {
-  logger(dps);
+  logInfo(dps);
   const appKey = dps.enrollmentGroups.find(
     enrollmentGroup =>
       enrollmentGroup.attestation.type === "symmetricKey" &&

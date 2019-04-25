@@ -10,7 +10,7 @@ import {
 import DeviceInfo from "react-native-device-info";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
-import logger from "../../common/logger";
+import { logError } from "../../common/logger";
 
 const CREATE_DEVICE = "aziot/devices/CREATE";
 const CREATE_DEVICE_SUCCESS = "aziot/devices/CREATE_SUCCESS";
@@ -89,8 +89,7 @@ export function createDevice(appId, deviceName?, deviceTemplate?) {
       .then(json => dispatch(receiveDevice({ ...json.device, appId })))
       .then(() => dispatch(postProperties()))
       .catch(err => {
-        console.log("Error Creating Device.");
-        logger("Create Device Failure", err);
+        logError("Create Device Failure", err);
         dispatch(receiveConnectFail(err));
       });
   };

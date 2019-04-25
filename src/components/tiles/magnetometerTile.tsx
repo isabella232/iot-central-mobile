@@ -15,8 +15,6 @@ export default class MagnetometerTile extends Component<Props, State> {
   render() {
     return (
       <ThreeAxisTile
-        observable={magnetometer}
-        type={SensorTypes.magnetometer}
         {...this.props}
         onPress={() => {}} //this.props.navigation.navigate("MagnetometerDetails")}
       />

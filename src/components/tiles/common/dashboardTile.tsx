@@ -16,6 +16,7 @@ export default class DashboardTile extends Component<Props, State> {
     return (
       <Tile
         {...this.props}
+        wide={this.props.shouldUseLargeTile}
         subTitle={`Every ${Math.round(
           this.props.sendInterval / 1000 / 60
         )} minutes`}

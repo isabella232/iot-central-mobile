@@ -1,4 +1,3 @@
-import AuthManager from "../../auth/AdalManager";
 import {
   getApps,
   Application,
