@@ -1,7 +1,7 @@
 import PropertySensor from "./helpers/propertySensor";
 import DeviceInformation from "react-native-device-info";
-import { SensorState } from "../../common/SensorDuckInterface";
-import DefaultSensor from "../../common/defaultSensor";
+import { SensorState } from "../common/SensorDuckInterface";
+import DefaultSensor from "../common/defaultSensor";
 import { postProperties } from "../../properties/reportedduck";
 const initialDataState = {
   locale: "",

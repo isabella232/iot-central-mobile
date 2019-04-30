@@ -1,8 +1,8 @@
-import DefaultSensor from "../../common/defaultSensor";
+import DefaultSensor from "../common/defaultSensor";
 import AppleHealthKit from "rn-apple-healthkit";
 import { NativeAppEventEmitter } from "react-native";
-import logger from "../../../common/logger";
 import { postTelemetry } from "../../telemetry";
+import { logError } from "../../../common/logger";
 const PERMS = AppleHealthKit.Constants.Permissions;
 const options = {
   permissions: {
@@ -46,7 +46,7 @@ class Pedometer extends DefaultSensor<Data> {
     return async (dispatch, getState) => {
       AppleHealthKit.initHealthKit(options, (err: string, results: Object) => {
         if (err) {
-          console.log("error initializing Healthkit: ", err);
+          logError("Error initializing HealthKit");
           return;
         }
         AppleHealthKit.initStepCountObserver({}, () => {});
@@ -54,7 +54,6 @@ class Pedometer extends DefaultSensor<Data> {
           "change:steps",
           async evt => {
             const data = await this._getData();
-            logger(data);
             dispatch(this.updateData(data));
             dispatch(postTelemetry(data));
           }

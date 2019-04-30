@@ -5,7 +5,7 @@ import IconComponent from "react-native-vector-icons/FontAwesome";
 import * as Colors from "../styling/colors";
 import moment from "moment";
 import MapView from "react-native-maps";
-import { SensorState } from "../../store/common/SensorDuckInterface";
+import { SensorState } from "../../store/sensors/common/SensorDuckInterface";
 import { GeolocationState } from "../../store/sensors/propertySensors/geolocation";
 import KeyValueText from "./common/keyValueText";
 import { View } from "react-native";

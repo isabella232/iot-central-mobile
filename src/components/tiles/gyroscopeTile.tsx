@@ -16,8 +16,6 @@ export default class GyroscopeTile extends Component<Props, State> {
     return (
       <ThreeAxisTile
         {...this.props}
-        observable={gyroscope}
-        type={SensorTypes.gyroscope}
         onPress={() => {}} //this.props.navigation.navigate("GyroscopeDetails")}
       />
     );

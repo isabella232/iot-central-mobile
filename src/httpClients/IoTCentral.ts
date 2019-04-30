@@ -1,6 +1,7 @@
 import AuthManager from "../auth/AdalManager";
 import { IOTC_API } from "react-native-dotenv";
 import { Base64 } from "js-base64";
+import { logInfo, logError } from "../common/logger";
 
 export async function getApps() {
   return await makeRequest("applications/");
@@ -69,8 +70,9 @@ async function makeRequest(path, method = "GET", body?: {}) {
     });
 
     const json = await response.json();
+    logInfo(json);
     return json.value || json;
   } catch (error) {
-    console.log(error);
+    logError(error);
   }
 }

@@ -3,7 +3,7 @@ import {
   accelerometer as AccelerometerSensor,
   setUpdateIntervalForType
 } from "react-native-sensors";
-import DefaultSensor from "../../common/defaultSensor";
+import DefaultSensor from "../common/defaultSensor";
 import { postTelemetry } from "../../telemetry";
 
 const initialDataState = {

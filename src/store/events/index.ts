@@ -6,7 +6,13 @@ export const UPDATE = "aziot/event/UPDATE";
 
 const initialState = {
   information_button: {
-    value: "This is the information message."
+    value: "Information button pressed."
+  },
+  warning_button: {
+    value: "Warning button pressed."
+  },
+  error_button: {
+    value: "Error button pressed."
   }
 };
 

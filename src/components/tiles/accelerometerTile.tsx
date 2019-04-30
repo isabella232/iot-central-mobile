@@ -16,8 +16,6 @@ export default class AccelerometerTile extends Component<Props, State> {
     return (
       <ThreeAxisTile
         {...this.props}
-        observable={accelerometer}
-        type={SensorTypes.accelerometer}
         onPress={() => {}} //this.props.navigation.navigate("AccelerometerDetails")}
       />
     );

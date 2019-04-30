@@ -5,7 +5,6 @@ import {
   Store,
   compose
 } from "redux";
-import { createLogger } from "redux-logger";
 import telemetry from "./telemetry";
 import applications from "./applications";
 import device from "./device";
@@ -56,7 +55,6 @@ const persistConfig = {
   storage,
   whitelist: [
     "telemetry",
-    "device",
     "properties",
     "settings",
     "controls",
