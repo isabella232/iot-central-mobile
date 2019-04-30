@@ -1,18 +1,9 @@
 import React, { Component } from "react";
 import { NavigationProps } from "../../props/NavigationProps";
-import { Grid, Col, Row } from "react-native-easy-grid";
-import {
-  View,
-  Text,
-  Switch,
-  StyleSheet,
-  TextInput,
-  Alert,
-  Picker,
-  ScrollView
-} from "react-native";
+import { View, Text, Switch, StyleSheet, ScrollView } from "react-native";
 import * as Colors from "../../styling/colors";
 import { SensorState } from "../../../store/sensors/common/SensorDuckInterface";
+import IntervalPicker from "./IntervalPicker";
 
 export interface Props extends NavigationProps, SensorState<any> {
   updateSend: (send: boolean) => any;
@@ -25,6 +16,10 @@ export interface Props extends NavigationProps, SensorState<any> {
   SimulatedValueSelectorComponent: any;
 }
 export interface State {}
+
+// TODO: replace custom picker with npm package. Modal maybe?
+// TODO: Talk to designers
+// TODO: grey out interval picker on sending disabled
 export default class SensorDetails extends Component<Props, State> {
   render() {
     return (
@@ -37,23 +32,15 @@ export default class SensorDetails extends Component<Props, State> {
               onValueChange={value => this.props.updateSend(value)}
             />
           </View>
-          <View style={style.pickerContainer}>
+          <View
+            style={{
+              ...style.pickerContainer,
+              opacity: this.props.shouldSend ? 1 : 0.5
+            }}
+            pointerEvents={this.props.shouldSend ? "auto" : "none"}
+          >
             <Text style={style.switchLabel}>Send Frequency</Text>
-            <Picker
-              pointerEvents={this.props.shouldSend ? "auto" : "none"}
-              enabled={this.props.shouldSend}
-              itemStyle={style.pickerItemStyle}
-              style={style.picker}
-              selectedValue={Math.round(this.props.sendInterval / 1000 / 60)}
-              onValueChange={(itemValue, itemIndex) =>
-                this.props.updateSendFrequency(itemValue * 1000 * 60)
-              }
-            >
-              {range(55, 5).map(i => {
-                return <Picker.Item key={i} label={`${i}`} value={i} />;
-              })}
-            </Picker>
-            <Text style={style.minuteLabel}>min</Text>
+            <IntervalPicker {...this.props} />
           </View>
 
           <View style={style.switchRow}>
@@ -87,16 +74,13 @@ export default class SensorDetails extends Component<Props, State> {
     );
   }
 
+  /*
   handleInputChange = text => {
     if (/^\d+$/.test(text)) {
       const number = Number(text);
       this.props.updateSendFrequency(1000 * 60 * text);
     }
-  };
-}
-
-function range(size, startAt = 0) {
-  return [...Array(size).keys()].map(i => i + startAt);
+  };*/
 }
 
 const style = StyleSheet.create({
@@ -134,15 +118,6 @@ const style = StyleSheet.create({
   },
   simulatedSelectorContainer: {
     padding: 10
-  },
-  picker: {
-    height: 160,
-    width: 50,
-    marginLeft: 40,
-    marginRight: 3
-  },
-  pickerItemStyle: {
-    height: 160
   },
   pickerContainer: {
     flexDirection: "row",
