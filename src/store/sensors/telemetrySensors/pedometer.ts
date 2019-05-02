@@ -1,16 +1,18 @@
 import DefaultSensor from "../common/defaultSensor";
-import AppleHealthKit from "rn-apple-healthkit";
+// import AppleHealthKit from "rn-apple-healthkit";
 import { NativeAppEventEmitter } from "react-native";
 import { postTelemetry } from "../../telemetry";
 import { logError } from "../../../common/logger";
+/*
 const PERMS = AppleHealthKit.Constants.Permissions;
 const options = {
   permissions: {
     read: [PERMS.StepCount, PERMS.Steps],
     write: []
   }
-};
+};*/
 
+/*
 function getSteps(): Promise<any> {
   return new Promise((resolve, reject) => {
     AppleHealthKit.getStepCount(null, (err, result) => {
@@ -31,7 +33,7 @@ function isAvailable(): Promise<boolean> {
       resolve(available);
     });
   });
-}
+}*/
 
 interface Data {
   steps: number;
@@ -44,6 +46,7 @@ class Pedometer extends DefaultSensor<Data> {
 
   subscribe() {
     return async (dispatch, getState) => {
+      /*
       AppleHealthKit.initHealthKit(options, (err: string, results: Object) => {
         if (err) {
           logError("Error initializing HealthKit");
@@ -59,7 +62,7 @@ class Pedometer extends DefaultSensor<Data> {
           }
         );
         dispatch(this._subscribe(subscription));
-      });
+      });*/
     };
   }
 
@@ -72,8 +75,8 @@ class Pedometer extends DefaultSensor<Data> {
   }
 
   async _getData() {
-    const result = await getSteps();
-    return { steps: result.value };
+    //const result = await getSteps();
+    //return { steps: result.value };
   }
 }
 

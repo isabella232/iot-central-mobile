@@ -5317,11 +5317,6 @@ react-native-gesture-handler@^1.1.0:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
-react-native-google-fit@^0.9.12:
-  version "0.9.12"
-  resolved "https://registry.yarnpkg.com/react-native-google-fit/-/react-native-google-fit-0.9.12.tgz#8013979232e1babe975f05b08781f10fc0576bf3"
-  integrity sha512-fYq96aJsPwPmrwQJEGbaIU/BxwzGHZOYTMvgTbeiV7wSrOsp3XIT7vBxiLyZoLm4+oPvFbDn0M35cwk1dw8aKg==
-
 react-native-maps@^0.24.0:
   version "0.24.0"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.24.0.tgz#6627942e9357768c96ddd22bf66d7e88084d19b0"

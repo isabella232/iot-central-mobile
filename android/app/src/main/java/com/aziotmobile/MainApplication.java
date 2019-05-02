@@ -10,7 +10,6 @@ import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPa
 import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyticsPackage;
 import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
-import com.reactnative.googlefit.GoogleFitPackage;
 import com.sensors.RNSensorsPackage;
 import com.cubicphuse.RCTTorch.RCTTorchPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -44,7 +43,6 @@ public class MainApplication extends Application implements ReactApplication {
             new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)),
             new AppCenterReactNativePackage(MainApplication.this),
             new ReactSliderPackage(),
-            new GoogleFitPackage(),
             new RNSensorsPackage(),
             new RCTTorchPackage(),
             new RNDeviceInfo(),
