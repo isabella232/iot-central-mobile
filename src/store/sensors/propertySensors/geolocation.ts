@@ -2,6 +2,8 @@ import PropertySensor from "./helpers/propertySensor";
 import { SensorState } from "../common/SensorDuckInterface";
 import { postTelemetry } from "../../telemetry";
 import { postProperties } from "../../properties/reportedduck";
+// @ts-ignore
+import requestLocationPermissions from "./helpers/requestGeolocationPermission";
 
 interface Data {
   location: {
@@ -38,6 +40,10 @@ class Geolocation extends PropertySensor<GeolocationData> {
   }
   subscribe() {
     return async (dispatch, getState) => {
+      const allowed = await requestLocationPermissions();
+      if (!allowed) {
+        return;
+      }
       const geolocationSubscription = navigator.geolocation.watchPosition(
         async position => {
           dispatch(this.updateData(position));
