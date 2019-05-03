@@ -2,7 +2,7 @@ import React from "react";
 import { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import LoginSwitch from "./components/navigation/LoginSwitch";
-// import nodejs from "nodejs-mobile-react-native";
+import nodejs from "nodejs-mobile-react-native";
 import { getStore, getPersistor } from "./store/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -22,6 +22,6 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    // nodejs.start("dist/app.js");
+    nodejs.start("dist/app.js");
   }
 }
