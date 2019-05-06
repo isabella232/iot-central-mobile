@@ -141,7 +141,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-google-fit')
     implementation project(':react-native-device-brightness')
     implementation project(':react-native-maps')
     implementation project(':react-native-msal-plugin')

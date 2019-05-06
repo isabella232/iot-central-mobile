@@ -3,6 +3,7 @@ package com.aziotmobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnative.googlefit.GoogleFitPackage;
 import org.capslock.RNDeviceBrightness.RNDeviceBrightness;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.rmcfarlane.msalplugin.RNMsalPluginPackage;
@@ -34,22 +35,15 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new RNDeviceBrightness(),
-            new MapsPackage(),
-            new RNMsalPluginPackage(),
-            new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)),
-            new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)),
-            new AppCenterReactNativePackage(MainApplication.this),
-            new ReactSliderPackage(),
-            new RNSensorsPackage(),
-            new RCTTorchPackage(),
-            new RNDeviceInfo(),
-            new RNNodeJsMobilePackage(),
-            new RNGestureHandlerPackage(),
-            new VectorIconsPackage()
-      );
+      return Arrays.<ReactPackage>asList(new MainReactPackage(), new GoogleFitPackage(BuildConfig.APPLICATION_ID),
+          new RNDeviceBrightness(), new MapsPackage(), new RNMsalPluginPackage(),
+          new AppCenterReactNativeCrashesPackage(MainApplication.this,
+              getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)),
+          new AppCenterReactNativeAnalyticsPackage(MainApplication.this,
+              getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)),
+          new AppCenterReactNativePackage(MainApplication.this), new ReactSliderPackage(), new RNSensorsPackage(),
+          new RCTTorchPackage(), new RNDeviceInfo(), new RNNodeJsMobilePackage(), new RNGestureHandlerPackage(),
+          new VectorIconsPackage());
     }
 
     @Override
