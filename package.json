@@ -7,7 +7,8 @@
     "ios": "yarn buildBackend && react-native run-ios",
     "start": "yarn buildBackend && react-native start",
     "buildBackend": "yarn --cwd ./nodejs-assets/nodejs-project && yarn --cwd ./nodejs-assets/nodejs-project build",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@react-native-community/slider": "^1.0.4",
@@ -19,6 +20,8 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "nodejs-mobile-react-native": "^0.4.0",
+    "patch-package": "^6.1.2",
+    "postinstall-postinstall": "^2.0.0",
     "react": "16.8.3",
     "react-native": "0.59.4",
     "react-native-device-brightness": "^1.2.0",
