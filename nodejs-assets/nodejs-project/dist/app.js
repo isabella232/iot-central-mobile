@@ -52,62 +52,101 @@ var port = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.post("/api/device/connect", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, appKey, deviceId, scopeId, device;
+    var _a, appKey, deviceId, scopeId, device, e_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                console.log("Connect ENDPOINT");
-                console.log(req.body);
                 _a = req.body, appKey = _a.appKey, deviceId = _a.deviceId, scopeId = _a.scopeId;
-                console.log("Connect Endpoint");
-                return [4 /*yield*/, ConnectionManager.connect(appKey, deviceId, scopeId)];
+                _b.label = 1;
             case 1:
+                _b.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, ConnectionManager.connect(appKey, deviceId, scopeId)];
+            case 2:
                 device = _b.sent();
-                console.log("DEVICE CONNECTED");
-                console.log({ device: device });
                 res.json({ device: device });
-                return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 3:
+                e_1 = _b.sent();
+                if (e_1.status && e_1.message) {
+                    res.status(e_1.status).send(e_1.message);
+                }
+                else {
+                    res.status(500).send("Error Connecting Device.");
+                }
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });
 app.post("/api/device/setting/update/complete", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var e_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("Setting Updated: " + JSON.stringify(req.body) + ". Sending...");
+                _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, ConnectionManager.updateSettingComplete(req.body.setting, req.body.desiredChange)];
             case 1:
                 _a.sent();
-                console.log("Setting Updates.");
                 res.send("OK");
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                e_2 = _a.sent();
+                if (e_2.status && e_2.message) {
+                    res.status(e_2.status).send(e_2.message);
+                }
+                else {
+                    res.status(501).send("Error Reporting Setting Update.");
+                }
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
 app.post("/api/device/property/reported", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var e_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("Property Reported: " + req.body + ". Sending...");
+                _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, ConnectionManager.updateProperties(req.body)];
             case 1:
                 _a.sent();
-                console.log("Property Sent.");
                 res.send("OK");
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                e_3 = _a.sent();
+                if (e_3.status && e_3.message) {
+                    res.status(e_3.status).send(e_3.message);
+                }
+                else {
+                    res.status(502).send("Error Reporting Property.");
+                }
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
 app.post("/api/telemetry", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var e_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("Sending... " + req.body);
+                _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, ConnectionManager.sendTelemetry(req.body)];
             case 1:
                 _a.sent();
                 res.send("OK");
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                e_4 = _a.sent();
+                if (e_4.status && e_4.message) {
+                    res.status(e_4.status).send(e_4.message);
+                }
+                else {
+                    res.status(503).send("Error Sending Telemetry.");
+                }
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });

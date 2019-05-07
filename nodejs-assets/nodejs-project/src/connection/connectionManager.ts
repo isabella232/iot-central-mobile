@@ -84,38 +84,50 @@ export async function connect(appSymmetricKey, deviceId, scopeId) {
 
     return { deviceId, properties: _twin.properties };
   }
-  const connectionString = await _computeConnectionString(
-    appSymmetricKey,
-    deviceId,
-    scopeId
-  );
-  _client = clientFromConnectionString(connectionString);
-  _twin = await _getTwin(_client);
-  _deviceId = deviceId;
-  _listenForSettingsUpdate(_deviceId, _twin);
-  _listenForCommands(_deviceId, _client);
-  // console.log(twin);
-  return { deviceId, properties: _twin.properties };
+  try {
+    const connectionString = await _computeConnectionString(
+      appSymmetricKey,
+      deviceId,
+      scopeId
+    );
+    _client = clientFromConnectionString(connectionString);
+    _twin = await _getTwin(_client);
+    _deviceId = deviceId;
+    _listenForSettingsUpdate(_deviceId, _twin);
+    _listenForCommands(_deviceId, _client);
+    // console.log(twin);
+    return { deviceId, properties: _twin.properties };
+  } catch (e) {
+    console.log("Error connecting device.", e);
+    _client = null;
+    _twin = null;
+    _deviceId = null;
+    throw e;
+  }
 }
 
 export async function updateProperties(properties) {
   if (!_client) {
     return;
   }
-  console.log("Updating Properties...");
-  console.log(`${properties}`);
-  console.log(`${JSON.stringify(properties)}`);
-  _updateProperties(_twin, properties);
+  try {
+    await _updateProperties(_twin, properties);
+  } catch (e) {
+    console.log("Error Updating Properties", e);
+    throw e;
+  }
 }
 
 export async function updateSettingComplete(setting, desiredChange) {
   if (!_client) {
     return;
   }
-  console.log("Updating Setting Complete...");
-  console.log(`${setting}`);
-  console.log(`${JSON.stringify(setting)}`);
-  _updateSettingComplete(_twin, setting, desiredChange);
+  try {
+    _updateSettingComplete(_twin, setting, desiredChange);
+  } catch (e) {
+    console.log("Error Updating Setting", e);
+    throw e;
+  }
 }
 
 async function _updateSettingComplete(twin, setting, desiredChange) {
@@ -136,10 +148,11 @@ async function _updateSettingComplete(twin, setting, desiredChange) {
 
 function _updateProperties(twin, properties) {
   return new Promise((resolve, reject) => {
+    if (!twin) {
+      reject("Twin DNE");
+    }
     twin.properties.reported.update(properties, err => {
       if (err) {
-        console.log("Error Updating Properties!!");
-
         reject(err);
       }
       resolve();
@@ -151,8 +164,13 @@ export function sendTelemetry(telemetry) {
   if (!_client) {
     return;
   }
-  const message = new Message(JSON.stringify(telemetry));
-  return _sendEvent(_client, message);
+  try {
+    const message = new Message(JSON.stringify(telemetry));
+    return _sendEvent(_client, message);
+  } catch (e) {
+    console.log("Error Sending Telemetry", e);
+    throw e;
+  }
 }
 
 function _sendEvent(client, message) {

@@ -100,7 +100,7 @@ function _listenForCommands(deviceId, client) {
 }
 function connect(appSymmetricKey, deviceId, scopeId) {
     return __awaiter(this, void 0, void 0, function () {
-        var connectionString;
+        var connectionString, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -110,18 +110,29 @@ function connect(appSymmetricKey, deviceId, scopeId) {
                         console.log("Already Connected!");
                         return [2 /*return*/, { deviceId: deviceId, properties: _twin.properties }];
                     }
-                    return [4 /*yield*/, _computeConnectionString(appSymmetricKey, deviceId, scopeId)];
+                    _a.label = 1;
                 case 1:
+                    _a.trys.push([1, 4, , 5]);
+                    return [4 /*yield*/, _computeConnectionString(appSymmetricKey, deviceId, scopeId)];
+                case 2:
                     connectionString = _a.sent();
                     _client = clientFromConnectionString(connectionString);
                     return [4 /*yield*/, _getTwin(_client)];
-                case 2:
+                case 3:
                     _twin = _a.sent();
                     _deviceId = deviceId;
                     _listenForSettingsUpdate(_deviceId, _twin);
                     _listenForCommands(_deviceId, _client);
                     // console.log(twin);
                     return [2 /*return*/, { deviceId: deviceId, properties: _twin.properties }];
+                case 4:
+                    e_1 = _a.sent();
+                    console.log("Error connecting device.", e_1);
+                    _client = null;
+                    _twin = null;
+                    _deviceId = null;
+                    throw e_1;
+                case 5: return [2 /*return*/];
             }
         });
     });
@@ -129,15 +140,26 @@ function connect(appSymmetricKey, deviceId, scopeId) {
 exports.connect = connect;
 function updateProperties(properties) {
     return __awaiter(this, void 0, void 0, function () {
+        var e_2;
         return __generator(this, function (_a) {
-            if (!_client) {
-                return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    if (!_client) {
+                        return [2 /*return*/];
+                    }
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, _updateProperties(_twin, properties)];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 4];
+                case 3:
+                    e_2 = _a.sent();
+                    console.log("Error Updating Properties", e_2);
+                    throw e_2;
+                case 4: return [2 /*return*/];
             }
-            console.log("Updating Properties...");
-            console.log("" + properties);
-            console.log("" + JSON.stringify(properties));
-            _updateProperties(_twin, properties);
-            return [2 /*return*/];
         });
     });
 }
@@ -148,10 +170,13 @@ function updateSettingComplete(setting, desiredChange) {
             if (!_client) {
                 return [2 /*return*/];
             }
-            console.log("Updating Setting Complete...");
-            console.log("" + setting);
-            console.log("" + JSON.stringify(setting));
-            _updateSettingComplete(_twin, setting, desiredChange);
+            try {
+                _updateSettingComplete(_twin, setting, desiredChange);
+            }
+            catch (e) {
+                console.log("Error Updating Setting", e);
+                throw e;
+            }
             return [2 /*return*/];
         });
     });
@@ -178,9 +203,11 @@ function _updateSettingComplete(twin, setting, desiredChange) {
 }
 function _updateProperties(twin, properties) {
     return new Promise(function (resolve, reject) {
+        if (!twin) {
+            reject("Twin DNE");
+        }
         twin.properties.reported.update(properties, function (err) {
             if (err) {
-                console.log("Error Updating Properties!!");
                 reject(err);
             }
             resolve();
@@ -191,8 +218,14 @@ function sendTelemetry(telemetry) {
     if (!_client) {
         return;
     }
-    var message = new Message(JSON.stringify(telemetry));
-    return _sendEvent(_client, message);
+    try {
+        var message = new Message(JSON.stringify(telemetry));
+        return _sendEvent(_client, message);
+    }
+    catch (e) {
+        console.log("Error Sending Telemetry", e);
+        throw e;
+    }
 }
 exports.sendTelemetry = sendTelemetry;
 function _sendEvent(client, message) {
