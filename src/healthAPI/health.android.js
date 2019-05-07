@@ -43,6 +43,9 @@ async function getSteps() {
   const data = result.find(
     r => r.source === "com.google.android.gms:estimated_steps"
   );
-  const steps = data.steps[0].value;
-  return { steps };
+  const steps = data.steps[0] && data.steps[0].value;
+  if (steps) {
+    return { steps };
+  }
+  return { steps: 0 };
 }
