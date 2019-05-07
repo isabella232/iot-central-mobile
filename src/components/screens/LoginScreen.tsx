@@ -1,10 +1,16 @@
 import { Component } from "react";
 import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
-import IoTCentralButton from "../buttons/styledButton";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TouchableHighlight
+} from "react-native";
 import * as Colors from "../styling/colors";
 import { NavigationProps } from "../props/NavigationProps";
 import AuthManager from "../../auth/AdalManager";
+import { buttonStyle } from "../styling";
 
 export interface Props extends NavigationProps {}
 
@@ -34,7 +40,9 @@ export default class LoginScreen extends Component<Props, State> {
           />
           <Text style={LoginStyle.infoText}>{"Azure IoT Mobile"}</Text>
         </View>
-        <IoTCentralButton onPress={this.login} title="Log In" />
+        <TouchableHighlight style={buttonStyle.button} onPress={this.login}>
+          <Text style={buttonStyle.buttonText}>Log In</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -45,9 +53,6 @@ const LoginStyle = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.IOTC_BACKGROUND_COLOR,
     justifyContent: "center"
-  },
-  buttonContainer: {
-    backgroundColor: Colors.IOTC_BUTTON_BACKGROUND_COLOR
   },
   photo: {
     height: 250,
