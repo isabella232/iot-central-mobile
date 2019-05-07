@@ -41,10 +41,8 @@ function initialized() {
     if (!getState().backend.initialized) {
       dispatch(_initialized());
       await dispatch(connectExistingDevice());
-      console.log("connected in FE");
       await dispatch(subscribeAll());
       await dispatch(sendAllState());
-      console.log("posting props FE");
       await dispatch(postProperties());
     }
   };
