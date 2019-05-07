@@ -1,5 +1,5 @@
 import { PermissionsAndroid } from "react-native";
-import { logError } from "../../../../common/logger";
+import { logError, logInfo } from "../../../../common/logger";
 
 export default async function requestPermission() {
   try {
@@ -13,6 +13,7 @@ export default async function requestPermission() {
         buttonPositive: "OK"
       }
     );
+    logInfo("Request Geolocation permission result", result);
     if (result === PermissionsAndroid.RESULTS.GRANTED) {
       return true;
     } else {

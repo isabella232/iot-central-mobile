@@ -103,8 +103,8 @@ export function selectDevice(device) {
 }
 
 export function connectExistingDevice() {
-  return (dispatch, getState) => {
-    dispatch(connectDevice({ ...getState().device }));
+  return async (dispatch, getState) => {
+    await dispatch(connectDevice({ ...getState().device }));
   };
 }
 

@@ -4,6 +4,7 @@ import { postTelemetry } from "../../telemetry";
 import { postProperties } from "../../properties/reportedduck";
 // @ts-ignore
 import requestLocationPermissions from "./helpers/requestGeolocationPermission";
+import { logInfo, logError } from "../../../common/logger";
 
 interface Data {
   location: {
@@ -42,16 +43,20 @@ class Geolocation extends PropertySensor<GeolocationData> {
     return async (dispatch, getState) => {
       const allowed = await requestLocationPermissions();
       if (!allowed) {
+        logInfo("Geolocation: Permission Denied");
         return;
       }
+      navigator.geolocation.getCurrentPosition(async position => {
+        dispatch(this.updateData(position));
+        await dispatch(postProperties(transformData(position)));
+      });
       const geolocationSubscription = navigator.geolocation.watchPosition(
         async position => {
           dispatch(this.updateData(position));
           await dispatch(postProperties(transformData(position)));
         },
         error => {
-          console.log("Error watching geolocation.");
-          console.log(error);
+          logError("Error watching geolocation", error);
         },
         {
           enableHighAccuracy: true,
