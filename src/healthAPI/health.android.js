@@ -11,18 +11,25 @@ export async function initialize() {
 
 export async function subscribe(callback) {
   return new Promise((resolve, reject) => {
-    GoogleFit.startRecording(
-      async data => {
+    try {
+      GoogleFit.startRecording(
+        async data => {
+          const steps = await getSteps();
+          logInfo("Recording Steps: ", steps);
+          callback(steps);
+        },
+        ["step"]
+      );
+      GoogleFit.observeSteps(async result => {
         const steps = await getSteps();
+        logInfo("Observe Steps: ", steps);
         callback(steps);
-      },
-      ["step"]
-    );
-    GoogleFit.observeSteps(async result => {
-      const steps = await getSteps();
-      callback(steps);
-    });
-    resolve();
+      });
+      resolve();
+    } catch (e) {
+      logError("Error observing Google Fit", e);
+      reject(e);
+    }
   });
 }
 
@@ -39,7 +46,6 @@ async function getSteps() {
     endDate: end.toISOString()
   };
   const result = await GoogleFit.getDailyStepCountSamples(options);
-  logInfo(result);
   const data = result.find(
     r => r.source === "com.google.android.gms:estimated_steps"
   );
