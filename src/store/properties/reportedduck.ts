@@ -1,5 +1,6 @@
 import { Geolocation } from "react-native";
 import { updateProperties } from "../../backendClients/telemetry/properties";
+import { logError } from "../../common/logger";
 
 const UPDATE_PROPERTIES = "aziot/properties/UPDATE";
 const UPDATE_PROPERTIES_SUCCESS = "aziot/properties/UPDATE_SUCCESS";
@@ -36,12 +37,23 @@ function _updatePropertiesComplete() {
   };
 }
 
+function _updatePropertiesFail() {
+  return {
+    type: UPDATE_PROPERTIES_FAIL
+  };
+}
+
 export function postProperties(properties?) {
   return (dispatch, getState) => {
     const postedProperties = properties || getState().properties.reported;
     dispatch(_updateProperties(postedProperties));
-    return updateProperties(postedProperties).then(response => {
-      dispatch(_updatePropertiesComplete());
-    });
+    return updateProperties(postedProperties)
+      .then(response => {
+        dispatch(_updatePropertiesComplete());
+      })
+      .catch(e => {
+        logError("Error updating properties.", e);
+        dispatch(_updatePropertiesFail());
+      });
   };
 }

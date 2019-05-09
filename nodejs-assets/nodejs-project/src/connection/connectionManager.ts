@@ -107,9 +107,6 @@ export async function connect(appSymmetricKey, deviceId, scopeId) {
 }
 
 export async function updateProperties(properties) {
-  if (!_client) {
-    return;
-  }
   try {
     await _updateProperties(_twin, properties);
   } catch (e) {
@@ -119,11 +116,8 @@ export async function updateProperties(properties) {
 }
 
 export async function updateSettingComplete(setting, desiredChange) {
-  if (!_client) {
-    return;
-  }
   try {
-    _updateSettingComplete(_twin, setting, desiredChange);
+    await _updateSettingComplete(_twin, setting, desiredChange);
   } catch (e) {
     console.log("Error Updating Setting", e);
     throw e;
@@ -138,32 +132,28 @@ async function _updateSettingComplete(twin, setting, desiredChange) {
       desiredVersion: desiredChange.$version
     }
   };
-  twin.properties.reported.update(patch, err =>
-    console.log(
-      `Sent setting update for ${setting}; ` +
-        (err ? `error: ${err.toString()}` : `status: success`)
-    )
-  );
+  return _updateProperties(twin, patch);
 }
 
 function _updateProperties(twin, properties) {
-  return new Promise((resolve, reject) => {
-    if (!twin) {
-      reject("Twin DNE");
+  const timeoutPromise = new Promise((resolve, reject) => {
+    setTimeout(reject, 500, "Timeout");
+  });
+  const updatePromise = new Promise((resolve, reject) => {
+    if (!twin || !twin.properties || !twin.properties.reported) {
+      return reject("Twin DNE");
     }
     twin.properties.reported.update(properties, err => {
       if (err) {
-        reject(err);
+        return reject(err);
       }
       resolve();
     });
   });
+  return Promise.race([timeoutPromise, updatePromise]);
 }
-
+// UnauthorizedError || NotConnectedError
 export function sendTelemetry(telemetry) {
-  if (!_client) {
-    return;
-  }
   try {
     const message = new Message(JSON.stringify(telemetry));
     return _sendEvent(_client, message);
@@ -175,9 +165,12 @@ export function sendTelemetry(telemetry) {
 
 function _sendEvent(client, message) {
   return new Promise((resolve, reject) => {
+    if (!client) {
+      resolve({});
+    }
     client.sendEvent(message, (err, res) => {
       if (err) {
-        reject(err);
+        return reject(err);
       }
       resolve(res);
     });

@@ -2,6 +2,7 @@ import { Geolocation } from "react-native";
 import { postProperties } from "../properties/reportedduck";
 import { updateSettingsComplete as postUpdateComplete } from "../../backendClients/telemetry/settings";
 import settingMapping from "./actionMapping";
+import { logError } from "../../common/logger";
 
 const UPDATE_SETTINGS = "aziot/settings/UPDATE";
 const UPDATE_SETTINGS_SUCCESS = "aziot/settings/UPDATE_SUCCESS";
@@ -48,6 +49,12 @@ function _updateSettingsComplete() {
   };
 }
 
+function _updateSettingsFail() {
+  return {
+    type: UPDATE_SETTINGS_FAIL
+  };
+}
+
 export function updateSetting(settingName: string, value) {
   return dispatch => {
     const setting = { [settingName]: value };
@@ -59,10 +66,16 @@ export function receiveSettings(msg) {
   return async (dispatch, getState) => {
     const desiredChange = msg.desiredChange;
     for (let settingName in desiredChange) {
-      await dispatch(
-        handleSetting(settingName, desiredChange[settingName].value)
-      );
-      await postUpdateComplete({ setting: settingName, desiredChange });
+      try {
+        await dispatch(
+          handleSetting(settingName, desiredChange[settingName].value)
+        );
+        await postUpdateComplete({ setting: settingName, desiredChange });
+        dispatch(_updateSettingsComplete());
+      } catch (e) {
+        logError("Error updating setting.", e);
+        dispatch(_updateSettingsFail());
+      }
     }
   };
 }

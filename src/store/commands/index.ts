@@ -1,4 +1,3 @@
-import { updateSettingsComplete as postUpdateComplete } from "../../backendClients/telemetry/settings";
 import { setFlashlight } from "../flashlight";
 import { Alert } from "react-native";
 

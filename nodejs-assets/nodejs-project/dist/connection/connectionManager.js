@@ -144,21 +144,16 @@ function updateProperties(properties) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (!_client) {
-                        return [2 /*return*/];
-                    }
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _a.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, _updateProperties(_twin, properties)];
-                case 2:
+                case 1:
                     _a.sent();
-                    return [3 /*break*/, 4];
-                case 3:
+                    return [3 /*break*/, 3];
+                case 2:
                     e_2 = _a.sent();
                     console.log("Error Updating Properties", e_2);
                     throw e_2;
-                case 4: return [2 /*return*/];
+                case 3: return [2 /*return*/];
             }
         });
     });
@@ -166,18 +161,21 @@ function updateProperties(properties) {
 exports.updateProperties = updateProperties;
 function updateSettingComplete(setting, desiredChange) {
     return __awaiter(this, void 0, void 0, function () {
+        var e_3;
         return __generator(this, function (_a) {
-            if (!_client) {
-                return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, _updateSettingComplete(_twin, setting, desiredChange)];
+                case 1:
+                    _a.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    e_3 = _a.sent();
+                    console.log("Error Updating Setting", e_3);
+                    throw e_3;
+                case 3: return [2 /*return*/];
             }
-            try {
-                _updateSettingComplete(_twin, setting, desiredChange);
-            }
-            catch (e) {
-                console.log("Error Updating Setting", e);
-                throw e;
-            }
-            return [2 /*return*/];
         });
     });
 }
@@ -193,31 +191,37 @@ function _updateSettingComplete(twin, setting, desiredChange) {
                     desiredVersion: desiredChange.$version
                 },
                 _a);
-            twin.properties.reported.update(patch, function (err) {
-                return console.log("Sent setting update for " + setting + "; " +
-                    (err ? "error: " + err.toString() : "status: success"));
-            });
-            return [2 /*return*/];
+            return [2 /*return*/, _updateProperties(twin, patch)];
         });
     });
 }
 function _updateProperties(twin, properties) {
-    return new Promise(function (resolve, reject) {
-        if (!twin) {
-            reject("Twin DNE");
-        }
-        twin.properties.reported.update(properties, function (err) {
-            if (err) {
-                reject(err);
-            }
-            resolve();
-        });
+    var timeoutPromise = new Promise(function (resolve, reject) {
+        setTimeout(reject, 500, "Timeout");
     });
+    var updatePromise = new Promise(function (resolve, reject) {
+        if (!twin || !twin.properties || !twin.properties.reported) {
+            console.log("twin props DNE", properties);
+            return reject("Twin DNE");
+        }
+        console.log("Updating Properties: ", properties);
+        try {
+            twin.properties.reported.update(properties, function (err) {
+                if (err) {
+                    return reject(err);
+                }
+                resolve();
+            });
+        }
+        catch (e) {
+            console.log("Call to update properties failed", e);
+            reject(e);
+        }
+    });
+    return Promise.race([timeoutPromise, updatePromise]);
 }
+// UnauthorizedError || NotConnectedError
 function sendTelemetry(telemetry) {
-    if (!_client) {
-        return;
-    }
     try {
         var message = new Message(JSON.stringify(telemetry));
         return _sendEvent(_client, message);
@@ -230,9 +234,12 @@ function sendTelemetry(telemetry) {
 exports.sendTelemetry = sendTelemetry;
 function _sendEvent(client, message) {
     return new Promise(function (resolve, reject) {
+        if (!client) {
+            resolve({});
+        }
         client.sendEvent(message, function (err, res) {
             if (err) {
-                reject(err);
+                return reject(err);
             }
             resolve(res);
         });
