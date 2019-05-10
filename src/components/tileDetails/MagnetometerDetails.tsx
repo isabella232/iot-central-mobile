@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { NavigationProps } from "../props/NavigationProps";
-import { View, Text, Switch, StyleSheet } from "react-native";
-import Slider from "@react-native-community/slider";
-import * as Colors from "../styling/colors";
+import { View, Text, StyleSheet, Slider } from "react-native";
 import SensorDetails from "./common/SensorDetails";
 import Tile from "../../containers/sensors/magnetometerDashboardContainer";
-import { SensorState } from "../../store/sensors/common/SensorDuckInterface";
 import { ThreeAxisSensorState } from "../../store/sensors/telemetrySensors/helpers/threeAxis";
 
 export interface Props extends NavigationProps, ThreeAxisSensorState {

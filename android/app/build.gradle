@@ -150,7 +150,6 @@ dependencies {
     implementation project(':appcenter-crashes')
     implementation project(':appcenter-analytics')
     implementation project(':appcenter')
-    implementation project(':@react-native-community_slider')
     implementation project(':react-native-sensors')
     implementation project(':react-native-torch')
     implementation project(':react-native-device-info')
