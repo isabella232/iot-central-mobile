@@ -70,9 +70,9 @@ async function makeRequest(path, method = "GET", body?: {}) {
     });
 
     const json = await response.json();
-    logInfo(json);
+    logInfo("Request Result JSON", json);
     return json.value || json;
   } catch (error) {
-    logError(error);
+    logError("Error making request", error);
   }
 }

@@ -10,7 +10,8 @@
     "variable-name": false,
     "interface-name": false,
     "object-literal-sort-keys": false,
-    "forin": false
+    "forin": false,
+    "no-unused-expression": false
   },
   "rulesDirectory": []
 }

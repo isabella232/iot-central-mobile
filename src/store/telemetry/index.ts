@@ -1,4 +1,5 @@
 import { updateTelemetry as sendTelemetry } from "../../backendClients/telemetry/telemetry";
+import { logError } from "../../common/logger";
 
 // action types
 export const UPDATE_TELEMETRY = "aziot/telemetry/UPDATE";
@@ -87,12 +88,12 @@ export function postTelemetry(data) {
     //const telemetry = gatherTelemetry(getState());
     dispatch(_postingTelemetry(data));
     sendTelemetry(data)
-      .then(
-        _ => {
-          dispatch(_postingTelemetrySuccess());
-        },
-        _ => dispatch(_postingTelemetryFail())
-      )
-      .catch(_ => dispatch(_postingTelemetryFail()));
+      .then(_ => {
+        dispatch(_postingTelemetrySuccess());
+      })
+      .catch(e => {
+        logError("Error sending telemetry", e);
+        dispatch(_postingTelemetryFail());
+      });
   };
 }

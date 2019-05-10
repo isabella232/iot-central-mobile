@@ -5,6 +5,7 @@ import { receiveSettings } from "../settings";
 import { receiveCommand } from "../commands";
 import { subscribeAll, unsubscribeAll } from "../sensors";
 import { sendAllState } from "../state";
+import { postProperties } from "../properties/reportedduck";
 
 const SUBSCRIBE = "aziot/backend/SUBSCRIBE";
 const INITIALIZED = "aziot/backend/INITIALIZED";
@@ -40,8 +41,9 @@ function initialized() {
     if (!getState().backend.initialized) {
       dispatch(_initialized());
       await dispatch(connectExistingDevice());
-      // await dispatch(subscribeAll());
+      await dispatch(subscribeAll());
       await dispatch(sendAllState());
+      await dispatch(postProperties());
     }
   };
 }
@@ -81,6 +83,6 @@ export function subscribe() {
 
 export function unsubscribe() {
   return async (dispatch, getState) => {
-    // await dispatch(unsubscribeAll());
+    await dispatch(unsubscribeAll());
   };
 }

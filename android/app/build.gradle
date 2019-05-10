@@ -107,6 +107,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        aaptOptions {
+            ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
     }
     splits {
         abi {
@@ -138,6 +141,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-fitness:16.0.1'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation project(':react-native-google-fit')
     implementation project(':react-native-device-brightness')
     implementation project(':react-native-maps')
     implementation project(':react-native-msal-plugin')
@@ -145,7 +151,6 @@ dependencies {
     implementation project(':appcenter-analytics')
     implementation project(':appcenter')
     implementation project(':@react-native-community_slider')
-    implementation project(':react-native-google-fit')
     implementation project(':react-native-sensors')
     implementation project(':react-native-torch')
     implementation project(':react-native-device-info')

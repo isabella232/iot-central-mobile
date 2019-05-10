@@ -29,13 +29,13 @@ export default class DeviceSensorDashboard extends Component<Props, State> {
 
   async componentDidMount() {
     await this.props.subscribe();
-    await this.props.subscribeSensors();
+    // await this.props.subscribeSensors();
     AppState.addEventListener("change", this._handleAppStateChange);
   }
 
   async componentWillUnmount() {
     await this.props.unsubscribe();
-    await this.props.unsubscribeSensors();
+    // await this.props.unsubscribeSensors();
     AppState.removeEventListener("change", this._handleAppStateChange);
   }
 
