@@ -101,6 +101,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    //lintOptions {
+    //    abortOnError false
+    //}
+
     defaultConfig {
         applicationId "com.aziotmobile"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -125,6 +129,7 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    buildToolsVersion = rootProject.ext.buildToolsVersion
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -150,7 +155,6 @@ dependencies {
     implementation project(':appcenter-crashes')
     implementation project(':appcenter-analytics')
     implementation project(':appcenter')
-    implementation project(':@react-native-community_slider')
     implementation project(':react-native-sensors')
     implementation project(':react-native-torch')
     implementation project(':react-native-device-info')
@@ -159,7 +163,7 @@ dependencies {
     implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation 'com.facebook.react:react-native:+'  // From node_modules
 }
 
 // Run this once to be able to run the application with BUCK

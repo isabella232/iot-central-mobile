@@ -42,7 +42,6 @@ target 'aziotmobile' do
 
   pod 'RNSensors', :path => '../node_modules/react-native-sensors'
 
-  pod 'react-native-slider', :path => '../node_modules/@react-native-community/slider'
 
 
 

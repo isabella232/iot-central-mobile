@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { NavigationProps } from "../props/NavigationProps";
-import { View, Text, Switch, StyleSheet } from "react-native";
-import Slider from "@react-native-community/slider";
-import * as Colors from "../styling/colors";
+import { View, Text, Slider, StyleSheet } from "react-native";
 import SensorDetails from "./common/SensorDetails";
-import AccelerometerTile from "../../containers/sensors/accelerometerDashboardContainer";
-import { SensorState } from "../../store/sensors/common/SensorDuckInterface";
 import { ThreeAxisSensorState } from "../../store/sensors/telemetrySensors/helpers/threeAxis";
 import VisibleGyroscope from "../../containers/sensors/gyroscopeDashboardContainer";
 

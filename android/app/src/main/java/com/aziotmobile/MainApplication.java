@@ -10,7 +10,6 @@ import com.rmcfarlane.msalplugin.RNMsalPluginPackage;
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
 import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyticsPackage;
 import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage;
-import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.sensors.RNSensorsPackage;
 import com.cubicphuse.RCTTorch.RCTTorchPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -41,9 +40,8 @@ public class MainApplication extends Application implements ReactApplication {
               getResources().getString(R.string.appCenterCrashes_whenToSendCrashes)),
           new AppCenterReactNativeAnalyticsPackage(MainApplication.this,
               getResources().getString(R.string.appCenterAnalytics_whenToEnableAnalytics)),
-          new AppCenterReactNativePackage(MainApplication.this), new ReactSliderPackage(), new RNSensorsPackage(),
-          new RCTTorchPackage(), new RNDeviceInfo(), new RNNodeJsMobilePackage(), new RNGestureHandlerPackage(),
-          new VectorIconsPackage());
+          new AppCenterReactNativePackage(MainApplication.this), new RNSensorsPackage(), new RCTTorchPackage(),
+          new RNDeviceInfo(), new RNNodeJsMobilePackage(), new RNGestureHandlerPackage(), new VectorIconsPackage());
     }
 
     @Override
