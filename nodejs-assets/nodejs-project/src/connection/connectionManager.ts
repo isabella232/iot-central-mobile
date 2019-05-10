@@ -1,12 +1,16 @@
 import dpsKeyGen from "dps-keygen/dps";
-const clientFromConnectionString = require("azure-iot-device-mqtt")
-  .clientFromConnectionString;
-const rnBridge = require("rn-bridge");
-const Message = require("azure-iot-device").Message;
+const Mqtt = require("azure-iot-device-mqtt").Mqtt;
 
-let _client;
-let _twin;
-let _deviceId;
+const rnBridge = require("rn-bridge");
+import { Client, Message, Twin } from "azure-iot-device";
+
+let _client: Client;
+let _twin: Twin;
+let _deviceId: string | null;
+
+process.on("uncaughtException", err => {
+  console.log("UNCAUGHT EMITTER EXCEPTION", err);
+});
 
 function _computeConnectionString(
   appSymmetricKey: string,
@@ -30,7 +34,7 @@ function _computeConnectionString(
   });
 }
 
-function _getTwin(client): Promise<any> {
+function _getTwin(client: Client): Promise<any> {
   return new Promise((resolve, reject) => {
     client.getTwin((err, twin) => {
       if (err) {
@@ -76,22 +80,72 @@ function _listenForCommands(deviceId, client) {
   });
 }
 
-export async function connect(appSymmetricKey, deviceId, scopeId) {
+async function closeClient(client: Client) {
+  return new Promise((resolve, reject) => {
+    client.close((err, result) => {
+      if (err) {
+        return reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+
+async function disconnect() {
+  if (_twin) {
+    _twin.removeAllListeners();
+  }
+  if (_client) {
+    _client.removeAllListeners();
+    await closeClient(_client);
+  }
+  _deviceId = null;
+
+  // @ts-ignore
+  _client = null;
+  // @ts-ignore
+  _twin = null;
+}
+
+export async function connect(
+  appSymmetricKey: string,
+  deviceId: string,
+  scopeId: string
+) {
   console.log(`appSymm ${appSymmetricKey} devId ${deviceId} scope ${scopeId}`);
   console.log("Connecting...");
   if (_deviceId === deviceId) {
     console.log("Already Connected!");
 
     return { deviceId, properties: _twin.properties };
+  } else if (_deviceId) {
+    try {
+      console.log("Disconnecting Existing Device...");
+      await disconnect();
+      console.log("Device Disconnected");
+    } catch (e) {
+      console.log("Error trying to close existing connection, continuing.");
+    }
   }
   try {
+    console.log("Creating connection string...");
+
     const connectionString = await _computeConnectionString(
       appSymmetricKey,
       deviceId,
       scopeId
     );
-    _client = clientFromConnectionString(connectionString);
+    console.log("Success.");
+
+    console.log("Getting client...");
+
+    _client = Client.fromConnectionString(connectionString, Mqtt);
+    console.log("Success.");
+    console.log("Getting twin...");
     _twin = await _getTwin(_client);
+    console.log("Success.");
+
     _deviceId = deviceId;
     _listenForSettingsUpdate(_deviceId, _twin);
     _listenForCommands(_deviceId, _client);
@@ -99,9 +153,7 @@ export async function connect(appSymmetricKey, deviceId, scopeId) {
     return { deviceId, properties: _twin.properties };
   } catch (e) {
     console.log("Error connecting device.", e);
-    _client = null;
-    _twin = null;
-    _deviceId = null;
+    disconnect();
     throw e;
   }
 }
@@ -124,7 +176,7 @@ export async function updateSettingComplete(setting, desiredChange) {
   }
 }
 
-async function _updateSettingComplete(twin, setting, desiredChange) {
+async function _updateSettingComplete(twin: Twin, setting, desiredChange) {
   const patch = {
     [setting]: {
       value: desiredChange[setting].value,
@@ -137,7 +189,7 @@ async function _updateSettingComplete(twin, setting, desiredChange) {
 
 function _updateProperties(twin, properties) {
   const timeoutPromise = new Promise((resolve, reject) => {
-    setTimeout(reject, 500, "Timeout");
+    setTimeout(reject, 5000, "Timeout");
   });
   const updatePromise = new Promise((resolve, reject) => {
     if (!twin || !twin.properties || !twin.properties.reported) {
@@ -150,7 +202,10 @@ function _updateProperties(twin, properties) {
       resolve();
     });
   });
-  return Promise.race([timeoutPromise, updatePromise]);
+  Promise.race([timeoutPromise, updatePromise]).catch(e => {
+    console.log("Error updating properties", e);
+  });
+  return Promise.resolve();
 }
 // UnauthorizedError || NotConnectedError
 export function sendTelemetry(telemetry) {

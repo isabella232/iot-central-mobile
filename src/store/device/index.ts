@@ -11,6 +11,7 @@ import DeviceInfo from "react-native-device-info";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import { logError } from "../../common/logger";
+import { unsubscribeAll, subscribeAll } from "../sensors";
 
 const CREATE_DEVICE = "aziot/devices/CREATE";
 const CREATE_DEVICE_SUCCESS = "aziot/devices/CREATE_SUCCESS";
@@ -80,13 +81,17 @@ function receiveConnectFail(error) {
 export function createDevice(appId, deviceName?, deviceTemplate?) {
   return dispatch => {
     dispatch(requestCreate());
-    return provisionAndConnect({
-      appId,
-      deviceName: deviceName || DeviceInfo.getDeviceName(),
-      deviceTemplate: deviceTemplate || MOBILE_TEMPLATE
-    })
+    return dispatch(unsubscribeAll())
+      .then(() =>
+        provisionAndConnect({
+          appId,
+          deviceName: deviceName || DeviceInfo.getDeviceName(),
+          deviceTemplate: deviceTemplate || MOBILE_TEMPLATE
+        })
+      )
       .then(result => result.json())
       .then(json => dispatch(receiveDevice({ ...json.device, appId })))
+      .then(() => dispatch(subscribeAll()))
       .then(() => dispatch(postProperties()))
       .catch(err => {
         logError("Create Device Failure", err);
@@ -112,11 +117,13 @@ function connectDevice(device) {
   return async dispatch => {
     const { appId, deviceId } = device;
     dispatch({ type: CONNECT_DEVICE });
-    await postConnectDevice(deviceId, appId)
+    await dispatch(unsubscribeAll())
+      .then(() => postConnectDevice(deviceId, appId))
       .then(
         _ => dispatch({ type: CONNECT_DEVICE_SUCCESS }),
         _ => dispatch({ type: CONNECT_DEVICE_FAIL })
       )
+      .then(() => subscribeAll())
       .catch(error => dispatch(receiveConnectFail(error)));
   };
 }
