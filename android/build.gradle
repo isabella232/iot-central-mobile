@@ -44,9 +44,8 @@ subprojects {
     beforeEvaluate {project -> 
     if (project.hasProperty("android")) {
             android {
-                defaultConfig {
-                    targetSdkVersion rootProject.ext.targetSdkVersion
-                    minSdkVersion rootProject.ext.minSdkVersion
+                lintOptions {
+                    abortOnError false
                 }
             }
         }
@@ -54,12 +53,11 @@ subprojects {
     afterEvaluate {project ->
         if (project.hasProperty("android")) {
             android {
+                lintOptions {
+                    abortOnError false
+                }  
                 compileSdkVersion rootProject.ext.compileSdkVersion
                 buildToolsVersion rootProject.ext.buildToolsVersion
-                defaultConfig {
-                    targetSdkVersion rootProject.ext.targetSdkVersion
-                    minSdkVersion rootProject.ext.minSdkVersion
-                }
             }
         }
     }
