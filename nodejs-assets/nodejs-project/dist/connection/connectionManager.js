@@ -39,13 +39,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var dps_1 = __importDefault(require("dps-keygen/dps"));
-var clientFromConnectionString = require("azure-iot-device-mqtt")
-    .clientFromConnectionString;
+var Mqtt = require("azure-iot-device-mqtt").Mqtt;
 var rnBridge = require("rn-bridge");
-var Message = require("azure-iot-device").Message;
+var azure_iot_device_1 = require("azure-iot-device");
 var _client;
 var _twin;
 var _deviceId;
+process.on("uncaughtException", function (err) {
+    console.log("UNCAUGHT EMITTER EXCEPTION", err);
+});
 function _computeConnectionString(appSymmetricKey, deviceId, scopeId) {
     return new Promise(function (resolve, reject) {
         dps_1.default.getConnectionString(deviceId, appSymmetricKey, scopeId, null, true, function (err, conStr) {
@@ -98,30 +100,99 @@ function _listenForCommands(deviceId, client) {
         });
     });
 }
+function closeClient(client) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, new Promise(function (resolve, reject) {
+                    client.close(function (err, result) {
+                        if (err) {
+                            return reject(err);
+                        }
+                        else {
+                            resolve(result);
+                        }
+                    });
+                })];
+        });
+    });
+}
+function disconnect() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (_twin) {
+                        _twin.removeAllListeners();
+                    }
+                    if (!_client) return [3 /*break*/, 2];
+                    _client.removeAllListeners();
+                    return [4 /*yield*/, closeClient(_client)];
+                case 1:
+                    _a.sent();
+                    _a.label = 2;
+                case 2:
+                    _deviceId = null;
+                    // @ts-ignore
+                    _client = null;
+                    // @ts-ignore
+                    _twin = null;
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
 function connect(appSymmetricKey, deviceId, scopeId) {
     return __awaiter(this, void 0, void 0, function () {
-        var connectionString;
+        var e_1, connectionString, e_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     console.log("appSymm " + appSymmetricKey + " devId " + deviceId + " scope " + scopeId);
                     console.log("Connecting...");
-                    if (_deviceId === deviceId) {
-                        console.log("Already Connected!");
-                        return [2 /*return*/, { deviceId: deviceId, properties: _twin.properties }];
-                    }
-                    return [4 /*yield*/, _computeConnectionString(appSymmetricKey, deviceId, scopeId)];
+                    if (!(_deviceId === deviceId)) return [3 /*break*/, 1];
+                    console.log("Already Connected!");
+                    return [2 /*return*/, { deviceId: deviceId, properties: _twin.properties }];
                 case 1:
-                    connectionString = _a.sent();
-                    _client = clientFromConnectionString(connectionString);
-                    return [4 /*yield*/, _getTwin(_client)];
+                    if (!_deviceId) return [3 /*break*/, 5];
+                    _a.label = 2;
                 case 2:
+                    _a.trys.push([2, 4, , 5]);
+                    console.log("Disconnecting Existing Device...");
+                    return [4 /*yield*/, disconnect()];
+                case 3:
+                    _a.sent();
+                    console.log("Device Disconnected");
+                    return [3 /*break*/, 5];
+                case 4:
+                    e_1 = _a.sent();
+                    console.log("Error trying to close existing connection, continuing.");
+                    return [3 /*break*/, 5];
+                case 5:
+                    _a.trys.push([5, 8, , 9]);
+                    console.log("Creating connection string...");
+                    return [4 /*yield*/, _computeConnectionString(appSymmetricKey, deviceId, scopeId)];
+                case 6:
+                    connectionString = _a.sent();
+                    console.log("Success.");
+                    console.log("Getting client...");
+                    _client = azure_iot_device_1.Client.fromConnectionString(connectionString, Mqtt);
+                    console.log("Success.");
+                    console.log("Getting twin...");
+                    return [4 /*yield*/, _getTwin(_client)];
+                case 7:
                     _twin = _a.sent();
+                    console.log("Success.");
                     _deviceId = deviceId;
                     _listenForSettingsUpdate(_deviceId, _twin);
                     _listenForCommands(_deviceId, _client);
                     // console.log(twin);
                     return [2 /*return*/, { deviceId: deviceId, properties: _twin.properties }];
+                case 8:
+                    e_2 = _a.sent();
+                    console.log("Error connecting device.", e_2);
+                    disconnect();
+                    throw e_2;
+                case 9: return [2 /*return*/];
             }
         });
     });
@@ -129,30 +200,42 @@ function connect(appSymmetricKey, deviceId, scopeId) {
 exports.connect = connect;
 function updateProperties(properties) {
     return __awaiter(this, void 0, void 0, function () {
+        var e_3;
         return __generator(this, function (_a) {
-            if (!_client) {
-                return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, _updateProperties(_twin, properties)];
+                case 1:
+                    _a.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    e_3 = _a.sent();
+                    console.log("Error Updating Properties", e_3);
+                    throw e_3;
+                case 3: return [2 /*return*/];
             }
-            console.log("Updating Properties...");
-            console.log("" + properties);
-            console.log("" + JSON.stringify(properties));
-            _updateProperties(_twin, properties);
-            return [2 /*return*/];
         });
     });
 }
 exports.updateProperties = updateProperties;
 function updateSettingComplete(setting, desiredChange) {
     return __awaiter(this, void 0, void 0, function () {
+        var e_4;
         return __generator(this, function (_a) {
-            if (!_client) {
-                return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, _updateSettingComplete(_twin, setting, desiredChange)];
+                case 1:
+                    _a.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    e_4 = _a.sent();
+                    console.log("Error Updating Setting", e_4);
+                    throw e_4;
+                case 3: return [2 /*return*/];
             }
-            console.log("Updating Setting Complete...");
-            console.log("" + setting);
-            console.log("" + JSON.stringify(setting));
-            _updateSettingComplete(_twin, setting, desiredChange);
-            return [2 /*return*/];
         });
     });
 }
@@ -168,38 +251,50 @@ function _updateSettingComplete(twin, setting, desiredChange) {
                     desiredVersion: desiredChange.$version
                 },
                 _a);
-            twin.properties.reported.update(patch, function (err) {
-                return console.log("Sent setting update for " + setting + "; " +
-                    (err ? "error: " + err.toString() : "status: success"));
-            });
-            return [2 /*return*/];
+            return [2 /*return*/, _updateProperties(twin, patch)];
         });
     });
 }
 function _updateProperties(twin, properties) {
-    return new Promise(function (resolve, reject) {
+    var timeoutPromise = new Promise(function (resolve, reject) {
+        setTimeout(reject, 5000, "Timeout");
+    });
+    var updatePromise = new Promise(function (resolve, reject) {
+        if (!twin || !twin.properties || !twin.properties.reported) {
+            return reject("Twin DNE");
+        }
         twin.properties.reported.update(properties, function (err) {
             if (err) {
-                console.log("Error Updating Properties!!");
-                reject(err);
+                return reject(err);
             }
             resolve();
         });
     });
+    Promise.race([timeoutPromise, updatePromise]).catch(function (e) {
+        console.log("Error updating properties", e);
+    });
+    return Promise.resolve();
 }
+// UnauthorizedError || NotConnectedError
 function sendTelemetry(telemetry) {
-    if (!_client) {
-        return;
+    try {
+        var message = new azure_iot_device_1.Message(JSON.stringify(telemetry));
+        return _sendEvent(_client, message);
     }
-    var message = new Message(JSON.stringify(telemetry));
-    return _sendEvent(_client, message);
+    catch (e) {
+        console.log("Error Sending Telemetry", e);
+        throw e;
+    }
 }
 exports.sendTelemetry = sendTelemetry;
 function _sendEvent(client, message) {
     return new Promise(function (resolve, reject) {
+        if (!client) {
+            resolve({});
+        }
         client.sendEvent(message, function (err, res) {
             if (err) {
-                reject(err);
+                return reject(err);
             }
             resolve(res);
         });

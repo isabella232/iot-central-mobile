@@ -1,6 +1,7 @@
 import { getDPS, createDevice, Template } from "../../httpClients/IoTCentral";
 import { getPrimaryConnectionString } from "./keyManagement";
 import { BACKEND_API } from "react-native-dotenv";
+import { logInfo } from "../../common/logger";
 
 export async function provisionAndConnect(deviceParameters: {
   appId: string;
@@ -8,9 +9,14 @@ export async function provisionAndConnect(deviceParameters: {
   deviceTemplate: Template;
 }) {
   const { appId, deviceName, deviceTemplate } = deviceParameters;
+  logInfo("Provisioning Device...");
   const device = await _provisionThisDevice(deviceParameters);
-  //const { device, dps } = { device: await deviceTask, dps: await dpsTask };
-  return connectDevice(device.deviceId, appId);
+  logInfo("Device Provisioned.", device);
+
+  logInfo("Connecting Device....");
+  const result = await connectDevice(device.deviceId, appId);
+  logInfo("Device Connected", result);
+  return result;
 }
 
 async function _provisionThisDevice(deviceParameters) {

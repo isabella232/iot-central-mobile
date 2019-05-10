@@ -1,24 +1,9 @@
-import { BACKEND_API } from "react-native-dotenv";
+import { makeRequest } from "../helpers/backendRequest";
 
 export function updateTelemetry(telemetry) {
-  return fetch(BACKEND_API + "api/telemetry", {
-    method: "POST",
-    headers: {
-      "Cache-Control": "no-cache",
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(telemetry)
-  });
+  return makeRequest("api/telemetry", "POST", telemetry);
 }
 
 export function getState() {
-  return fetch(BACKEND_API, {
-    method: "GET",
-    headers: {
-      "Cache-Control": "no-cache",
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    }
-  });
+  return makeRequest("");
 }

@@ -11,43 +11,59 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post("/api/device/connect", async (req, res) => {
-  console.log("Connect ENDPOINT");
-  console.log(req.body);
-
   const { appKey, deviceId, scopeId } = req.body;
-  console.log("Connect Endpoint");
-  const device = await ConnectionManager.connect(appKey, deviceId, scopeId);
-  console.log("DEVICE CONNECTED");
-  console.log({ device });
-
-  res.json({ device });
+  try {
+    const device = await ConnectionManager.connect(appKey, deviceId, scopeId);
+    res.json({ device });
+  } catch (e) {
+    if (e.status && e.message) {
+      res.status(e.status).send(e.message);
+    } else {
+      res.status(500).send("Error Connecting Device.");
+    }
+  }
 });
 
 app.post("/api/device/setting/update/complete", async (req, res) => {
-  console.log(`Setting Updated: ${JSON.stringify(req.body)}. Sending...`);
-
-  await ConnectionManager.updateSettingComplete(
-    req.body.setting,
-    req.body.desiredChange
-  );
-  console.log("Setting Updates.");
-
-  res.send("OK");
+  try {
+    await ConnectionManager.updateSettingComplete(
+      req.body.setting,
+      req.body.desiredChange
+    );
+    res.send("OK");
+  } catch (e) {
+    if (e.status && e.message) {
+      res.status(e.status).send(e.message);
+    } else {
+      res.status(501).send("Error Reporting Setting Update.");
+    }
+  }
 });
 
 app.post("/api/device/property/reported", async (req, res) => {
-  console.log(`Property Reported: ${req.body}. Sending...`);
-
-  await ConnectionManager.updateProperties(req.body);
-  console.log("Property Sent.");
-
-  res.send("OK");
+  try {
+    await ConnectionManager.updateProperties(req.body);
+    res.send("OK");
+  } catch (e) {
+    if (e.status && e.message) {
+      res.status(e.status).send(e.message);
+    } else {
+      res.status(502).send("Error Reporting Property.");
+    }
+  }
 });
 
 app.post("/api/telemetry", async (req, res) => {
-  console.log(`Sending... ${req.body}`);
-  await ConnectionManager.sendTelemetry(req.body);
-  res.send("OK");
+  try {
+    await ConnectionManager.sendTelemetry(req.body);
+    res.send("OK");
+  } catch (e) {
+    if (e.status && e.message) {
+      res.status(e.status).send(e.message);
+    } else {
+      res.status(503).send("Error Sending Telemetry.");
+    }
+  }
 });
 
 app.get("/", (req, res) => res.send("OK!"));
