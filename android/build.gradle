@@ -3,7 +3,7 @@
 buildscript {
     ext {
         buildToolsVersion = "28.0.3"
-        minSdkVersion = 21
+        minSdkVersion = 26
         compileSdkVersion = 28
         targetSdkVersion = 28
         supportLibVersion = "28.0.0"
@@ -28,6 +28,39 @@ allprojects {
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
+        }
+    }
+}
+
+subprojects {
+    project.configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'com.android.support'
+                    && !details.requested.name.contains('multidex') ) {
+                details.useVersion "27.1.1"
+            }
+        }
+    }
+    beforeEvaluate {project -> 
+    if (project.hasProperty("android")) {
+            android {
+                defaultConfig {
+                    targetSdkVersion rootProject.ext.targetSdkVersion
+                    minSdkVersion rootProject.ext.minSdkVersion
+                }
+            }
+        }
+    }
+    afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion rootProject.ext.compileSdkVersion
+                buildToolsVersion rootProject.ext.buildToolsVersion
+                defaultConfig {
+                    targetSdkVersion rootProject.ext.targetSdkVersion
+                    minSdkVersion rootProject.ext.minSdkVersion
+                }
+            }
         }
     }
 }
