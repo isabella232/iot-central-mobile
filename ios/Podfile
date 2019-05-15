@@ -47,6 +47,8 @@ target 'aziotmobile' do
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
+
   post_install do |installer|
     installer.pods_project.targets.each do |target|
 
