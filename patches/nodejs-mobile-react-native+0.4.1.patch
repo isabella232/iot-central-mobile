@@ -12,23 +12,3 @@ index 970b515..3937905 100644
      }
      
      externalNativeBuild {
-diff --git a/node_modules/nodejs-mobile-react-native/ios/RNNodeJsMobile.xcodeproj/xcuserdata/clevelandthompson.xcuserdatad/xcschemes/xcschememanagement.plist b/node_modules/nodejs-mobile-react-native/ios/RNNodeJsMobile.xcodeproj/xcuserdata/clevelandthompson.xcuserdatad/xcschemes/xcschememanagement.plist
-new file mode 100644
-index 0000000..73b83c8
---- /dev/null
-+++ b/node_modules/nodejs-mobile-react-native/ios/RNNodeJsMobile.xcodeproj/xcuserdata/clevelandthompson.xcuserdatad/xcschemes/xcschememanagement.plist
-@@ -0,0 +1,14 @@
-+<?xml version="1.0" encoding="UTF-8"?>
-+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-+<plist version="1.0">
-+<dict>
-+	<key>SchemeUserState</key>
-+	<dict>
-+		<key>RNNodeJsMobile.xcscheme_^#shared#^_</key>
-+		<dict>
-+			<key>orderHint</key>
-+			<integer>22</integer>
-+		</dict>
-+	</dict>
-+</dict>
-+</plist>
