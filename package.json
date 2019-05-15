@@ -24,6 +24,7 @@
     "postinstall-postinstall": "^2.0.0",
     "react": "16.8.3",
     "react-native": "0.59.4",
+    "react-native-code-push": "^5.6.0",
     "react-native-device-brightness": "^1.2.0",
     "react-native-device-info": "^1.4.3",
     "react-native-dotenv": "^0.2.0",
