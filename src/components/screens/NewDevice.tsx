@@ -49,7 +49,7 @@ export default class NewDevice extends Component<Props, State> {
       return (
         <KeyboardAvoidingView style={style.container} behavior="padding">
           <View style={style.textContainer}>
-            <Text style={style.text}>Message:</Text>
+            <Text style={style.text}>Name:</Text>
             <TextInput
               style={style.textInput}
               returnKeyType="done"

@@ -74,5 +74,6 @@ async function makeRequest(path, method = "GET", body?: {}) {
     return json.value || json;
   } catch (error) {
     logError("Error making request", error);
+    throw error;
   }
 }

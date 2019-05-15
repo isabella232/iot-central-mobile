@@ -19,7 +19,7 @@ const CLEAR = "aziot/applications/GET_FAIL";
 const initialState = {
   list: [],
   isLoading: false,
-  text: ""
+  error: null
 };
 
 export default function reducer(state = initialState, action) {
@@ -90,11 +90,12 @@ export function fetchApplications() {
     dispatch(requestApplications());
     return getApps()
       .then(async (applications: Array<Application>) => {
-        const appsWithTemplates = await Promise.all(
-          applications.map(a => addTemplatesToApp(a))
-        );
-        const mobileApps = getMobileApps(appsWithTemplates);
-        dispatch(receiveApplications(mobileApps));
+        // code for filtering applications
+        // const appsWithTemplates = await Promise.all(
+        //  applications.map(a => addTemplatesToApp(a))
+        // );
+        // const mobileApps = getMobileApps(appsWithTemplates);
+        dispatch(receiveApplications(applications));
       })
       .catch(error => {
         dispatch(receiveFailure(error));

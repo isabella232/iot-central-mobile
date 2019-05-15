@@ -51,7 +51,11 @@ function reducer(state = initialState, action) {
         deviceId: action.device.deviceId
       };
     case CREATE_DEVICE_FAIL:
-      return { ...state, isLoading: false };
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error || "Error connecting device."
+      };
     default:
       return state;
   }
@@ -119,10 +123,7 @@ function connectDevice(device) {
     dispatch({ type: CONNECT_DEVICE });
     await dispatch(unsubscribeAll())
       .then(() => postConnectDevice(deviceId, appId))
-      .then(
-        _ => dispatch({ type: CONNECT_DEVICE_SUCCESS }),
-        _ => dispatch({ type: CONNECT_DEVICE_FAIL })
-      )
+      .then(_ => dispatch({ type: CONNECT_DEVICE_SUCCESS }))
       .then(() => subscribeAll())
       .catch(error => dispatch(receiveConnectFail(error)));
   };
