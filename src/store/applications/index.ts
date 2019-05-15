@@ -18,7 +18,8 @@ const CLEAR = "aziot/applications/GET_FAIL";
 
 const initialState = {
   list: [],
-  isLoading: false
+  isLoading: false,
+  text: ""
 };
 
 export default function reducer(state = initialState, action) {
