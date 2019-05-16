@@ -3,7 +3,7 @@ const Mqtt = require("azure-iot-device-mqtt").Mqtt;
 
 const rnBridge = require("rn-bridge");
 import { Client, Message, Twin } from "azure-iot-device";
-import { logInfo } from "../logging/logger";
+import { logAppCenter, logInfo } from "../logging/logger";
 
 let _client: Client;
 let _twin: Twin;
@@ -152,6 +152,7 @@ export async function connect(
     _listenForCommands(_deviceId, _client);
     return { deviceId, properties: _twin.properties };
   } catch (e) {
+    logAppCenter("Error Connecting Device", { Error: JSON.stringify(e) });
     logInfo("Error connecting device.", e);
     disconnect();
     throw e;
@@ -187,7 +188,7 @@ async function _updateSettingComplete(twin: Twin, setting, desiredChange) {
   return _updateProperties(twin, patch);
 }
 
-function _updateProperties(twin, properties, retryCount = 0) {
+function _updateProperties(twin, properties) {
   const timeoutPromise = new Promise((resolve, reject) => {
     setTimeout(reject, 5000, "Timeout");
   });
@@ -203,14 +204,7 @@ function _updateProperties(twin, properties, retryCount = 0) {
     });
   });
   return Promise.race([timeoutPromise, updatePromise]).catch(e => {
-    logInfo("Error updating properties, retryCount:", retryCount, "Error:", e);
-    if (retryCount > 2) {
-      logInfo("Max retry count hit, disconnecting.", retryCount, "Error:", e);
-      return disconnect();
-    } else {
-      retryCount++;
-      return _updateProperties(twin, properties, retryCount);
-    }
+    logInfo("Error updating properties error:", e);
   });
 }
 // UnauthorizedError || NotConnectedError

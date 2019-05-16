@@ -6,7 +6,7 @@ import { receiveCommand } from "../commands";
 import { subscribeAll, unsubscribeAll } from "../sensors";
 import { sendAllState } from "../state";
 import { postProperties } from "../properties/reportedduck";
-import { logError, logInfo } from "../../common/logger";
+import { logError, logInfo, logAppCenter } from "../../common/logger";
 
 const SUBSCRIBE = "aziot/backend/SUBSCRIBE";
 const INITIALIZED = "aziot/backend/INITIALIZED";
@@ -89,6 +89,9 @@ function handleBackendLogging() {
   });
   backend.channel.addListener("/log/info", message => {
     logInfo(message);
+  });
+  backend.channel.addListener("/log/appcenter", async message => {
+    await logAppCenter(message.event || "Node Event", message.properties);
   });
 }
 

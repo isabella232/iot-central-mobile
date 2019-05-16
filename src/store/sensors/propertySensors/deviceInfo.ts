@@ -37,7 +37,7 @@ class DeviceInfo extends DefaultSensor<DeviceInfoData> {
         const data = await this._getData();
         dispatch(this.updateData(data));
         dispatch(postProperties(data));
-      }, 30000);
+      }, 5000);
 
       dispatch(this._subscribe(subscription));
     };
@@ -57,7 +57,8 @@ class DeviceInfo extends DefaultSensor<DeviceInfoData> {
     const locale = DeviceInformation.getDeviceLocale();
     const manufacturer = DeviceInformation.getManufacturer();
     const diskAvailable = DeviceInformation.getFreeDiskStorage();
-    const battery = (await DeviceInformation.getBatteryLevel()) * 100;
+    // asconst battery = (await DeviceInformation.getBatteryLevel()) * 100;
+    const battery = 100;
     const data = { id, ip, locale, manufacturer, diskAvailable, battery };
     return data;
   }
