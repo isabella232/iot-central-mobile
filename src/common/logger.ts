@@ -5,8 +5,6 @@ export function logInfo(...params) {
   if (__DEV__ && Tron && Tron.log) {
     Tron.log(...params);
     console.log(...params);
-  } else {
-    console.log(...params);
   }
 }
 
