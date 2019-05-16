@@ -22,10 +22,15 @@ export default function reducer(state = initialState, action) {
       const list = state.appId === action.appId ? state.list : [];
       return { ...state, list, appId: action.appId, isLoading: true };
     case GET_SUCCESS:
+      const alphaList = action.devices
+        ? action.devices.sort((a, b) => {
+            return a.name.localeCompare(b.name);
+          })
+        : [];
       return {
         ...state,
         isLoading: false,
-        list: action.devices
+        list: alphaList
       };
     case GET_FAIL:
       return {

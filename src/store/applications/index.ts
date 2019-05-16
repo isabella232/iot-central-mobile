@@ -27,10 +27,15 @@ export default function reducer(state = initialState, action) {
     case GET_APPLICATIONS:
       return { ...state, isLoading: true };
     case GET_APPLICATIONS_SUCCESS:
+      const alphaList = action.applications
+        ? action.applications.sort((a, b) => {
+            return a.name.localeCompare(b.name);
+          })
+        : [];
       return {
         ...state,
         isLoading: false,
-        list: action.applications
+        list: alphaList
       };
     case GET_APPLICATIONS_FAIL:
       return {
