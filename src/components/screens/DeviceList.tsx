@@ -23,6 +23,7 @@ export interface Props extends NavigationProps {
   isLoading: boolean;
   getDevices: (appId) => any;
   selectDevice;
+  selectedDevice: string;
 }
 
 export interface State {
@@ -80,7 +81,11 @@ export default class DeviceList extends Component<Props, State> {
           style={style.container}
           data={this.props.devices}
           renderItem={({ item }) => (
-            <DeviceRow device={item} handlePressed={this.handleTapped} />
+            <DeviceRow
+              device={item}
+              handlePressed={this.handleTapped}
+              selected={this.props.selectedDevice === item.deviceId}
+            />
           )}
           refreshing={this.props.isLoading}
           onRefresh={() => this.props.getDevices(this.state.application.id)}

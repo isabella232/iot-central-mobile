@@ -5,7 +5,8 @@ import { fetchApplications } from "../../store/applications";
 const mapStateToProps = state => {
   return {
     applications: state.applications.list,
-    isLoading: state.applications.isLoading
+    isLoading: state.applications.isLoading,
+    selectedApp: state.device.appId
   };
 };
 

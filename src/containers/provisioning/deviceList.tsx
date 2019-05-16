@@ -6,7 +6,8 @@ import { createDevice, selectDevice } from "../../store/device";
 const mapStateToProps = state => {
   return {
     devices: state.deviceList.list,
-    isLoading: state.deviceList.isLoading
+    isLoading: state.deviceList.isLoading,
+    selectedDevice: state.device.deviceId
   };
 };
 
