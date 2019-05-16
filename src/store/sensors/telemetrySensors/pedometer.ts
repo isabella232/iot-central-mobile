@@ -16,17 +16,17 @@ class Pedometer extends DefaultSensor<Data> {
   subscribe() {
     return async (dispatch, getState) => {
       await HealthAPI.initialize()
-        .then(() => {
+        .then(async () => {
           logInfo("HealthAPI Initialized Successfully.");
+          const subscription = await HealthAPI.subscribe(data => {
+            dispatch(this.updateData(data));
+            dispatch(postTelemetry(data));
+          }).catch(err => logError("Error subscribing to health data.", err));
+          dispatch(this._subscribe(subscription));
         })
         .catch(err => {
           logError("Error initializing HealthAPI", err);
         });
-      const subscription = await HealthAPI.subscribe(data => {
-        dispatch(this.updateData(data));
-        dispatch(postTelemetry(data));
-      }).catch(err => logError("Error subscribing to health data.", err));
-      dispatch(this._subscribe(subscription));
     };
   }
 

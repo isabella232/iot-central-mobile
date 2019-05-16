@@ -42,11 +42,12 @@ var dps_1 = __importDefault(require("dps-keygen/dps"));
 var Mqtt = require("azure-iot-device-mqtt").Mqtt;
 var rnBridge = require("rn-bridge");
 var azure_iot_device_1 = require("azure-iot-device");
+var logger_1 = require("../logging/logger");
 var _client;
 var _twin;
 var _deviceId;
 process.on("uncaughtException", function (err) {
-    console.log("UNCAUGHT EMITTER EXCEPTION", err);
+    logger_1.logError("UNCAUGHT EMITTER EXCEPTION", err);
 });
 function _computeConnectionString(appSymmetricKey, deviceId, scopeId) {
     return new Promise(function (resolve, reject) {
@@ -86,10 +87,10 @@ var commands = [
     "play_music"
 ];
 function _listenForCommands(deviceId, client) {
-    console.log("Listening for commands...");
+    logger_1.logInfo("Listening for commands...");
     commands.forEach(function (command) {
         client.onDeviceMethod(command, function (request, response) {
-            console.log("command received: " + command);
+            logger_1.logInfo("command received: " + command);
             rnBridge.channel.post("/command/received", {
                 deviceId: deviceId,
                 command: command,
@@ -119,25 +120,19 @@ function closeClient(client) {
 function disconnect() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (_twin) {
-                        _twin.removeAllListeners();
-                    }
-                    if (!_client) return [3 /*break*/, 2];
-                    _client.removeAllListeners();
-                    return [4 /*yield*/, closeClient(_client)];
-                case 1:
-                    _a.sent();
-                    _a.label = 2;
-                case 2:
-                    _deviceId = null;
-                    // @ts-ignore
-                    _client = null;
-                    // @ts-ignore
-                    _twin = null;
-                    return [2 /*return*/];
+            if (_twin) {
+                _twin.removeAllListeners();
             }
+            if (_client) {
+                _client.removeAllListeners();
+                closeClient(_client).catch(function (e) { return logger_1.logError("Error closing client", e); });
+            }
+            _deviceId = null;
+            // @ts-ignore
+            _client = null;
+            // @ts-ignore
+            _twin = null;
+            return [2 /*return*/];
         });
     });
 }
@@ -147,49 +142,48 @@ function connect(appSymmetricKey, deviceId, scopeId) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log("appSymm " + appSymmetricKey + " devId " + deviceId + " scope " + scopeId);
-                    console.log("Connecting...");
+                    logger_1.logInfo("appSymm " + appSymmetricKey + " devId " + deviceId + " scope " + scopeId);
+                    logger_1.logInfo("Connecting...");
                     if (!(_deviceId === deviceId)) return [3 /*break*/, 1];
-                    console.log("Already Connected!");
+                    logger_1.logInfo("Already Connected!");
                     return [2 /*return*/, { deviceId: deviceId, properties: _twin.properties }];
                 case 1:
                     if (!_deviceId) return [3 /*break*/, 5];
                     _a.label = 2;
                 case 2:
                     _a.trys.push([2, 4, , 5]);
-                    console.log("Disconnecting Existing Device...");
+                    logger_1.logInfo("Disconnecting Existing Device...");
                     return [4 /*yield*/, disconnect()];
                 case 3:
                     _a.sent();
-                    console.log("Device Disconnected");
+                    logger_1.logInfo("Device Disconnected");
                     return [3 /*break*/, 5];
                 case 4:
                     e_1 = _a.sent();
-                    console.log("Error trying to close existing connection, continuing.");
+                    logger_1.logError("Error trying to close existing connection, continuing.");
                     return [3 /*break*/, 5];
                 case 5:
                     _a.trys.push([5, 8, , 9]);
-                    console.log("Creating connection string...");
+                    logger_1.logInfo("Creating connection string...");
                     return [4 /*yield*/, _computeConnectionString(appSymmetricKey, deviceId, scopeId)];
                 case 6:
                     connectionString = _a.sent();
-                    console.log("Success.");
-                    console.log("Getting client...");
+                    logger_1.logInfo("Success.");
+                    logger_1.logInfo("Getting client...");
                     _client = azure_iot_device_1.Client.fromConnectionString(connectionString, Mqtt);
-                    console.log("Success.");
-                    console.log("Getting twin...");
+                    logger_1.logInfo("Success.");
+                    logger_1.logInfo("Getting twin...");
                     return [4 /*yield*/, _getTwin(_client)];
                 case 7:
                     _twin = _a.sent();
-                    console.log("Success.");
+                    logger_1.logInfo("Success.");
                     _deviceId = deviceId;
                     _listenForSettingsUpdate(_deviceId, _twin);
                     _listenForCommands(_deviceId, _client);
-                    // console.log(twin);
                     return [2 /*return*/, { deviceId: deviceId, properties: _twin.properties }];
                 case 8:
                     e_2 = _a.sent();
-                    console.log("Error connecting device.", e_2);
+                    logger_1.logError("Error connecting device.", e_2);
                     disconnect();
                     throw e_2;
                 case 9: return [2 /*return*/];
@@ -211,7 +205,7 @@ function updateProperties(properties) {
                     return [3 /*break*/, 3];
                 case 2:
                     e_3 = _a.sent();
-                    console.log("Error Updating Properties", e_3);
+                    logger_1.logError("Error Updating Properties", e_3);
                     throw e_3;
                 case 3: return [2 /*return*/];
             }
@@ -232,7 +226,7 @@ function updateSettingComplete(setting, desiredChange) {
                     return [3 /*break*/, 3];
                 case 2:
                     e_4 = _a.sent();
-                    console.log("Error Updating Setting", e_4);
+                    logger_1.logError("Error Updating Setting", e_4);
                     throw e_4;
                 case 3: return [2 /*return*/];
             }
@@ -255,13 +249,14 @@ function _updateSettingComplete(twin, setting, desiredChange) {
         });
     });
 }
-function _updateProperties(twin, properties) {
+function _updateProperties(twin, properties, retryCount) {
+    if (retryCount === void 0) { retryCount = 0; }
     var timeoutPromise = new Promise(function (resolve, reject) {
         setTimeout(reject, 5000, "Timeout");
     });
     var updatePromise = new Promise(function (resolve, reject) {
         if (!twin || !twin.properties || !twin.properties.reported) {
-            return reject("Twin DNE");
+            return resolve("Twin DNE");
         }
         twin.properties.reported.update(properties, function (err) {
             if (err) {
@@ -270,10 +265,17 @@ function _updateProperties(twin, properties) {
             resolve();
         });
     });
-    Promise.race([timeoutPromise, updatePromise]).catch(function (e) {
-        console.log("Error updating properties", e);
+    return Promise.race([timeoutPromise, updatePromise]).catch(function (e) {
+        logger_1.logInfo("Error updating properties, retryCount:", retryCount, "Error:", e);
+        if (retryCount > 2) {
+            logger_1.logInfo("Max retry count hit, disconnecting.", retryCount, "Error:", e);
+            return disconnect();
+        }
+        else {
+            retryCount++;
+            return _updateProperties(twin, properties, retryCount);
+        }
     });
-    return Promise.resolve();
 }
 // UnauthorizedError || NotConnectedError
 function sendTelemetry(telemetry) {
@@ -282,7 +284,7 @@ function sendTelemetry(telemetry) {
         return _sendEvent(_client, message);
     }
     catch (e) {
-        console.log("Error Sending Telemetry", e);
+        logger_1.logInfo("Error Sending Telemetry", e);
         throw e;
     }
 }

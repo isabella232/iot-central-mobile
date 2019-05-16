@@ -1,4 +1,5 @@
 import * as ConnectionManager from "./connection/connectionManager";
+import { logInfo } from "./logging/logger";
 const rnBridge = require("rn-bridge");
 
 const express = require("express");
@@ -68,6 +69,6 @@ app.post("/api/telemetry", async (req, res) => {
 
 app.get("/", (req, res) => res.send("OK!"));
 
-app.listen(port, () => console.log(`Node process listening on port ${port}!`));
+app.listen(port, () => logInfo(`Node process listening on port ${port}!`));
 
 rnBridge.channel.post("/initialized", {});

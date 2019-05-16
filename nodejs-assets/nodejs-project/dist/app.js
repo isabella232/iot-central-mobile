@@ -44,6 +44,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ConnectionManager = __importStar(require("./connection/connectionManager"));
+var logger_1 = require("./logging/logger");
 var rnBridge = require("rn-bridge");
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -151,5 +152,5 @@ app.post("/api/telemetry", function (req, res) { return __awaiter(_this, void 0,
     });
 }); });
 app.get("/", function (req, res) { return res.send("OK!"); });
-app.listen(port, function () { return console.log("Node process listening on port " + port + "!"); });
+app.listen(port, function () { return logger_1.logInfo("Node process listening on port " + port + "!"); });
 rnBridge.channel.post("/initialized", {});
