@@ -6,6 +6,7 @@ import { receiveCommand } from "../commands";
 import { subscribeAll, unsubscribeAll } from "../sensors";
 import { sendAllState } from "../state";
 import { postProperties } from "../properties/reportedduck";
+import { logError, logInfo } from "../../common/logger";
 
 const SUBSCRIBE = "aziot/backend/SUBSCRIBE";
 const INITIALIZED = "aziot/backend/INITIALIZED";
@@ -69,6 +70,7 @@ export function subscribe() {
     dispatch(_subscribe());
     dispatch(listenForCommands());
     dispatch(listenForSettings());
+    handleBackendLogging();
     backend.channel.addListener("/initialized", _ => {
       dispatch(initialized());
     });
@@ -79,6 +81,15 @@ export function subscribe() {
       _ => {}
     );
   };
+}
+
+function handleBackendLogging() {
+  backend.channel.addListener("/log/error", message => {
+    logError(message);
+  });
+  backend.channel.addListener("/log/info", message => {
+    logInfo(message);
+  });
 }
 
 export function unsubscribe() {

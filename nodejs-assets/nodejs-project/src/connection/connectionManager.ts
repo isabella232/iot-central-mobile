@@ -3,13 +3,14 @@ const Mqtt = require("azure-iot-device-mqtt").Mqtt;
 
 const rnBridge = require("rn-bridge");
 import { Client, Message, Twin } from "azure-iot-device";
+import { logInfo } from "../logging/logger";
 
 let _client: Client;
 let _twin: Twin;
 let _deviceId: string | null;
 
 process.on("uncaughtException", err => {
-  console.log("UNCAUGHT EMITTER EXCEPTION", err);
+  logInfo("UNCAUGHT EMITTER EXCEPTION", err);
 });
 
 function _computeConnectionString(
@@ -65,10 +66,10 @@ const commands = [
 ];
 
 function _listenForCommands(deviceId, client) {
-  console.log("Listening for commands...");
+  logInfo("Listening for commands...");
   commands.forEach(command => {
     client.onDeviceMethod(command, (request, response) => {
-      console.log(`command received: ${command}`);
+      logInfo(`command received: ${command}`);
       rnBridge.channel.post("/command/received", {
         deviceId,
         command,
@@ -98,7 +99,7 @@ async function disconnect() {
   }
   if (_client) {
     _client.removeAllListeners();
-    await closeClient(_client);
+    closeClient(_client).catch(e => logInfo("Error closing client", e));
   }
   _deviceId = null;
 
@@ -113,46 +114,45 @@ export async function connect(
   deviceId: string,
   scopeId: string
 ) {
-  console.log(`appSymm ${appSymmetricKey} devId ${deviceId} scope ${scopeId}`);
-  console.log("Connecting...");
+  logInfo(`appSymm ${appSymmetricKey} devId ${deviceId} scope ${scopeId}`);
+  logInfo("Connecting...");
   if (_deviceId === deviceId) {
-    console.log("Already Connected!");
+    logInfo("Already Connected!");
 
     return { deviceId, properties: _twin.properties };
   } else if (_deviceId) {
     try {
-      console.log("Disconnecting Existing Device...");
+      logInfo("Disconnecting Existing Device...");
       await disconnect();
-      console.log("Device Disconnected");
+      logInfo("Device Disconnected");
     } catch (e) {
-      console.log("Error trying to close existing connection, continuing.");
+      logInfo("Error trying to close existing connection, continuing.");
     }
   }
   try {
-    console.log("Creating connection string...");
+    logInfo("Creating connection string...");
 
     const connectionString = await _computeConnectionString(
       appSymmetricKey,
       deviceId,
       scopeId
     );
-    console.log("Success.");
+    logInfo("Success.");
 
-    console.log("Getting client...");
+    logInfo("Getting client...");
 
     _client = Client.fromConnectionString(connectionString, Mqtt);
-    console.log("Success.");
-    console.log("Getting twin...");
+    logInfo("Success.");
+    logInfo("Getting twin...");
     _twin = await _getTwin(_client);
-    console.log("Success.");
+    logInfo("Success.");
 
     _deviceId = deviceId;
     _listenForSettingsUpdate(_deviceId, _twin);
     _listenForCommands(_deviceId, _client);
-    // console.log(twin);
     return { deviceId, properties: _twin.properties };
   } catch (e) {
-    console.log("Error connecting device.", e);
+    logInfo("Error connecting device.", e);
     disconnect();
     throw e;
   }
@@ -162,7 +162,7 @@ export async function updateProperties(properties) {
   try {
     await _updateProperties(_twin, properties);
   } catch (e) {
-    console.log("Error Updating Properties", e);
+    logInfo("Error Updating Properties", e);
     throw e;
   }
 }
@@ -171,7 +171,7 @@ export async function updateSettingComplete(setting, desiredChange) {
   try {
     await _updateSettingComplete(_twin, setting, desiredChange);
   } catch (e) {
-    console.log("Error Updating Setting", e);
+    logInfo("Error Updating Setting", e);
     throw e;
   }
 }
@@ -187,13 +187,13 @@ async function _updateSettingComplete(twin: Twin, setting, desiredChange) {
   return _updateProperties(twin, patch);
 }
 
-function _updateProperties(twin, properties) {
+function _updateProperties(twin, properties, retryCount = 0) {
   const timeoutPromise = new Promise((resolve, reject) => {
     setTimeout(reject, 5000, "Timeout");
   });
   const updatePromise = new Promise((resolve, reject) => {
     if (!twin || !twin.properties || !twin.properties.reported) {
-      return reject("Twin DNE");
+      return resolve("Twin DNE");
     }
     twin.properties.reported.update(properties, err => {
       if (err) {
@@ -202,10 +202,16 @@ function _updateProperties(twin, properties) {
       resolve();
     });
   });
-  Promise.race([timeoutPromise, updatePromise]).catch(e => {
-    console.log("Error updating properties", e);
+  return Promise.race([timeoutPromise, updatePromise]).catch(e => {
+    logInfo("Error updating properties, retryCount:", retryCount, "Error:", e);
+    if (retryCount > 2) {
+      logInfo("Max retry count hit, disconnecting.", retryCount, "Error:", e);
+      return disconnect();
+    } else {
+      retryCount++;
+      return _updateProperties(twin, properties, retryCount);
+    }
   });
-  return Promise.resolve();
 }
 // UnauthorizedError || NotConnectedError
 export function sendTelemetry(telemetry) {
@@ -213,7 +219,7 @@ export function sendTelemetry(telemetry) {
     const message = new Message(JSON.stringify(telemetry));
     return _sendEvent(_client, message);
   } catch (e) {
-    console.log("Error Sending Telemetry", e);
+    logInfo("Error Sending Telemetry", e);
     throw e;
   }
 }

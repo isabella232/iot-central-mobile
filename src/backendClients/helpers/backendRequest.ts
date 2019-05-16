@@ -22,7 +22,7 @@ export async function makeRequest(path: string, method = "GET", body?: {}) {
     }
     return response;
   } catch (error) {
-    logError("Error making request", error);
+    // logError("Error making request", error);
     throw error;
   }
 }

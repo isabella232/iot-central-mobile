@@ -92,7 +92,7 @@ export function postTelemetry(data) {
         dispatch(_postingTelemetrySuccess());
       })
       .catch(e => {
-        logError("Error sending telemetry", e);
+        // logError("Error sending telemetry", e);
         dispatch(_postingTelemetryFail());
       });
   };

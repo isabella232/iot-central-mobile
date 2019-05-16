@@ -15,7 +15,7 @@ export async function provisionAndConnect(deviceParameters: {
 
   logInfo("Connecting Device....");
   const result = await connectDevice(device.deviceId, appId);
-  logInfo("Device Connected", result);
+  logInfo("Device Connected");
   return result;
 }
 

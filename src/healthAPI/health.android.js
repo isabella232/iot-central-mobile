@@ -6,7 +6,12 @@ const options = {
 };
 
 export async function initialize() {
-  await GoogleFit.authorize(options);
+  const authorized = await GoogleFit.authorize(options);
+  if (authorized.success) {
+    return true;
+  } else {
+    throw Error("Unauthorized");
+  }
 }
 
 export async function subscribe(callback) {
