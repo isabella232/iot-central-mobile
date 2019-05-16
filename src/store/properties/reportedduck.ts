@@ -1,6 +1,6 @@
 import { Geolocation } from "react-native";
 import { updateProperties } from "../../backendClients/telemetry/properties";
-import { logError } from "../../common/logger";
+import { logError, logInfo } from "../../common/logger";
 
 const UPDATE_PROPERTIES = "aziot/properties/UPDATE";
 const UPDATE_PROPERTIES_SUCCESS = "aziot/properties/UPDATE_SUCCESS";
@@ -45,6 +45,19 @@ function _updatePropertiesFail() {
 
 export function postProperties(properties?) {
   return (dispatch, getState) => {
+    const currentProperties = getState().properties.reported;
+    if (properties) {
+      const updatedProperties = getUpdatedProperties(
+        currentProperties,
+        properties
+      );
+      if (updatedProperties) {
+        properties = updatedProperties;
+      } else {
+        logInfo("No new properties to post");
+        return Promise.resolve();
+      }
+    }
     const postedProperties = properties || getState().properties.reported;
     dispatch(_updateProperties(postedProperties));
     return updateProperties(postedProperties)
@@ -56,4 +69,18 @@ export function postProperties(properties?) {
         dispatch(_updatePropertiesFail());
       });
   };
+}
+
+function getUpdatedProperties(oldProperties, newProperties) {
+  let updatedProperties = {};
+  Object.keys(newProperties).forEach((key, index) => {
+    if (oldProperties[key] && oldProperties[key] !== newProperties[key]) {
+      updateProperties[key] = newProperties[key];
+    }
+  });
+  if (Object.keys(updatedProperties).length === 0) {
+    return null;
+  } else {
+    return updatedProperties;
+  }
 }
