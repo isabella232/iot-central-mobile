@@ -37,7 +37,7 @@ class DeviceInfo extends DefaultSensor<DeviceInfoData> {
         const data = await this._getData();
         dispatch(this.updateData(data));
         dispatch(postProperties(data));
-      }, 5000);
+      }, 30000);
 
       dispatch(this._subscribe(subscription));
     };
