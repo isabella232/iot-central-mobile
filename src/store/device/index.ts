@@ -40,6 +40,10 @@ const initialState = {
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case CONNECT_DEVICE:
+      return { ...state, isLoading: true };
+    case CONNECT_DEVICE_SUCCESS:
+      return { ...state, isLoading: false };
     case CREATE_DEVICE:
       return { ...state, isLoading: true };
     case CREATE_DEVICE_SUCCESS:
@@ -107,14 +111,23 @@ export function createDevice(appId, deviceName?, deviceTemplate?) {
 
 export function selectDevice(device) {
   return async dispatch => {
-    dispatch(receiveDevice(device));
-    await dispatch(connectDevice(device));
+    dispatch(requestConnect());
+
+    await dispatch(connectDevice(device)).then(() =>
+      dispatch(receiveDevice(device))
+    );
   };
 }
 
 export function connectExistingDevice() {
   return async (dispatch, getState) => {
     await dispatch(connectDevice({ ...getState().device }));
+  };
+}
+
+function requestConnect() {
+  return {
+    type: CONNECT_DEVICE
   };
 }
 
@@ -126,6 +139,9 @@ function connectDevice(device) {
       .then(() => postConnectDevice(deviceId, appId))
       .then(_ => dispatch({ type: CONNECT_DEVICE_SUCCESS }))
       .then(() => subscribeAll())
-      .catch(error => dispatch(receiveConnectFail(error)));
+      .catch(error => {
+        logError("Select Device Failure", error);
+        dispatch(receiveConnectFail(error));
+      });
   };
 }

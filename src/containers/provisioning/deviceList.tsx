@@ -7,7 +7,8 @@ const mapStateToProps = state => {
   return {
     devices: state.deviceList.list,
     isLoading: state.deviceList.isLoading,
-    selectedDevice: state.device.deviceId
+    selectedDevice: state.device.deviceId,
+    isConnecting: state.device.isLoading
   };
 };
 

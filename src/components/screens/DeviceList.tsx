@@ -17,10 +17,13 @@ import DeviceInfo from "react-native-device-info";
 import { SafeAreaView, NavigationEvents } from "react-navigation";
 import DeviceRow from "../rows/DeviceRow";
 import { listStyle as style } from "../styling";
+import Loader from "../loading/Loader";
 
 export interface Props extends NavigationProps {
   devices: Array<any>;
   isLoading: boolean;
+  isConnecting: boolean;
+
   getDevices: (appId) => any;
   selectDevice;
   selectedDevice: string;
@@ -68,12 +71,12 @@ export default class DeviceList extends Component<Props, State> {
       ...device,
       appId: this.state.application.id
     });
-    this.props.navigation.navigate("Dashboard");
   };
 
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <Loader loading={this.props.isConnecting} />
         <NavigationEvents
           onWillFocus={() => this.props.getDevices(this.state.application.id)}
         />
