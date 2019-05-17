@@ -1,7 +1,11 @@
 import { connect } from "react-redux";
 import DeviceList from "../../components/screens/DeviceList";
 import { fetchDevices } from "../../store/deviceList";
-import { createDevice, selectDevice, deleteDevice } from "../../store/device";
+import {
+  selectDevice,
+  deleteDevice,
+  disconnectDevice
+} from "../../store/device";
 // TODO: refactor state to contain original format, transform before sending to backend
 const mapStateToProps = state => {
   return {
@@ -16,7 +20,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getDevices: appId => dispatch(fetchDevices(appId)),
     selectDevice: device => dispatch(selectDevice(device)),
-    deleteDevice: (appId, deviceId) => dispatch(deleteDevice(appId, deviceId))
+    deleteDevice: (appId, deviceId) => dispatch(deleteDevice(appId, deviceId)),
+    disconnectDevice: (appId, deviceId) =>
+      dispatch(disconnectDevice(appId, deviceId))
   };
 };
 

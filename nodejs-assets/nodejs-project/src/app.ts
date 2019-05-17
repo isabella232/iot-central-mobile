@@ -25,6 +25,19 @@ app.post("/api/device/connect", async (req, res) => {
   }
 });
 
+app.post("/api/device/disconnect", async (req, res) => {
+  try {
+    await ConnectionManager.disconnect();
+    res.send("OK");
+  } catch (e) {
+    if (e.status && e.message) {
+      res.status(e.status).send(e.message);
+    } else {
+      res.status(500).send("Error Disconnecting Device.");
+    }
+  }
+});
+
 app.post("/api/device/setting/update/complete", async (req, res) => {
   try {
     await ConnectionManager.updateSettingComplete(

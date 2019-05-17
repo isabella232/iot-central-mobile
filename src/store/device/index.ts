@@ -1,6 +1,7 @@
 import {
   provisionAndConnect,
-  connectDevice as postConnectDevice
+  connectDevice as postConnectDevice,
+  disconnectDevice as postDisconnectDevice
 } from "../../backendClients/provisioning/provisioning";
 import { postProperties } from "../properties/reportedduck";
 import { deleteDevice as sendDeleteDevice } from "../../httpClients/IoTCentral";
@@ -26,6 +27,10 @@ const CONNECT_DEVICE_FAIL = "aziot/devices/CONNECT_FAIL";
 const DELETE = "aziot/devices/DELETE";
 const DELETE_SUCCESS = "aziot/devices/DELETE_SUCCESS";
 const DELETE_FAIL = "aziot/devices/DELETE_FAIL";
+
+const DISCONNECT = "aziot/devices/DISCONNECT";
+const DISCONNECT_SUCCESS = "aziot/devices/DISCONNECT_SUCCESS";
+const DISCONNECT_FAIL = "aziot/devices/DISCONNECT_FAIL";
 
 const MOBILE_TEMPLATE = {
   id: MOBILE_DEVICE_TEMPLATE_ID,
@@ -74,6 +79,15 @@ function reducer(state = initialState, action) {
       return { ...state, isLoading: false };
 
     case DELETE_FAIL:
+      return { ...state, isLoading: false };
+
+    case DISCONNECT:
+      return { ...state, isLoading: true };
+
+    case DISCONNECT_SUCCESS:
+      return { ...state, appId: null, deviceId: null, isLoading: false };
+
+    case DISCONNECT_FAIL:
       return { ...state, isLoading: false };
 
     default:
@@ -185,7 +199,7 @@ function receiveDeleteFaiure(error) {
 export function deleteDevice(appId: string, deviceId: string) {
   return async dispatch => {
     // TODO: Add token management
-
+    await dispatch(disconnectDevice(appId, deviceId));
     dispatch(requestDelete(appId, deviceId));
     await sendDeleteDevice(appId, deviceId)
       .then(result => {
@@ -195,5 +209,43 @@ export function deleteDevice(appId: string, deviceId: string) {
         dispatch(receiveDeleteFaiure(error));
       });
     return dispatch(fetchDevices(appId));
+  };
+}
+
+// Delete
+function requestDisconnect() {
+  return {
+    type: DISCONNECT
+  };
+}
+function receiveDisconnect() {
+  return {
+    type: DISCONNECT_SUCCESS
+  };
+}
+function receiveDisconnectFaiure(error) {
+  return {
+    type: DISCONNECT_FAIL,
+    error
+  };
+}
+
+export function disconnectDevice(appId: string, deviceId: string) {
+  return async (dispatch, getState) => {
+    // TODO: Add token management
+    if (
+      getState().device.appId !== appId &&
+      getState().device.deviceId !== deviceId
+    ) {
+      return Promise.resolve();
+    }
+    dispatch(requestDisconnect());
+    await postDisconnectDevice()
+      .then(result => {
+        dispatch(receiveDisconnect());
+      })
+      .catch(error => {
+        dispatch(receiveDisconnectFaiure(error));
+      });
   };
 }

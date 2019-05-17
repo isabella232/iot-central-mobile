@@ -47,3 +47,14 @@ async function _connectDevice(deviceId, dps, appId) {
     body: JSON.stringify(params)
   });
 }
+
+export async function disconnectDevice() {
+  return fetch(BACKEND_API + "api/device/disconnect", {
+    method: "POST",
+    headers: {
+      "Cache-Control": "no-cache",
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+}

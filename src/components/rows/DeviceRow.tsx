@@ -9,6 +9,7 @@ export interface Props {
   device: any;
   selected: boolean;
   deleteDevice: (device) => any;
+  disconnectDevice: (device) => any;
 }
 
 export interface State {}
@@ -43,16 +44,25 @@ export default class DeviceRow extends React.Component<Props, State> {
   }
 
   swipeButtons = () => {
-    return [
-      {
-        text: "Delete",
-        backgroundColor: "red",
-        underlayColor: "rgba(0, 0, 0, 1, 0.6)",
+    let buttons = [];
+    if (this.props.selected) {
+      buttons.push({
+        text: "Disconnect",
+        backgroundColor: Colors.TILE_ACTIVE_COLOR,
         onPress: () => {
-          this.props.deleteDevice(this.props.device);
+          this.props.disconnectDevice(this.props.device);
         }
+      });
+    }
+    buttons.push({
+      text: "Delete",
+      backgroundColor: "red",
+      onPress: () => {
+        this.props.deleteDevice(this.props.device);
       }
-    ];
+    });
+
+    return buttons;
   };
 }
 
