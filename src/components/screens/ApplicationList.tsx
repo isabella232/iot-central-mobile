@@ -11,6 +11,7 @@ export interface Props extends NavigationProps {
   applications: Application[];
   isLoading: boolean;
   getApps;
+  selectedApp: string;
 }
 
 export interface State {}
@@ -40,6 +41,7 @@ export default class ApplicationList extends Component<Props, State> {
             <ApplicationRow
               application={item}
               handlePressed={this.handleTapped}
+              selected={item.id === this.props.selectedApp}
             />
           )}
           refreshing={this.props.isLoading}

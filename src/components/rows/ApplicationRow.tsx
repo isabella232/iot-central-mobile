@@ -7,6 +7,7 @@ import IconComponent from "react-native-vector-icons/FontAwesome";
 export interface Props {
   handlePressed: (app: Application) => any;
   application: Application;
+  selected: boolean;
 }
 
 export interface State {}
@@ -21,8 +22,15 @@ export default class ApplicationRow extends React.Component<Props, State> {
       <TouchableOpacity
         onPress={() => this.props.handlePressed(this.props.application)}
       >
-        <View style={RowStyle.container}>
-          <Text style={RowStyle.text}>{`${this.props.application.name}`}</Text>
+        <View style={{ ...RowStyle.container }}>
+          <Text
+            style={{
+              ...RowStyle.text,
+              color: this.props.selected
+                ? Colors.TILE_ACTIVE_COLOR
+                : Colors.TILE_TITLE_COLOR
+            }}
+          >{`${this.props.application.name}`}</Text>
           <IconComponent
             name="angle-right"
             size={20}
@@ -42,11 +50,7 @@ const RowStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: Colors.TILE_BACKGROUND_COLOR,
-    shadowColor: Colors.SHADOW_COLOR,
-    shadowOpacity: 0.5,
-    shadowOffset: { width: 0, height: 5 },
-    shadowRadius: 3,
-    elevation: 5
+    shadowColor: Colors.SHADOW_COLOR
   },
   text: {
     marginLeft: 0,

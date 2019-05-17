@@ -12,6 +12,7 @@ import {
 import * as Colors from "../styling/colors";
 import { NavigationProps } from "../props/NavigationProps";
 import DeviceInfo from "react-native-device-info";
+import Loader from "../loading/Loader";
 
 export interface Props extends NavigationProps {
   provisionDevice: (appId, deviceName) => any;
@@ -43,40 +44,37 @@ export default class NewDevice extends Component<Props, State> {
   handleTapped = async device => {};
 
   render() {
-    if (this.props.isLoading) {
-      return <ActivityIndicator size={"small"} />;
-    } else {
-      return (
-        <KeyboardAvoidingView style={style.container} behavior="padding">
-          <View style={style.textContainer}>
-            <Text style={style.text}>Name:</Text>
-            <TextInput
-              style={style.textInput}
-              returnKeyType="done"
-              onChangeText={text => this.setState({ name: text })}
-              value={this.state.name}
-              placeholder="Enter Device Name."
-            />
-          </View>
-          <TouchableHighlight
-            style={{
-              ...style.button
-            }}
-            onPress={async () => {
-              await this.props.provisionDevice(
-                this.state.application.id,
-                this.state.name
-              );
-              this.props.navigation.navigate("Dashboard");
-            }}
-          >
-            <Text style={{ color: Colors.BUTTON_TEXT, fontSize: 20 }}>
-              Create
-            </Text>
-          </TouchableHighlight>
-        </KeyboardAvoidingView>
-      );
-    }
+    return (
+      <KeyboardAvoidingView style={style.container} behavior="padding">
+        <Loader loading={this.props.isLoading} />
+        <View style={style.textContainer}>
+          <Text style={style.text}>Name:</Text>
+          <TextInput
+            style={style.textInput}
+            returnKeyType="done"
+            onChangeText={text => this.setState({ name: text })}
+            value={this.state.name}
+            placeholder="Enter Device Name."
+          />
+        </View>
+        <TouchableHighlight
+          style={{
+            ...style.button
+          }}
+          onPress={async () => {
+            await this.props.provisionDevice(
+              this.state.application.id,
+              this.state.name
+            );
+            this.props.navigation.navigate("DeviceList");
+          }}
+        >
+          <Text style={{ color: Colors.BUTTON_TEXT, fontSize: 20 }}>
+            Create
+          </Text>
+        </TouchableHighlight>
+      </KeyboardAvoidingView>
+    );
   }
 }
 

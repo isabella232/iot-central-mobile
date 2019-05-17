@@ -22,10 +22,15 @@ export default function reducer(state = initialState, action) {
       const list = state.appId === action.appId ? state.list : [];
       return { ...state, list, appId: action.appId, isLoading: true };
     case GET_SUCCESS:
+      const alphaList = action.devices
+        ? action.devices.sort((a, b) => {
+            return a.name.localeCompare(b.name);
+          })
+        : [];
       return {
         ...state,
         isLoading: false,
-        list: action.devices
+        list: alphaList
       };
     case GET_FAIL:
       return {
@@ -66,7 +71,7 @@ export function fetchDevices(appId: string) {
     return getDevices(appId)
       .then(result => {
         const mobileDevices = result.filter(
-          d => d.deviceTemplate.id === MOBILE_DEVICE_TEMPLATE_ID
+          d => d.deviceTemplate.id === MOBILE_DEVICE_TEMPLATE_ID && !d.simulated
         );
         dispatch(receive(mobileDevices));
       })

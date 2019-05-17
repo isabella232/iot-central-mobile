@@ -22,36 +22,6 @@ export interface State {}
 export default class GeolocationTile extends Component<Props, State> {
   private geolocationSubscription;
 
-  /*
-  componentDidMount() {
-    this.subscribe();
-  }
-
-  
-  subscribe = () => {
-    this.geolocationSubscription = navigator.geolocation.watchPosition(
-      position => {
-        this.props.update(position);
-        this.props.post(position);
-      },
-      error => {
-        console.log("Error watching geolocation.");
-        console.log(error);
-      },
-      {
-        enableHighAccuracy: true,
-        // TODO: this would be the equivalent of "send frequency"
-        maximumAge: 10000
-      }
-    );
-  };
-  unsubscribe = () => {
-    navigator.geolocation.clearWatch(this.geolocationSubscription);
-  };
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }*/
   render() {
     const Child = this.props.shouldUseLargeTile ? Map : Map;
     return (
@@ -116,17 +86,6 @@ function Map(props) {
       }}
       showsUserLocation={true}
     />
-    /*
-    <MapView
-      style={{ flexGrow: 1 }}
-      region={{
-        latitude: props.data.coords.latitude,
-        longitude: props.data.coords.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      }}
-      showsUserLocation={true}
-    />*/
   );
 }
 

@@ -17,12 +17,18 @@ import DeviceInfo from "react-native-device-info";
 import { SafeAreaView, NavigationEvents } from "react-navigation";
 import DeviceRow from "../rows/DeviceRow";
 import { listStyle as style } from "../styling";
+import Loader from "../loading/Loader";
 
 export interface Props extends NavigationProps {
   devices: Array<any>;
   isLoading: boolean;
+  isConnecting: boolean;
+
   getDevices: (appId) => any;
   selectDevice;
+  selectedDevice: string;
+
+  deleteDevice: (appId: string, deviceId: string) => any;
 }
 
 export interface State {
@@ -67,12 +73,12 @@ export default class DeviceList extends Component<Props, State> {
       ...device,
       appId: this.state.application.id
     });
-    this.props.navigation.navigate("Dashboard");
   };
 
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <Loader loading={this.props.isConnecting} />
         <NavigationEvents
           onWillFocus={() => this.props.getDevices(this.state.application.id)}
         />
@@ -80,7 +86,17 @@ export default class DeviceList extends Component<Props, State> {
           style={style.container}
           data={this.props.devices}
           renderItem={({ item }) => (
-            <DeviceRow device={item} handlePressed={this.handleTapped} />
+            <DeviceRow
+              device={item}
+              handlePressed={this.handleTapped}
+              selected={this.props.selectedDevice === item.deviceId}
+              deleteDevice={device =>
+                this.props.deleteDevice(
+                  this.state.application.id,
+                  device.deviceId
+                )
+              }
+            />
           )}
           refreshing={this.props.isLoading}
           onRefresh={() => this.props.getDevices(this.state.application.id)}

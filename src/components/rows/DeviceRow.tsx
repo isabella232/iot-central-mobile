@@ -1,12 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import * as Colors from "../styling/colors";
-import { Application } from "../../httpClients/IoTCentral";
+import Swipeout from "react-native-swipeout";
 import IconComponent from "react-native-vector-icons/FontAwesome";
 
 export interface Props {
   handlePressed: (device) => any;
   device: any;
+  selected: boolean;
+  deleteDevice: (device) => any;
 }
 
 export interface State {}
@@ -18,20 +20,40 @@ export default class DeviceRow extends React.Component<Props, State> {
 
   render() {
     return (
-      <TouchableOpacity
-        onPress={() => this.props.handlePressed(this.props.device)}
+      <Swipeout
+        right={this.swipeButtons()}
+        autoClose={true}
+        backgroundColor="transparent"
       >
-        <View style={RowStyle.container}>
-          <Text style={RowStyle.text}>{`${this.props.device.name}`}</Text>
-          <IconComponent
-            name="angle-right"
-            size={20}
-            color={Colors.TILE_ACTIVE_COLOR}
-          />
-        </View>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => this.props.handlePressed(this.props.device)}
+        >
+          <View style={RowStyle.container}>
+            <Text style={RowStyle.text}>{`${this.props.device.name}`}</Text>
+            <IconComponent
+              name="feed"
+              size={20}
+              color={Colors.TILE_ACTIVE_COLOR}
+              style={{ opacity: this.props.selected ? 1 : 0 }}
+            />
+          </View>
+        </TouchableOpacity>
+      </Swipeout>
     );
   }
+
+  swipeButtons = () => {
+    return [
+      {
+        text: "Delete",
+        backgroundColor: "red",
+        underlayColor: "rgba(0, 0, 0, 1, 0.6)",
+        onPress: () => {
+          this.props.deleteDevice(this.props.device);
+        }
+      }
+    ];
+  };
 }
 
 const RowStyle = StyleSheet.create({
@@ -41,12 +63,7 @@ const RowStyle = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: Colors.TILE_BACKGROUND_COLOR,
-    shadowColor: Colors.SHADOW_COLOR,
-    shadowOpacity: 0.5,
-    shadowOffset: { width: 0, height: 5 },
-    shadowRadius: 3,
-    elevation: 5
+    backgroundColor: Colors.TILE_BACKGROUND_COLOR
   },
   text: {
     marginLeft: 0,

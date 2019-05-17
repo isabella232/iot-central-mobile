@@ -34,6 +34,7 @@
     "react-native-maps": "^0.24.0",
     "react-native-msal-plugin": "3.0.1-beta.0",
     "react-native-sensors": "^5.1.8",
+    "react-native-swipeout": "^2.3.6",
     "react-native-torch": "^1.1.5",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.6.1",
