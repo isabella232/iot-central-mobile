@@ -29,6 +29,7 @@ export interface Props extends NavigationProps {
   selectedDevice: string;
 
   deleteDevice: (appId: string, deviceId: string) => any;
+  disconnectDevice: (appId: string, deviceId: string) => any;
 }
 
 export interface State {
@@ -96,6 +97,12 @@ export default class DeviceList extends Component<Props, State> {
                   device.deviceId
                 )
               }
+              disconnectDevice={device => {
+                this.props.disconnectDevice(
+                  this.state.application.id,
+                  device.deviceId
+                );
+              }}
             />
           )}
           refreshing={this.props.isLoading}

@@ -93,7 +93,7 @@ async function closeClient(client: Client) {
   });
 }
 
-async function disconnect() {
+async function _disconnect() {
   if (_twin) {
     _twin.removeAllListeners();
   }
@@ -107,6 +107,10 @@ async function disconnect() {
   _client = null;
   // @ts-ignore
   _twin = null;
+}
+
+export async function disconnect() {
+  return _disconnect();
 }
 
 export async function connect(
@@ -123,7 +127,7 @@ export async function connect(
   } else if (_deviceId) {
     try {
       logInfo("Disconnecting Existing Device...");
-      await disconnect();
+      await _disconnect();
       logInfo("Device Disconnected");
     } catch (e) {
       logInfo("Error trying to close existing connection, continuing.");
@@ -154,7 +158,7 @@ export async function connect(
   } catch (e) {
     logAppCenter("Error Connecting Device", { Error: JSON.stringify(e) });
     logInfo("Error connecting device.", e);
-    disconnect();
+    _disconnect();
     throw e;
   }
 }
