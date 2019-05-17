@@ -1,6 +1,7 @@
 import MsalPlugin, { MsalUIBehavior } from "react-native-msal-plugin";
 import { AUTHORITY, CLIENT_ID, IOTC_SCOPE } from "react-native-dotenv";
 import { AsyncStorage } from "react-native";
+import { logError } from "../common/logger";
 
 const scopes = [IOTC_SCOPE];
 
@@ -25,7 +26,7 @@ export default class AdalManager {
 
       return tokenResult;
     } catch (error) {
-      console.log(error);
+      logError(error);
     }
   }
 
@@ -33,7 +34,7 @@ export default class AdalManager {
     try {
       return authClient.tokenCacheDelete();
     } catch (error) {
-      console.log(error);
+      logError(error);
     }
   }
 
@@ -54,7 +55,7 @@ export default class AdalManager {
       await AsyncStorage.setItem("userId", tokenResult.userInfo.userIdentifier);
       return tokenResult;
     } catch (error) {
-      console.log(error);
+      logError(error);
     }
   }
 }

@@ -11,6 +11,13 @@ export async function getDevices(appId) {
   return await makeRequest(`applications/${appId}/devices/`);
 }
 
+export async function deleteDevice(appId, deviceId) {
+  return await makeRequest(
+    `applications/${appId}/devices/${deviceId}`,
+    "DELETE"
+  );
+}
+
 export async function getDeviceTemplates(appId) {
   const templates = await makeRequest(
     `/display/applications/${appId}/deviceTemplates/`

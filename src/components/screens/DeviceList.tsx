@@ -27,6 +27,8 @@ export interface Props extends NavigationProps {
   getDevices: (appId) => any;
   selectDevice;
   selectedDevice: string;
+
+  deleteDevice: (appId: string, deviceId: string) => any;
 }
 
 export interface State {
@@ -88,6 +90,12 @@ export default class DeviceList extends Component<Props, State> {
               device={item}
               handlePressed={this.handleTapped}
               selected={this.props.selectedDevice === item.deviceId}
+              deleteDevice={device =>
+                this.props.deleteDevice(
+                  this.state.application.id,
+                  device.deviceId
+                )
+              }
             />
           )}
           refreshing={this.props.isLoading}

@@ -1,5 +1,6 @@
 import { setFlashlight } from "../flashlight";
 import { Alert } from "react-native";
+import { logInfo } from "../../common/logger";
 
 const EXECUTE = "aziot/commands/EXECUTE";
 const EXECUTE_SUCCESS = "aziot/commands/EXECUTE_SUCCESS";
@@ -31,7 +32,7 @@ function _execute(command) {
 
 export function receiveCommand(command) {
   return async (dispatch, getState) => {
-    console.log("Command Received in FE", command);
+    logInfo("Command Received in FE", command);
     switch (command) {
       case "turn_on_flashlight":
         return await dispatch(setFlashlight(true));

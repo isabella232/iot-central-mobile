@@ -22,7 +22,6 @@ export default function reducer(state = initialState, action) {
 
 export function setFlashlight(value: boolean) {
   return async (dispatch, getState) => {
-    console.log("in fl", value);
     await Torch.switchState(value);
     await dispatch(sendDeviceState("flashlight", value ? "on" : "off"));
     dispatch(_setFlashlight(value));
