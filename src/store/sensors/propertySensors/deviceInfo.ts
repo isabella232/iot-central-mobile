@@ -33,13 +33,15 @@ class DeviceInfo extends DefaultSensor<DeviceInfoData> {
       const data = await this._getData();
       dispatch(this.updateData(data));
       dispatch(postProperties(data));
+
+      /*
       const subscription = setInterval(async () => {
         const data = await this._getData();
         dispatch(this.updateData(data));
         dispatch(postProperties(data));
-      }, 5000);
+      }, 500000);*/
 
-      dispatch(this._subscribe(subscription));
+      dispatch(this._subscribe(0));
     };
   }
 
@@ -47,7 +49,7 @@ class DeviceInfo extends DefaultSensor<DeviceInfoData> {
     return async (dispatch, getState) => {
       const sensorState = getState()[this.sensorName];
 
-      clearInterval(sensorState.sensorSubscription);
+      // clearInterval(sensorState.sensorSubscription);
     };
   }
 
@@ -57,8 +59,7 @@ class DeviceInfo extends DefaultSensor<DeviceInfoData> {
     const locale = DeviceInformation.getDeviceLocale();
     const manufacturer = DeviceInformation.getManufacturer();
     const diskAvailable = DeviceInformation.getFreeDiskStorage();
-    // asconst battery = (await DeviceInformation.getBatteryLevel()) * 100;
-    const battery = 100;
+    const battery = (await DeviceInformation.getBatteryLevel()) * 100;
     const data = { id, ip, locale, manufacturer, diskAvailable, battery };
     return data;
   }

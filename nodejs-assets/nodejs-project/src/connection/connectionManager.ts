@@ -35,6 +35,32 @@ function _computeConnectionString(
   });
 }
 
+function _computedeviceFirstConnectionString(
+  appSymmetricKey: string,
+  scopeId: string,
+  deviceId: string,
+  templateId: string,
+  templateVersion: string
+): Promise<string> {
+  const templateData = `${templateId}/${templateVersion}`;
+  const templatePayload = { iotcModelId: templateData };
+  return new Promise((resolve, reject) => {
+    dpsKeyGen.getConnectionString(
+      deviceId,
+      appSymmetricKey,
+      scopeId,
+      templatePayload,
+      true,
+      (err, conStr) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(conStr);
+      }
+    );
+  });
+}
+
 function _getTwin(client: Client): Promise<any> {
   return new Promise((resolve, reject) => {
     client.getTwin((err, twin) => {
@@ -142,21 +168,66 @@ export async function connect(
       scopeId
     );
     logInfo("Success.");
-
-    logInfo("Getting client...");
-
-    _client = Client.fromConnectionString(connectionString, Mqtt);
-    logInfo("Success.");
-    logInfo("Getting twin...");
-    _twin = await _getTwin(_client);
-    logInfo("Success.");
-
     _deviceId = deviceId;
-    _listenForSettingsUpdate(_deviceId, _twin);
-    _listenForCommands(_deviceId, _client);
+
+    await _connect(connectionString);
     return { deviceId, properties: _twin.properties };
   } catch (e) {
     logAppCenter("Error Connecting Device", { Error: JSON.stringify(e) });
+    logInfo("Error connecting device.", e);
+    _disconnect();
+    throw e;
+  }
+}
+
+async function _connect(connectionString: string) {
+  logInfo("Getting client...");
+
+  _client = Client.fromConnectionString(connectionString, Mqtt);
+  logInfo("Success.");
+  logInfo("Getting twin...");
+  _twin = await _getTwin(_client);
+  logInfo("Success.");
+
+  _listenForSettingsUpdate(_deviceId, _twin);
+  _listenForCommands(_deviceId, _client);
+}
+
+export async function connectDeviceFirst(
+  appSymmetricKey: string,
+  scopeId: string,
+  deviceId: string,
+  templateId: string,
+  templateVersion: string
+) {
+  logInfo("Connecting Device First...");
+  if (_deviceId) {
+    try {
+      logInfo("Disconnecting Existing Device...");
+      await _disconnect();
+      logInfo("Device Disconnected");
+    } catch (e) {
+      logInfo("Error trying to close existing connection, continuing.");
+    }
+  }
+  try {
+    logInfo("Creating connection string...");
+
+    const connectionString = await _computedeviceFirstConnectionString(
+      appSymmetricKey,
+      scopeId,
+      deviceId,
+      templateId,
+      templateVersion
+    );
+    logInfo("Success.");
+    _deviceId = deviceId;
+
+    await _connect(connectionString);
+    return { _deviceId, properties: _twin.properties };
+  } catch (e) {
+    console.log(e, JSON.stringify(e));
+    logAppCenter("Error Connecting Device First", { Error: JSON.stringify(e) });
     logInfo("Error connecting device.", e);
     _disconnect();
     throw e;

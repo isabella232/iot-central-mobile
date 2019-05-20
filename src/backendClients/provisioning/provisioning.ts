@@ -1,6 +1,10 @@
 import { getDPS, createDevice, Template } from "../../httpClients/IoTCentral";
 import { getPrimaryConnectionString } from "./keyManagement";
-import { BACKEND_API } from "react-native-dotenv";
+import {
+  BACKEND_API,
+  MOBILE_DEVICE_TEMPLATE_ID,
+  MOBILE_DEVICE_TEMPLATE_VERSION
+} from "react-native-dotenv";
 import { logInfo } from "../../common/logger";
 
 export async function provisionAndConnect(deviceParameters: {
@@ -38,6 +42,32 @@ async function _connectDevice(deviceId, dps, appId) {
     appId
   };
   return fetch(BACKEND_API + "api/device/connect", {
+    method: "POST",
+    headers: {
+      "Cache-Control": "no-cache",
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(params)
+  });
+}
+
+export async function connectDeviceFirst(appId, deviceId) {
+  const dps = await getDPS(appId);
+  return _connectDeviceFirst(dps, appId, deviceId);
+}
+
+async function _connectDeviceFirst(dps, appId, deviceId) {
+  const appKey = getPrimaryConnectionString(dps);
+  const params = {
+    scopeId: dps.idScope,
+    appKey,
+    appId,
+    deviceId,
+    templateId: MOBILE_DEVICE_TEMPLATE_ID,
+    templateVersion: MOBILE_DEVICE_TEMPLATE_VERSION
+  };
+  return fetch(BACKEND_API + "api/device/connect/deviceFirst", {
     method: "POST",
     headers: {
       "Cache-Control": "no-cache",

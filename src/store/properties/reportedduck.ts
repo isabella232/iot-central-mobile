@@ -46,6 +46,7 @@ function _updatePropertiesFail() {
 export function postProperties(properties?) {
   return (dispatch, getState) => {
     const currentProperties = getState().properties.reported;
+    /*
     if (properties) {
       const updatedProperties = getUpdatedProperties(
         currentProperties,
@@ -54,11 +55,10 @@ export function postProperties(properties?) {
       if (updatedProperties) {
         properties = updatedProperties;
       } else {
-        logInfo("No new properties to post");
         return Promise.resolve();
       }
-    }
-    const postedProperties = properties || getState().properties.reported;
+    }*/
+    const postedProperties = properties || currentProperties;
     dispatch(_updateProperties(postedProperties));
     return updateProperties(postedProperties)
       .then(response => {

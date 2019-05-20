@@ -16,6 +16,7 @@ import Loader from "../loading/Loader";
 
 export interface Props extends NavigationProps {
   provisionDevice: (appId, deviceName) => any;
+  connectDeviceFirst: (appId, deviceName) => any;
   isLoading: boolean;
 }
 
@@ -71,6 +72,23 @@ export default class NewDevice extends Component<Props, State> {
         >
           <Text style={{ color: Colors.BUTTON_TEXT, fontSize: 20 }}>
             Create
+          </Text>
+        </TouchableHighlight>
+
+        <TouchableHighlight
+          style={{
+            ...style.button
+          }}
+          onPress={async () => {
+            await this.props.connectDeviceFirst(
+              this.state.application.id,
+              this.state.name
+            );
+            this.props.navigation.navigate("DeviceList");
+          }}
+        >
+          <Text style={{ color: Colors.BUTTON_TEXT, fontSize: 20 }}>
+            Device First
           </Text>
         </TouchableHighlight>
       </KeyboardAvoidingView>
