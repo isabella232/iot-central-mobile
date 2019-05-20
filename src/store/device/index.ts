@@ -1,10 +1,16 @@
 import {
   provisionAndConnect,
   connectDevice as postConnectDevice,
-  disconnectDevice as postDisconnectDevice
+  disconnectDevice as postDisconnectDevice,
+  connectDeviceFirst as postConnectDeviceFirst
 } from "../../backendClients/provisioning/provisioning";
 import { postProperties } from "../properties/reportedduck";
-import { deleteDevice as sendDeleteDevice } from "../../httpClients/IoTCentral";
+import {
+  deleteDevice as sendDeleteDevice,
+  updateDeviceName,
+  getDevice,
+  getDevices
+} from "../../httpClients/IoTCentral";
 import {
   MOBILE_DEVICE_TEMPLATE_ID,
   MOBILE_DEVICE_TEMPLATE_VERSION
@@ -12,9 +18,10 @@ import {
 import DeviceInfo from "react-native-device-info";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
-import { logError, logAppCenter } from "../../common/logger";
+import { logError, logAppCenter, logInfo } from "../../common/logger";
 import { unsubscribeAll, subscribeAll } from "../sensors";
 import { fetchDevices } from "../deviceList";
+const uuidv4 = require("uuid/v4");
 
 const CREATE_DEVICE = "aziot/devices/CREATE";
 const CREATE_DEVICE_SUCCESS = "aziot/devices/CREATE_SUCCESS";
@@ -46,7 +53,8 @@ const persistConfig = {
 const initialState = {
   deviceId: null,
   appId: null,
-  isLoading: false
+  isLoading: false,
+  id: null
 };
 
 function reducer(state = initialState, action) {
@@ -63,7 +71,8 @@ function reducer(state = initialState, action) {
         ...state,
         isLoading: false,
         appId: action.device.appId,
-        deviceId: action.device.deviceId
+        deviceId: action.device.deviceId,
+        id: action.device.id
       };
     case CREATE_DEVICE_FAIL:
       return {
@@ -176,6 +185,31 @@ function connectDevice(device) {
   };
 }
 
+export function connectDeviceFirst(appId, deviceName) {
+  return async dispatch => {
+    dispatch(requestConnect());
+    const deviceId = uuidv4();
+    await dispatch(unsubscribeAll())
+      .then(() => postConnectDeviceFirst(appId, deviceId))
+      .then(() => getDevices(appId))
+      .then(async (devices: Array<any>) => {
+        const device = devices.find(d => d.deviceId === deviceId);
+        await updateDeviceName(
+          appId,
+          device.id,
+          deviceName || DeviceInfo.getDeviceName()
+        );
+        return dispatch(receiveDevice(device));
+      })
+      .then(() => dispatch(fetchDevices(appId)))
+      .then(() => subscribeAll())
+      .catch(error => {
+        logError("Device First Connection Failure", error);
+        dispatch(receiveConnectFail(error));
+      });
+  };
+}
+
 // Delete
 function requestDelete(appId: string, deviceId: string) {
   return {
@@ -202,17 +236,17 @@ export function deleteDevice(appId: string, deviceId: string) {
     await dispatch(disconnectDevice(appId, deviceId));
     dispatch(requestDelete(appId, deviceId));
     await sendDeleteDevice(appId, deviceId)
+      .then(() => dispatch(fetchDevices(appId)))
       .then(result => {
         dispatch(receiveDelete(appId, deviceId));
       })
       .catch(error => {
         dispatch(receiveDeleteFaiure(error));
       });
-    return dispatch(fetchDevices(appId));
   };
 }
 
-// Delete
+// Disconnect
 function requestDisconnect() {
   return {
     type: DISCONNECT

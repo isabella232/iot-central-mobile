@@ -61,7 +61,7 @@ class Geolocation extends PropertySensor<GeolocationData> {
         {
           enableHighAccuracy: true,
           // TODO: this would be the equivalent of "send frequency"
-          maximumAge: 10000
+          maximumAge: 100000
         }
       );
       dispatch(this._subscribe(geolocationSubscription));

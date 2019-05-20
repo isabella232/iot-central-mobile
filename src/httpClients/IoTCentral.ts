@@ -48,6 +48,22 @@ export function createDevice(
   });
 }
 
+export async function updateDeviceName(
+  appId: string,
+  deviceId: string,
+  name: string
+) {
+  const path = `applications/${appId}/devices/${deviceId}`;
+  return makeRequest(path, "PATCH", {
+    name
+  });
+}
+
+export async function getDevice(appId: string, deviceId: string) {
+  const path = `applications/${appId}/devices/${deviceId}`;
+  return makeRequest(path);
+}
+
 export function getDPS(appId: string) {
   return makeRequest(`applications/${appId}/dps/`);
 }
@@ -76,8 +92,13 @@ async function makeRequest(path, method = "GET", body?: {}) {
       body: body && JSON.stringify(body)
     });
 
-    const json = await response.json();
-    logInfo("Request Result JSON", json);
+    const json = await response.json().catch(e => {
+      //logInfo("Request RESULT: ", response);
+      return {};
+    });
+    logInfo("Request Result: ", response);
+    logInfo("JSON: ", json);
+
     return json.value || json;
   } catch (error) {
     logError("Error making request", error);

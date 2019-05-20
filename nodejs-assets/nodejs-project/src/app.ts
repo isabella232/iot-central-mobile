@@ -25,6 +25,26 @@ app.post("/api/device/connect", async (req, res) => {
   }
 });
 
+app.post("/api/device/connect/deviceFirst", async (req, res) => {
+  const { appKey, scopeId, deviceId, templateId, templateVersion } = req.body;
+  try {
+    const device = await ConnectionManager.connectDeviceFirst(
+      appKey,
+      scopeId,
+      deviceId,
+      templateId,
+      templateVersion
+    );
+    res.json({ device });
+  } catch (e) {
+    if (e.status && e.message) {
+      res.status(e.status).send(e.message);
+    } else {
+      res.status(500).send("Error Connecting Device.");
+    }
+  }
+});
+
 app.post("/api/device/disconnect", async (req, res) => {
   try {
     await ConnectionManager.disconnect();

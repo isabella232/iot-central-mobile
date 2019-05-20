@@ -92,22 +92,19 @@ export default class DeviceList extends Component<Props, State> {
               handlePressed={this.handleTapped}
               selected={this.props.selectedDevice === item.deviceId}
               deleteDevice={device =>
-                this.props.deleteDevice(
-                  this.state.application.id,
-                  device.deviceId
-                )
+                this.props.deleteDevice(this.state.application.id, device.id)
               }
               disconnectDevice={device => {
                 this.props.disconnectDevice(
                   this.state.application.id,
-                  device.deviceId
+                  device.id
                 );
               }}
             />
           )}
           refreshing={this.props.isLoading}
           onRefresh={() => this.props.getDevices(this.state.application.id)}
-          keyExtractor={(item, index) => item.deviceId}
+          keyExtractor={(item, index) => item.id}
           ItemSeparatorComponent={() => <View style={style.separator} />}
           ListFooterComponent={() => <View style={style.footer} />}
         />
