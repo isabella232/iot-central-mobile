@@ -199,7 +199,7 @@ export function connectDeviceFirst(appId, deviceName) {
           device.id,
           deviceName || DeviceInfo.getDeviceName()
         );
-        return dispatch(receiveDevice(device));
+        return dispatch(receiveDevice({ ...device, appId }));
       })
       .then(() => dispatch(fetchDevices(appId)))
       .then(() => subscribeAll())
