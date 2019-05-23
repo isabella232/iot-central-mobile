@@ -71,7 +71,8 @@ export function fetchDevices(appId: string) {
     return getDevices(appId)
       .then(result => {
         const mobileDevices = result.filter(
-          d => d.deviceTemplate.id === MOBILE_DEVICE_TEMPLATE_ID && !d.simulated
+          //d => d.deviceTemplate.id === MOBILE_DEVICE_TEMPLATE_ID &&
+          d => !d.simulated
         );
         dispatch(receive(mobileDevices));
       })

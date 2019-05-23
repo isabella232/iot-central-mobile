@@ -185,24 +185,36 @@ function connectDevice(device) {
   };
 }
 
-export function connectDeviceFirst(appId, deviceName) {
+export function connectDeviceFirst(appId: string, deviceName: string) {
   return async dispatch => {
-    dispatch(requestConnect());
-    const deviceId = uuidv4();
+    dispatch(requestCreate());
+    const deviceId =
+      deviceName
+        .trim()
+        .replace(/[^a-zA-Z ]/g, "")
+        .replace(/[ ]/g, "-")
+        .toLocaleLowerCase()
+        .substr(0, 7) +
+      "-" +
+      uuidv4();
     await dispatch(unsubscribeAll())
       .then(() => postConnectDeviceFirst(appId, deviceId))
       .then(() => getDevices(appId))
       .then(async (devices: Array<any>) => {
         const device = devices.find(d => d.deviceId === deviceId);
-        await updateDeviceName(
-          appId,
-          device.id,
-          deviceName || DeviceInfo.getDeviceName()
-        );
-        return dispatch(receiveDevice({ ...device, appId }));
+        if (device) {
+          await updateDeviceName(
+            appId,
+            device.id,
+            deviceName || DeviceInfo.getDeviceName()
+          );
+          return dispatch(receiveDevice({ ...device, appId }));
+        } else {
+          return dispatch(receiveDisconnect());
+        }
       })
       .then(() => dispatch(fetchDevices(appId)))
-      .then(() => subscribeAll())
+      .then(() => dispatch(subscribeAll()))
       .catch(error => {
         logError("Device First Connection Failure", error);
         dispatch(receiveConnectFail(error));
