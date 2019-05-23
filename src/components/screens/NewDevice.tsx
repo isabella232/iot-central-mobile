@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   TextInput,
   TouchableHighlight,
-  ActivityIndicator
+  Switch
 } from "react-native";
 import * as Colors from "../styling/colors";
 import { NavigationProps } from "../props/NavigationProps";
@@ -23,6 +23,7 @@ export interface Props extends NavigationProps {
 export interface State {
   application;
   name: string;
+  deviceFirst: boolean;
 }
 
 export default class NewDevice extends Component<Props, State> {
@@ -30,7 +31,11 @@ export default class NewDevice extends Component<Props, State> {
     super(props);
     const application = props.navigation.getParam("app");
 
-    this.state = { application, name: DeviceInfo.getDeviceName() };
+    this.state = {
+      application,
+      name: DeviceInfo.getDeviceName(),
+      deviceFirst: false
+    };
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -63,10 +68,16 @@ export default class NewDevice extends Component<Props, State> {
             ...style.button
           }}
           onPress={async () => {
-            await this.props.provisionDevice(
-              this.state.application.id,
-              this.state.name
-            );
+            this.state.deviceFirst
+              ? await this.props.connectDeviceFirst(
+                  this.state.application.id,
+                  this.state.name
+                )
+              : await this.props.provisionDevice(
+                  this.state.application.id,
+                  this.state.name
+                );
+
             this.props.navigation.navigate("DeviceList");
           }}
         >
@@ -75,22 +86,13 @@ export default class NewDevice extends Component<Props, State> {
           </Text>
         </TouchableHighlight>
 
-        <TouchableHighlight
-          style={{
-            ...style.button
-          }}
-          onPress={async () => {
-            await this.props.connectDeviceFirst(
-              this.state.application.id,
-              this.state.name
-            );
-            this.props.navigation.navigate("DeviceList");
-          }}
-        >
-          <Text style={{ color: Colors.BUTTON_TEXT, fontSize: 20 }}>
-            Device First
-          </Text>
-        </TouchableHighlight>
+        <View style={style.switchRow}>
+          <Text style={style.switchLabel}>Device First</Text>
+          <Switch
+            value={this.state.deviceFirst}
+            onValueChange={value => this.setState({ deviceFirst: value })}
+          />
+        </View>
       </KeyboardAvoidingView>
     );
   }
@@ -137,5 +139,17 @@ const style = StyleSheet.create({
     shadowOffset: { width: 0, height: 5 },
     shadowRadius: 3,
     elevation: 5
+  },
+  switchRow: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    padding: 10
+  },
+  switchLabel: {
+    color: Colors.TILE_TITLE_COLOR,
+    fontSize: 18,
+    fontWeight: "500",
+    marginRight: 10
   }
 });
