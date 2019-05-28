@@ -197,7 +197,7 @@ export function connectDeviceFirst(appId: string, deviceName: string) {
         .substr(0, 7) +
       "-" +
       uuidv4();
-    await dispatch(unsubscribeAll())
+    return dispatch(unsubscribeAll())
       .then(() => postConnectDeviceFirst(appId, deviceId))
       .then(() => getDevices(appId))
       .then(async (devices: Array<any>) => {
@@ -213,7 +213,6 @@ export function connectDeviceFirst(appId: string, deviceName: string) {
           return dispatch(receiveDisconnect());
         }
       })
-      .then(() => dispatch(fetchDevices(appId)))
       .then(() => dispatch(subscribeAll()))
       .catch(error => {
         logError("Device First Connection Failure", error);

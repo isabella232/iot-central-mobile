@@ -57,7 +57,7 @@ function receive(devices) {
     devices
   };
 }
-function receiveFaiure(error) {
+function receiveFailure(error) {
   return {
     type: GET_FAIL,
     error
@@ -77,7 +77,7 @@ export function fetchDevices(appId: string) {
         dispatch(receive(mobileDevices));
       })
       .catch(error => {
-        dispatch(receiveFaiure(error));
+        dispatch(receiveFailure(error));
       });
   };
 }
