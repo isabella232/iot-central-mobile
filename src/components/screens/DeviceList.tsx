@@ -102,7 +102,7 @@ export default class DeviceList extends Component<Props, State> {
               }}
             />
           )}
-          refreshing={this.props.isLoading}
+          refreshing={this.props.isLoading && !this.props.isConnecting}
           onRefresh={() => this.props.getDevices(this.state.application.id)}
           keyExtractor={(item, index) => item.id}
           ItemSeparatorComponent={() => <View style={style.separator} />}

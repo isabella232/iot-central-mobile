@@ -3,7 +3,7 @@ import { reactotronRedux } from "reactotron-redux";
 
 const reactotron = Reactotron.configure({
   name: "AzIoTMobile",
-  host: "10.69.24.96"
+  host: "10.69.24.46"
 }) // controls connection & communication settings
   .use(reactotronRedux());
 //.useReactNative({

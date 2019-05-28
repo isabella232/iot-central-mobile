@@ -17,9 +17,8 @@ const mapDispatchToProps = dispatch => {
   return {
     provisionDevice: (appId, deviceName) =>
       dispatch(createDevice(appId, deviceName)),
-    connectDeviceFirst: (appId, deviceName) => {
-      dispatch(connectDeviceFirst(appId, deviceName));
-    }
+    connectDeviceFirst: (appId, deviceName) =>
+      dispatch(connectDeviceFirst(appId, deviceName))
   };
 };
 
