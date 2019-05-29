@@ -43,7 +43,12 @@ function _computedeviceFirstConnectionString(
   templateVersion: string
 ): Promise<string> {
   const templateData = `${templateId}/${templateVersion}`;
-  const templatePayload = { iotcModelId: templateData };
+  const templatePayload = {
+    "__iot:interfaces": {
+      ModelRepositoryUri: templateData,
+      CapabilityModelUri: templateData
+    }
+  };
   return new Promise((resolve, reject) => {
     dpsKeyGen.getConnectionString(
       deviceId,
