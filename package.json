@@ -5,7 +5,7 @@
   "scripts": {
     "android": "yarn buildBackend && react-native run-android",
     "ios": "yarn buildBackend && react-native run-ios",
-    "start": "yarn buildBackend && adb reverse tcp:8081 tcp:8081 ; react-native start",
+    "start": ". ./defaultConfig.sh && . ./appcenter-pre-build.sh && adb reverse tcp:8081 tcp:8081 ; react-native start",
     "build": "yarn && yarn buildBackend",
     "buildBackend": "yarn --cwd ./nodejs-assets/nodejs-project && yarn --cwd ./nodejs-assets/nodejs-project build",
     "test": "jest",

@@ -2,7 +2,7 @@
 
 yarn buildBackend
 
-#!/usr/bin/env bash
+rm .env
 # Creates an .env from ENV variables for use with react-native-config
 ENV_WHITELIST=${ENV_WHITELIST:-"^RN"}
 printf "Creating an .env file with the following whitelist:\n"
