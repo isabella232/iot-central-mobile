@@ -96,7 +96,7 @@ async function makeRequest(path, method = "GET", body?: {}) {
       //logInfo("Request RESULT: ", response);
       return {};
     });
-
+    logInfo(json);
     return json.value || json;
   } catch (error) {
     logError("Error making request", error);

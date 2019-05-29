@@ -2,6 +2,7 @@ import dpsKeyGen from "dps-keygen/dps";
 const Mqtt = require("azure-iot-device-mqtt").Mqtt;
 
 const rnBridge = require("rn-bridge");
+const promiseRetry = require("promise-retry");
 import { Client, Message, Twin } from "azure-iot-device";
 import { logAppCenter, logInfo } from "../logging/logger";
 
@@ -218,13 +219,17 @@ export async function connectDeviceFirst(
   try {
     logInfo("Creating connection string...");
 
-    const connectionString = await _computedeviceFirstConnectionString(
-      appSymmetricKey,
-      scopeId,
-      deviceId,
-      templateId,
-      templateVersion
-    );
+    const connectionString = await promiseRetry((retry, number) => {
+      logInfo("retry: ", number);
+      return _computedeviceFirstConnectionString(
+        appSymmetricKey,
+        scopeId,
+        deviceId,
+        templateId,
+        templateVersion
+      ).catch(retry);
+    });
+
     logInfo("Success.");
     _deviceId = deviceId;
 

@@ -22,6 +22,7 @@
     "body-parser": "^1.18.3",
     "dps-keygen": "^0.3.1",
     "express": "^4.16.4",
+    "promise-retry": "^1.1.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-subscriber": "^1.1.0"
