@@ -3,10 +3,7 @@ import {
   Application,
   getDeviceTemplates
 } from "../../httpClients/IoTCentral";
-import {
-  MOBILE_DEVICE_TEMPLATE_ID,
-  MOBILE_DEVICE_TEMPLATE_VERSION
-} from "react-native-dotenv";
+import { RN_MOBILE_DEVICE_TEMPLATE_ID } from "react-native-dotenv";
 
 // reference: https://github.com/erikras/ducks-modular-redux
 // Actions
@@ -119,6 +116,6 @@ async function addTemplatesToApp(app: Application) {
 function getMobileApps(appsWithTemplates) {
   return appsWithTemplates.filter(app => {
     const templates = app.templates;
-    return templates.find(t => t.id === MOBILE_DEVICE_TEMPLATE_ID);
+    return templates.find(t => t.id === RN_MOBILE_DEVICE_TEMPLATE_ID);
   });
 }

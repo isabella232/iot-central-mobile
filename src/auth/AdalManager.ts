@@ -1,15 +1,15 @@
 import MsalPlugin, { MsalUIBehavior } from "react-native-msal-plugin";
-import { AUTHORITY, CLIENT_ID, IOTC_SCOPE } from "react-native-dotenv";
+import { RN_AUTHORITY, RN_CLIENT_ID, RN_IOTC_SCOPE } from "react-native-dotenv";
 import { AsyncStorage } from "react-native";
 import { logError } from "../common/logger";
 
-const scopes = [IOTC_SCOPE];
+const scopes = [RN_IOTC_SCOPE];
 
 const login_hint = "user@domain.com";
 
 const forceTokenRefresh = false;
 
-const authClient = new MsalPlugin(AUTHORITY, CLIENT_ID);
+const authClient = new MsalPlugin(RN_AUTHORITY, RN_CLIENT_ID);
 let tokenResult = null as any;
 const extraQueryParameters = {};
 export default class AdalManager {

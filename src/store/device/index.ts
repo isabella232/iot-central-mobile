@@ -12,8 +12,8 @@ import {
   getDevices
 } from "../../httpClients/IoTCentral";
 import {
-  MOBILE_DEVICE_TEMPLATE_ID,
-  MOBILE_DEVICE_TEMPLATE_VERSION
+  RN_MOBILE_DEVICE_TEMPLATE_ID,
+  RN_MOBILE_DEVICE_TEMPLATE_VERSION
 } from "react-native-dotenv";
 import DeviceInfo from "react-native-device-info";
 import storage from "redux-persist/lib/storage";
@@ -40,8 +40,8 @@ const DISCONNECT_SUCCESS = "aziot/devices/DISCONNECT_SUCCESS";
 const DISCONNECT_FAIL = "aziot/devices/DISCONNECT_FAIL";
 
 const MOBILE_TEMPLATE = {
-  id: MOBILE_DEVICE_TEMPLATE_ID,
-  version: MOBILE_DEVICE_TEMPLATE_VERSION
+  id: RN_MOBILE_DEVICE_TEMPLATE_ID,
+  version: RN_MOBILE_DEVICE_TEMPLATE_VERSION
 };
 
 const persistConfig = {

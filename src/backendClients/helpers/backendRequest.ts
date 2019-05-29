@@ -1,9 +1,9 @@
-import { BACKEND_API } from "react-native-dotenv";
+import { RN_BACKEND_API } from "react-native-dotenv";
 import { logInfo, logError } from "../../common/logger";
 
 export async function makeRequest(path: string, method = "GET", body?: {}) {
   try {
-    const response = await fetch(BACKEND_API + path, {
+    const response = await fetch(RN_BACKEND_API + path, {
       method: method,
       headers: {
         "Cache-Control": "no-cache",

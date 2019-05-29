@@ -1,5 +1,5 @@
 import AuthManager from "../auth/AdalManager";
-import { IOTC_API } from "react-native-dotenv";
+import { RN_IOTC_API } from "react-native-dotenv";
 import { Base64 } from "js-base64";
 import { logInfo, logError } from "../common/logger";
 
@@ -81,7 +81,7 @@ export interface Application {
 async function makeRequest(path, method = "GET", body?: {}) {
   const credentials = await AuthManager.getToken();
   try {
-    const response = await fetch(IOTC_API + path, {
+    const response = await fetch(RN_IOTC_API + path, {
       method: method,
       headers: {
         "Cache-Control": "no-cache",

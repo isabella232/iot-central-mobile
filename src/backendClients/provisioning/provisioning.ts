@@ -1,9 +1,9 @@
 import { getDPS, createDevice, Template } from "../../httpClients/IoTCentral";
 import { getPrimaryConnectionString } from "./keyManagement";
 import {
-  BACKEND_API,
-  MOBILE_DEVICE_TEMPLATE_ID,
-  MOBILE_DEVICE_TEMPLATE_VERSION
+  RN_BACKEND_API,
+  RN_MOBILE_DEVICE_TEMPLATE_ID,
+  RN_MOBILE_DEVICE_TEMPLATE_VERSION
 } from "react-native-dotenv";
 import { logInfo } from "../../common/logger";
 
@@ -41,7 +41,7 @@ async function _connectDevice(deviceId, dps, appId) {
     appKey,
     appId
   };
-  return fetch(BACKEND_API + "api/device/connect", {
+  return fetch(RN_BACKEND_API + "api/device/connect", {
     method: "POST",
     headers: {
       "Cache-Control": "no-cache",
@@ -64,10 +64,10 @@ async function _connectDeviceFirst(dps, appId, deviceId) {
     appKey,
     appId,
     deviceId,
-    templateId: MOBILE_DEVICE_TEMPLATE_ID,
-    templateVersion: MOBILE_DEVICE_TEMPLATE_VERSION
+    templateId: RN_MOBILE_DEVICE_TEMPLATE_ID,
+    templateVersion: RN_MOBILE_DEVICE_TEMPLATE_VERSION
   };
-  return fetch(BACKEND_API + "api/device/connect/deviceFirst", {
+  return fetch(RN_BACKEND_API + "api/device/connect/deviceFirst", {
     method: "POST",
     headers: {
       "Cache-Control": "no-cache",
@@ -79,7 +79,7 @@ async function _connectDeviceFirst(dps, appId, deviceId) {
 }
 
 export async function disconnectDevice() {
-  return fetch(BACKEND_API + "api/device/disconnect", {
+  return fetch(RN_BACKEND_API + "api/device/disconnect", {
     method: "POST",
     headers: {
       "Cache-Control": "no-cache",
