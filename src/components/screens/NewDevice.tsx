@@ -34,7 +34,7 @@ export default class NewDevice extends Component<Props, State> {
     this.state = {
       application,
       name: DeviceInfo.getDeviceName(),
-      deviceFirst: false
+      deviceFirst: true
     };
   }
 
@@ -68,15 +68,10 @@ export default class NewDevice extends Component<Props, State> {
             ...style.button
           }}
           onPress={async () => {
-            this.state.deviceFirst
-              ? await this.props.connectDeviceFirst(
-                  this.state.application.id,
-                  this.state.name
-                )
-              : await this.props.provisionDevice(
-                  this.state.application.id,
-                  this.state.name
-                );
+            await this.props.connectDeviceFirst(
+              this.state.application.id,
+              this.state.name
+            );
 
             this.props.navigation.navigate("DeviceList");
           }}
@@ -85,14 +80,6 @@ export default class NewDevice extends Component<Props, State> {
             Create
           </Text>
         </TouchableHighlight>
-
-        <View style={style.switchRow}>
-          <Text style={style.switchLabel}>Device First</Text>
-          <Switch
-            value={this.state.deviceFirst}
-            onValueChange={value => this.setState({ deviceFirst: value })}
-          />
-        </View>
       </KeyboardAvoidingView>
     );
   }

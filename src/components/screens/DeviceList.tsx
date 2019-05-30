@@ -7,7 +7,8 @@ import {
   Text,
   ActivityIndicator,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableHighlight
 } from "react-native";
 import { getApps, Application } from "../../httpClients/IoTCentral";
 import * as Colors from "../styling/colors";
@@ -76,6 +77,28 @@ export default class DeviceList extends Component<Props, State> {
     });
   };
 
+  _listEmptyButton = () => {
+    if (this.props.isLoading) {
+      return null;
+    }
+    return (
+      <View style={emptyStyle.container}>
+        <TouchableHighlight
+          style={{
+            ...emptyStyle.button
+          }}
+          onPress={async () => {
+            this.props.navigation.navigate("NewDevice", {
+              app: this.state.application
+            });
+          }}
+        >
+          <Text style={emptyStyle.text}>+</Text>
+        </TouchableHighlight>
+      </View>
+    );
+  };
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -86,6 +109,7 @@ export default class DeviceList extends Component<Props, State> {
         <FlatList
           style={style.container}
           data={this.props.devices}
+          ListEmptyComponent={this._listEmptyButton}
           renderItem={({ item }) => (
             <DeviceRow
               device={item}
@@ -112,3 +136,28 @@ export default class DeviceList extends Component<Props, State> {
     );
   }
 }
+
+const emptyStyle = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "50%"
+  },
+  text: {
+    color: Colors.BUTTON_TEXT,
+    fontSize: 70
+  },
+  button: {
+    backgroundColor: Colors.BUTTON,
+    //shadowColor: Colors.SHADOW_COLOR,
+    //shadowOpacity: 0.5,
+    //shadowOffset: { width: 0, height: 5 },
+    //shadowRadius: 3,
+    //selevation: 5,
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "space-around"
+  }
+});
