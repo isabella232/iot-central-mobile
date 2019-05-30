@@ -538,3 +538,5 @@ Temporary Items
 defaultConfig.sh
 
 .env
+
+iotc_env/
