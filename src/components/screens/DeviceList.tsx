@@ -5,17 +5,12 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  ActivityIndicator,
-  Button,
   TouchableOpacity,
   TouchableHighlight
 } from "react-native";
-import { getApps, Application } from "../../httpClients/IoTCentral";
 import * as Colors from "../styling/colors";
-import ApplicationRow from "../rows/ApplicationRow";
 import { NavigationProps } from "../props/NavigationProps";
-import DeviceInfo from "react-native-device-info";
-import { SafeAreaView, NavigationEvents } from "react-navigation";
+import { NavigationEvents } from "react-navigation";
 import DeviceRow from "../rows/DeviceRow";
 import { listStyle as style } from "../styling";
 import Loader from "../loading/Loader";
@@ -145,7 +140,8 @@ const emptyStyle = StyleSheet.create({
   },
   text: {
     color: Colors.BUTTON_TEXT,
-    fontSize: 70
+    fontSize: 70,
+    flex: 1
   },
   button: {
     backgroundColor: Colors.BUTTON,
@@ -158,6 +154,6 @@ const emptyStyle = StyleSheet.create({
     width: 100,
     borderRadius: 10,
     alignItems: "center",
-    justifyContent: "space-around"
+    justifyContent: "center"
   }
 });
