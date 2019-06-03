@@ -105,6 +105,10 @@ export default class DeviceList extends Component<Props, State> {
           style={style.container}
           data={this.props.devices}
           ListEmptyComponent={this._listEmptyButton}
+          contentContainerStyle={[
+            { flexGrow: 1 },
+            this.props.devices.length ? null : { justifyContent: "center" }
+          ]}
           renderItem={({ item }) => (
             <DeviceRow
               device={item}
@@ -135,8 +139,7 @@ export default class DeviceList extends Component<Props, State> {
 const emptyStyle = StyleSheet.create({
   container: {
     alignItems: "center",
-    justifyContent: "center",
-    marginTop: "50%"
+    justifyContent: "center"
   },
   text: {
     color: Colors.BUTTON_TEXT,
