@@ -3,9 +3,10 @@ import LoginScreen from "../screens/LoginScreen";
 import AuthLoadingScreen from "../screens/AuthLoadingScreen";
 import AppSwitch from "./DeviceSwitch";
 import AppTabNavigator from "./AppTab";
+import createAnimatedSwitchNavigator from "react-navigation-animated-switch";
 
 export default createAppContainer(
-  createSwitchNavigator(
+  createAnimatedSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreen,
       App: AppTabNavigator,

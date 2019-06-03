@@ -3,6 +3,7 @@ package com.aziotmobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.swmansion.reanimated.ReanimatedPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.reactnative.googlefit.GoogleFitPackage;
 import org.capslock.RNDeviceBrightness.RNDeviceBrightness;
@@ -42,6 +43,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new ReanimatedPackage(),
             new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG), new GoogleFitPackage(BuildConfig.APPLICATION_ID),
           new RNDeviceBrightness(), new MapsPackage(), new RNMsalPluginPackage(),
           new AppCenterReactNativeCrashesPackage(MainApplication.this,

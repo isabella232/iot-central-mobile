@@ -87,6 +87,8 @@ PODS:
     - React
   - RNGestureHandler (1.1.0):
     - React
+  - RNReanimated (1.0.1):
+    - React
   - RNSensors (5.1.8):
     - React
   - RNVectorIcons (6.4.2):
@@ -121,6 +123,7 @@ DEPENDENCIES:
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNSensors (from `../node_modules/react-native-sensors`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -154,6 +157,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-device-info"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
   RNSensors:
     :path: "../node_modules/react-native-sensors"
   RNVectorIcons:
@@ -177,11 +182,12 @@ SPEC CHECKSUMS:
   react-native-torch: bff9b2c4230e183b8cc74c4f0c4cca70bcf16170
   RNDeviceInfo: 0e4abfc346f969b784f92da61d9c7509eac91510
   RNGestureHandler: b65d391f4f570178d657b99a16ec99d09b8656b0
+  RNReanimated: c8dd490ca98a4edcba229bfa49f2516c95a43afb
   RNSensors: f864c14257f92af26af56886ae62c2be0301df54
   RNVectorIcons: 6607bd3a30291d0edb56f9bbe7ae411ee2b928b0
   SSZipArchive: cefe1364104a0231268a5deb8495bdf2861f52f0
   yoga: 596e61c9b57751d08a22b07aba310dbd3e65ab75
 
-PODFILE CHECKSUM: 69b1380247232d81390557a7e3014b936b933be2
+PODFILE CHECKSUM: 209599a851059da06ffce6b3c1971428974addbc
 
 COCOAPODS: 1.6.1
